@@ -20,7 +20,7 @@ import axios from 'axios'; // 引入 axios
 import { handleWebhook } from '../controllers/WebhookController.js';
 import { recordAccount } from '../controllers/saveAccount.js';
 import isAuthenticated from './Authentication.js';
-import {AccountingBook} from '.controllers//AccountRecord.js';
+import AccountingBook from '../controllers//AccountRecord.js';
 import 'dotenv/config';
 
 const app = express();
