@@ -1,0 +1,22 @@
+import axios from 'axios';
+import 'dotenv/config';
+
+function isAuthenticated(req, res, next) {
+    if (req.session.accessToken) {
+        axios.get(`https://api.line.me/oauth2/v2.1/verify?access_token=${req.session.accessToken}`)
+            .then(response => {
+                if (response.data.client_id === process.env.LINE_CLIENT_ID) {
+                    return next();
+                } else {
+                    return res.status(401).send('Unauthorized');
+                }
+            })
+            .catch(error => {
+                return res.status(401).send('Unauthorized');
+            });
+    } else {
+        return res.status(401).send('Unauthorized');
+    }
+}
+
+export default isAuthenticated;

@@ -19,6 +19,8 @@ import bodyParser from 'body-parser';
 import axios from 'axios'; // 引入 axios
 import { handleWebhook } from '../controllers/WebhookController.js';
 import { recordAccount } from '../controllers/saveAccount.js';
+import isAuthenticated from './Authentication.js';
+import {AccountingBook} from '.controllers//AccountRecord.js';
 import 'dotenv/config';
 
 const app = express();
@@ -82,6 +84,8 @@ app.get('/api/1.0', async (req, res) => {
         res.status(500).send("Error during LINE authentication");
     }
 });
+
+app.get('/api/1.0/account/list', isAuthenticated, AccountingBook);
 
 export { app };
 
