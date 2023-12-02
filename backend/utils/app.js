@@ -105,6 +105,21 @@ app.get('/api/1.0', async (req, res) => {
     }
 });
 
+// 登出路由
+app.get('/api/1.0/logout', (req, res) => {
+    // 清除 accessToken Cookie
+    res.cookie('accessToken', '', {
+        httpOnly: true,
+        secure: true,
+        sameSite: 'strict',
+        expires: new Date(0)  // 將過期時間設置為過去的時間
+    });
+
+    // 重定向用戶到登入頁面或首頁
+    res.redirect('https://18.235.176.70/');
+});
+
+
 app.get('/api/1.0/account/list', isAuthenticated, AccountingBook);
 
 export { app };
