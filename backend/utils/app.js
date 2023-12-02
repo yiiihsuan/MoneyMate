@@ -79,6 +79,10 @@ app.get('/api/1.0', async (req, res) => {
 
     console.log("Access Token:", accessToken);
 
+    // 將 Access Token 存儲到 session
+    req.session.accessToken = accessToken;
+    console.log("session:", req.session.accessToken);
+
     // 使用 Access Token 获取用户资料
     const userProfileResponse = await axios.get('https://api.line.me/v2/profile', {
         headers: { 'Authorization': `Bearer ${accessToken}` }
