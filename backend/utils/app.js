@@ -15,7 +15,8 @@
 
 
 import express from 'express';
-import session from 'express-session';
+//import session from 'express-session';
+import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import axios from 'axios'; // 引入 axios
 import { handleWebhook } from '../controllers/WebhookController.js';
@@ -28,15 +29,16 @@ const app = express();
 const apiVersion = process.env.API_VERSION;
 
 app.use(bodyParser.json());
+app.use(cookieParser());
 
 const secretKey = process.env.SECRET_KEY
 
-app.use(session({
-    secret: process.env.SECRET_KEY,
-    resave: false,
-    saveUninitialized: true,
-    cookie: { secure: true }
-}));
+// app.use(session({
+//     secret: process.env.SECRET_KEY,
+//     resave: false,
+//     saveUninitialized: true,
+//     cookie: { secure: true }
+// }));
 
 app.post('/api/1.0/webhook', handleWebhook);
 app.post('/api/1.0/account/save', recordAccount);
