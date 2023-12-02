@@ -2,6 +2,9 @@ import axios from 'axios';
 import 'dotenv/config';
 
 function isAuthenticated(req, res, next) {
+
+    console.log(req.session.accessToken)
+    
     if (req.session.accessToken) {
         axios.get(`https://api.line.me/oauth2/v2.1/verify?access_token=${req.session.accessToken}`)
             .then(response => {

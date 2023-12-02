@@ -28,6 +28,15 @@ const apiVersion = process.env.API_VERSION;
 
 app.use(bodyParser.json());
 
+const secretKey = process.env.SECRET_KEY
+
+app.use(session({
+    secret: process.env.SECRET_KEY,
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: true }
+}));
+
 app.post('/api/1.0/webhook', handleWebhook);
 app.post('/api/1.0/account/save', recordAccount);
 
