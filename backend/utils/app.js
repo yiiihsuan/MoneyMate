@@ -77,11 +77,8 @@ app.get('/api/1.0', async (req, res) => {
     
         const accessToken = tokenResponse.data.access_token;
 
-    // console.log("Access Token:", accessToken);
+       console.log("Access Token:", accessToken);
 
-    // // 將 Access Token 存儲到 session
-    // req.session.accessToken = accessToken;
-    // console.log("Access Token:", req.session.accessToken);
 
     // 使用 Access Token 获取用户资料
     const userProfileResponse = await axios.get('https://api.line.me/v2/profile', {
@@ -89,6 +86,13 @@ app.get('/api/1.0', async (req, res) => {
     });
 
     console.log("User Profile:", userProfileResponse.data);
+
+       // 設置 HTTP-only Cookie
+   res.cookie('accessToken', accessToken, {
+    httpOnly: true,  // 使 Cookie 只能由伺服器訪問
+    secure: true,    // 僅在 HTTPS 上傳送 Cookie
+    sameSite: 'strict' // 限制第三方網站發送 Cookie
+});
 
         console.log('reday to redirect')
 
@@ -102,4 +106,7 @@ app.get('/api/1.0', async (req, res) => {
 app.get('/api/1.0/account/list', isAuthenticated, AccountingBook);
 
 export { app };
+
+
+
 
