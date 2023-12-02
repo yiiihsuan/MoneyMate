@@ -78,11 +78,11 @@ app.get('/api/1.0', async (req, res) => {
         //const accessToken = tokenResponse.data.access_token;
 
         // 設置 HTTP-only Cookie
-        res.cookie('accessToken', accessToken, {
-            httpOnly: true,  // 使 Cookie 只能由伺服器訪問
-            secure: true,    // 僅在 HTTPS 上傳送 Cookie
-            sameSite: 'strict' // 限制第三方網站發送 Cookie
-        });
+        // res.cookie('accessToken', accessToken, {
+        //     httpOnly: true,  // 使 Cookie 只能由伺服器訪問
+        //     secure: true,    // 僅在 HTTPS 上傳送 Cookie
+        //    // sameSite: 'strict' // 限制第三方網站發送 Cookie
+        // });
 
         console.log(req.cookies.accessToken);
     
