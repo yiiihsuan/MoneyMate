@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import Header from '../component/Header.js';
 
 // Styled components for each section
 const DashboardContainer = styled.div`
@@ -28,6 +29,8 @@ const MyInvestment = styled(Section)``;
 
 const Dashboard = () => {
   return (
+    <div>
+    <Header/>
     <DashboardContainer>
       <MyAccountBook>
         <header>我的記帳本</header>
@@ -50,6 +53,7 @@ const Dashboard = () => {
         {/* Content goes here */}
       </MyInvestment>
     </DashboardContainer>
+    </div>
   );
 };
 
