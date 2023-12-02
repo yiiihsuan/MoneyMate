@@ -75,7 +75,7 @@ app.get('/api/1.0', async (req, res) => {
         });
         console.log('success');
 
-        const accessToken = tokenResponse.data.access_token;
+        //const accessToken = tokenResponse.data.access_token;
 
         // 設置 HTTP-only Cookie
         res.cookie('accessToken', accessToken, {
@@ -86,9 +86,9 @@ app.get('/api/1.0', async (req, res) => {
 
         console.log(req.cookies.accessToken);
     
-    //     const accessToken = tokenResponse.data.access_token;
+      const accessToken = tokenResponse.data.access_token;
 
-    // console.log("Access Token:", accessToken);
+      console.log("Access Token:", accessToken);
 
     // // 將 Access Token 存儲到 session
     // req.session.accessToken = accessToken;
