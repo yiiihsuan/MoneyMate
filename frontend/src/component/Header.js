@@ -1,24 +1,40 @@
-// Header.js
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { BiLogOut } from "react-icons/bi";
+import liff from '@line/liff';
 
 const Header = () => {
+    const [isLiff, setIsLiff] = useState(false);
+
+    useEffect(() => {
+        // 初始化 LIFF 並檢查是否在 LIFF 環境中
+        liff.init({ liffId: process.env.REACT_APP_LIFF_ID }) 
+            .then(() => {
+                if (liff.isInClient()) {
+                    setIsLiff(true);
+                }
+            })
+            .catch((err) => {
+                console.error('LIFF 初始化失敗:', err);
+            });
+    }, []);
+
     const handleLogout = () => {
         fetch('/api/1.0/logout', { method: 'GET' })
             .then(response => {
-                // 處理響應，例如重定向到登入頁面
                 window.location.href = '/';
             })
             .catch(error => {
-                // 處理錯誤
                 console.error('登出失敗:', error);
             });
     };
-    
+
+    // 如果在 LIFF 環境中，不顯示登出按鈕
+    if (isLiff) {
+        return null;
+    }
 
     return (
         <header>
-            {/* 其他 header 內容 */}
             <BiLogOut onClick={handleLogout} />
         </header>
     );
