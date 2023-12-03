@@ -30,6 +30,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 //import SmallProductList from './pages/sProductList'; // 導向小螢幕組件
 import HomePage from './pages/HomePage';
 import Dashboard from './pages/DashBoard.js';
+import AccountingBook from './pages/AccountingBook.js';
 
 
 
@@ -56,13 +57,14 @@ const App = () => {
             <>
         <Route path="/" element={<HomePage />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/accountingbook" element={<AccountingBook />} />
        
             </>
           ) : (
             <>
          <Route path="/" element={<HomePage />} />
          <Route path="/dashboard" element={<Dashboard />} />
-        
+         <Route path="/accountingbook" element={<AccountingBook />} />
             </>
           )}
         </Routes>
