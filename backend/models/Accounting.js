@@ -1,11 +1,13 @@
 import { pool } from './util.js';
 
-export async function saveAccount(dataToSend) {
+export async function saveAccount(data) {
 
-    console.log('data', dataToSend)
-    console.log('data.tag = ', dataToSend.tag)
-    console.log('data.amount = ', dataToSend.amount)
+    console.log('data', data)
+    console.log('data.tag = ', data.tag)
+    console.log('data.amount = ', data.amount)
     try {
+
+
     //     const query = `
     //     SELECT *
     //     FROM product
