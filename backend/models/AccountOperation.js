@@ -44,6 +44,28 @@ export async function saveAccount(data) {
 }
 
 
+export async function getAccountingById (userId) {
+    try {
+        const selectQuery = `
+            SELECT id, userId, amount, category, tag, detail, created_time
+            FROM accountingbook
+            WHERE userId = ?
+        `;
+
+        const [selectResult] = await pool.query(selectQuery, [userId]);
+
+        if (selectResult.length === 1) {
+            console.log('get accounting', selectResult[0]);
+            return selectResult[0];
+        } else {
+            return null;
+        }
+    } catch (error) {
+        throw error;
+    }
+};
+
+
    //     const query = `
     //     INSERT INTO accountingbook (amount, tag)
     //     VALUES (?, ?)
