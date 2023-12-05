@@ -6,32 +6,70 @@ export async function saveAccount(data) {
     console.log('data.tag = ', data.tag)
     console.log('data.amount = ', data.amount)
     try {
-        const query = `
+        const insertQuery = `
         INSERT INTO accountingbook (amount, tag)
         VALUES (?, ?)
-    `;
+        `;
 
-    const result = await pool.query(query, [data.amount, data.tag]);
+        const [insertResult] = await pool.query(insertQuery, [data.amount, data.tag]);
 
-    console.log('result',result);
-    console.log('result[0]',result[0]);
+        console.log('Insert result', insertResult);
 
-    console.log('affect rows',result[0].affectedRows);
+        if (insertResult.affectedRows === 1) {
+            const insertedId = insertResult.insertId;
+            
+    
+            const selectQuery = `
+            SELECT id, amount, category, tag, detail, created_time
+            FROM accountingbook
+            WHERE id = ?
+            `;
 
-    if (result[0].affectedRows === 1) {
+            const [selectResult] = await pool.query(selectQuery, [insertedId]);
+
+            if (selectResult.length === 1) {
+                console.log('selectResult[0]',selectResult[0]);
+                return selectResult[0];
+            } else {
+                throw new Error('Failed to retrieve inserted data.');
+            }
+        } else {
+            throw new Error('Failed to insert data into accountingbook table.');
+        }
+    } catch (error) {
+        throw error;
+    }
+}
+
+
+   //     const query = `
+    //     INSERT INTO accountingbook (amount, tag)
+    //     VALUES (?, ?)
+    // `;
+
+    // const [result] = await pool.query(query, [data.amount, data.tag]);
+
+    // console.log('result',result);
+   
+
+    // console.log('affect rows',result.affectedRows);
+
+    // if (result.affectedRows === 1) {
+
+
 
       
-        return {
-            id: result.insertId,
-            amount: data.amount,
-            category: data.category,
-            tag: data.tag,
-            detail: data.detail,
-            created_time: new Date() // 可能需要根據您的需求修改
-        };
-    } else {
-        throw new Error('Failed to insert data into accountingbook table.');
-    }
+    //     return {
+    //         id: result.insertId,
+    //         amount: data.amount,
+    //         category: data.category,
+    //         tag: data.tag,
+    //         detail: data.detail,
+    //         created_time: new Date() // 可能需要根據您的需求修改
+    //     };
+    // } else {
+    //     throw new Error('Failed to insert data into accountingbook table.');
+    // }
 
 
     //     const query = `
@@ -56,7 +94,4 @@ export async function saveAccount(data) {
 
         // return productDetails[0];
         //return;
-    } catch (error) {
-        throw error;
-    }
-}
+
