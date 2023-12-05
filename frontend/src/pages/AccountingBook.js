@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import mockAccountingData from '../mockData/mockAccounting'; 
 //import AccountingTimeline from '../component/AccountingTimeline';
 import AccountingTimeline from '../component/AccountingDetail';
-import { fetchAccountingData } from './api'; 
+import { fetchAccountingData } from '../api'; 
 
 
 const AccountingBookContainer = styled.div`

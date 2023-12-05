@@ -27,12 +27,14 @@
 
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { QueryClient, QueryClientProvider } from 'react-query';
 //import SmallProductList from './pages/sProductList'; // 導向小螢幕組件
 import HomePage from './pages/HomePage';
 import Dashboard from './pages/DashBoard.js';
 import AccountingBook from './pages/AccountingBook.js';
 
 
+const queryClient = new QueryClient();
 
 const App = () => {
   
@@ -50,6 +52,7 @@ const App = () => {
   }, []);
 
   return (
+    <QueryClientProvider client={queryClient}>
     <Router>
       <div>
         <Routes>
@@ -70,6 +73,7 @@ const App = () => {
         </Routes>
       </div>
     </Router>
+    </QueryClientProvider>
   );
 };
 
