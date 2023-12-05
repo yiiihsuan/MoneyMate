@@ -23,6 +23,7 @@ import { handleWebhook } from '../controllers/WebhookController.js';
 import { recordAccount } from '../controllers/saveAccount.js';
 import isAuthenticated from './Authentication.js';
 import AccountingBook from '../controllers//AccountRecord.js';
+import{getAccounting} from '../controllers/AccountingController.js';
 import 'dotenv/config';
 
 const app = express();
@@ -120,7 +121,9 @@ app.get('/api/1.0/logout', (req, res) => {
 });
 
 
-app.get('/api/1.0/account/list', isAuthenticated, AccountingBook);
+app.get('/api/1.0/account/list', isAuthenticated, getAccounting);
+
+
 
 export { app };
 

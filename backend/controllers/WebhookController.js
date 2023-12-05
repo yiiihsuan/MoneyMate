@@ -14,6 +14,18 @@ const handleTextMessage = async (event) => {
 
 //if 存錢  userMessage.match(/^存\s+(\S+)\s+(\d+)$/);
 
+const userProfile = await axios.get(`https://api.line.me/v2/bot/profile/${userId}`, {
+        headers: {
+            'Authorization': `Bearer ${process.env.CHANNEL_ACCESS_TOKEN}`,
+        },
+    });
+
+    const userName = userProfile.data.displayName;
+    const userPictureUrl = userProfile.data.pictureUrl;
+
+    console.log('userName',userName);
+    console.log('userPictureUrl',userPictureUrl);
+
     const match = userMessage.match(/^(\d+)(?:\s+(\S+))?$/);
     if (match) {
         const amount = parseInt(match[1], 10);
@@ -41,6 +53,8 @@ const handleTextMessage = async (event) => {
             }
         };
 
+        console.log('now user in handleTextMessage is:',userId )
+
         try {
             await axios.post('https://api.line.me/v2/bot/message/reply', {
                 replyToken: replyToken,
@@ -58,57 +72,55 @@ const handleTextMessage = async (event) => {
         // 其他消息處理...
     }
 
-    /*
-    // 構造回應消息
-    const replyMessage = {
-        type: 'text',
-        text: `您說了：${userMessage}`
-    };
-
-    // 發送消息
-    try {
-        await axios.post('https://api.line.me/v2/bot/message/reply', {
-            replyToken: replyToken,
-            messages: [replyMessage]
-        }, {
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${process.env.CHANNEL_ACCESS_TOKEN}`
-            }
-        });
-    } catch (error) {
-        console.error(error);
-    }
-*/
 
 };
 
 const handlePostback = async (event) => {
+    const userId = event.source.userId;
     const replyToken = event.replyToken;
     const URL = process.env.URL
     const data = querystring.parse(event.postback.data);
-    if (data.action === 'save') {
 
+    console.log('userid in handlepostback', userId);
+
+    if (data.action === 'save') {
         const tag = data.tag;
         const amount = parseInt(data.amount, 10);
 
+        const userProfile = await axios.get(`https://api.line.me/v2/bot/profile/${userId}`, {
+            headers: {
+                'Authorization': `Bearer ${process.env.CHANNEL_ACCESS_TOKEN}`,
+            },
+        });
+
+        // 提取用户的名字
+        const userName = userProfile.data.displayName;
+        console.log('userName in handlePostback', userName)
+
+
         const dataToSend = {
             tag: tag,
-            amount: amount
+            amount: amount,
+            userId: userId
         };
 
         try {
-            await recordAccount(dataToSend);
-            console.log('記帳操作成功');
+            // await recordAccount(dataToSend);
+            // console.log('記帳操作成功');
+            const record = await recordAccount(dataToSend);
+            console.log('記帳操作成功，記錄：', record);
+
+            let createdTime = new Date(record.created_time);
+            let formattedTime = createdTime.toISOString().replace('T', ' ').substring(0, 19);
+
 
             const confirmMessage = {
                 type: 'text',
-                text: `記帳成功：${amount}元，項目：${tag}`
+                text: `Hi, ${userName}\n記帳成功：\n${record.amount}元\n分類：${record.category}\n項目：${record.tag}\n詳細：${record.detail}\n時間：${formattedTime}`
             };
 
 
-            try {
-              
+            try {  
             // 發送確認消息
             await axios.post('https://api.line.me/v2/bot/message/reply', {
                 replyToken: replyToken,
@@ -126,33 +138,12 @@ const handlePostback = async (event) => {
         } catch (error) { 
             console.error('記帳操作失敗:', error);
         }
-
-     /*
-        try {
-            const response = await axios.post('/api/1.0/account/save', dataToSend, {
-                headers: {
-                    'Content-Type': 'application/json',
-                    // 其他需要的header
-                }
-            });
-            console.log('存款操作成功:', response.data);
-
-            // 發送一個回復給用戶
-       
-        } catch (error) {
-            console.error('Error handling postback:', error);
-            console.error('存款操作失敗:', error);
-            // 通知用戶操作失敗
-           
-        }
-        */
     }
   };
 
 
 const handleWebhook = (req, res) => {
 
-    
     const channelSecret = process.env.CHANNEL_SECRET; // 確保在 .env 文件中設置了 CHANNEL_SECRET
     const signature = req.headers['x-line-signature'];
 
@@ -246,4 +237,29 @@ const handleTextMessage = (event) => {
 const handleImageMessage = (event) => {
     // 處理圖片消息
 };
+*/
+
+
+
+   /*
+    // 構造回應消息
+    const replyMessage = {
+        type: 'text',
+        text: `您說了：${userMessage}`
+    };
+
+    // 發送消息
+    try {
+        await axios.post('https://api.line.me/v2/bot/message/reply', {
+            replyToken: replyToken,
+            messages: [replyMessage]
+        }, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${process.env.CHANNEL_ACCESS_TOKEN}`
+            }
+        });
+    } catch (error) {
+        console.error(error);
+    }
 */
