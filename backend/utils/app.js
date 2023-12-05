@@ -122,6 +122,8 @@ app.get('/api/1.0/logout', (req, res) => {
 
 app.get('/api/1.0/account/list', isAuthenticated, AccountingBook);
 
+
+
 export { app };
 
 

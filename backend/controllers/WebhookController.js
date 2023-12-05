@@ -14,6 +14,18 @@ const handleTextMessage = async (event) => {
 
 //if 存錢  userMessage.match(/^存\s+(\S+)\s+(\d+)$/);
 
+const userProfile = await axios.get(`https://api.line.me/v2/bot/profile/${userId}`, {
+        headers: {
+            'Authorization': `Bearer ${process.env.CHANNEL_ACCESS_TOKEN}`,
+        },
+    });
+
+    const userName = userProfile.data.displayName;
+    const userPictureUrl = userProfile.data.pictureUrl;
+
+    console.log('userName',userName);
+    console.log('userPictureUrl',userPictureUrl);
+
     const match = userMessage.match(/^(\d+)(?:\s+(\S+))?$/);
     if (match) {
         const amount = parseInt(match[1], 10);
@@ -74,6 +86,18 @@ const handlePostback = async (event) => {
     if (data.action === 'save') {
         const tag = data.tag;
         const amount = parseInt(data.amount, 10);
+
+        const userProfile = await axios.get(`https://api.line.me/v2/bot/profile/${userId}`, {
+            headers: {
+                'Authorization': `Bearer ${process.env.CHANNEL_ACCESS_TOKEN}`,
+            },
+        });
+
+        // 提取用户的名字
+        const userName = userProfile.data.displayName;
+        console.log('userName in handlePostback', userName)
+
+
         const dataToSend = {
             tag: tag,
             amount: amount,
@@ -92,7 +116,7 @@ const handlePostback = async (event) => {
 
             const confirmMessage = {
                 type: 'text',
-                text: `記帳成功：\n用戶:${record.userId}\n${record.amount}元\n分類：${record.category}\n項目：${record.tag}\n詳細：${record.detail}\n時間：${formattedTime}`
+                text: `Hi, ${userName}\n記帳成功：\n${record.amount}元\n分類：${record.category}\n項目：${record.tag}\n詳細：${record.detail}\n時間：${formattedTime}`
             };
 
 
