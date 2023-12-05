@@ -41,6 +41,8 @@ const handleTextMessage = async (event) => {
             }
         };
 
+        console.log('now user is:',userId )
+
         try {
             await axios.post('https://api.line.me/v2/bot/message/reply', {
                 replyToken: replyToken,
@@ -132,33 +134,12 @@ const handlePostback = async (event) => {
         } catch (error) { 
             console.error('記帳操作失敗:', error);
         }
-
-     /*
-        try {
-            const response = await axios.post('/api/1.0/account/save', dataToSend, {
-                headers: {
-                    'Content-Type': 'application/json',
-                    // 其他需要的header
-                }
-            });
-            console.log('存款操作成功:', response.data);
-
-            // 發送一個回復給用戶
-       
-        } catch (error) {
-            console.error('Error handling postback:', error);
-            console.error('存款操作失敗:', error);
-            // 通知用戶操作失敗
-           
-        }
-        */
     }
   };
 
 
 const handleWebhook = (req, res) => {
 
-    
     const channelSecret = process.env.CHANNEL_SECRET; // 確保在 .env 文件中設置了 CHANNEL_SECRET
     const signature = req.headers['x-line-signature'];
 
