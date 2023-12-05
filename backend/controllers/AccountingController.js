@@ -7,6 +7,7 @@ export async function getAccounting(req, res) {
         console.log('userId in getAccountingBYID controller',userId )
 
         const accountingData = await getAccountingById(userId);
+        console.log('accountingData:',accountingData);
 
         if (accountingData) {
             res.status(200).json(accountingData);

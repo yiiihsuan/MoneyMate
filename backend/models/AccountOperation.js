@@ -46,6 +46,7 @@ export async function saveAccount(data) {
 
 export async function getAccountingById (userId) {
     try {
+        console.log('userId in model', userId)
         const selectQuery = `
             SELECT id, userId, amount, category, tag, detail, created_time
             FROM accountingbook
