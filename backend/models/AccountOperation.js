@@ -48,11 +48,11 @@ export async function getAccountingById (userId) {
     try {
         console.log('userId in model', userId)
         const formattedUserId = `'${userId}'`;
-        console.log('formatted userId in model', formattedUserId)
+        console.log('formatted userId in model',formattedUserId)
         const selectQuery = `
             SELECT id, userId, amount, category, tag, detail, created_time
             FROM accountingbook
-            WHERE userId = ? ;
+            WHERE id = 1 ;
         `;
 
         const [selectResult] = await pool.query(selectQuery, [formattedUserId]);
