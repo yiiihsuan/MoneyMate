@@ -98,12 +98,14 @@ const handlePostback = async (event) => {
         };
 
         try {
-            await recordAccount(dataToSend);
-            console.log('記帳操作成功');
+            // await recordAccount(dataToSend);
+            // console.log('記帳操作成功');
+            const record = await recordAccount(dataToSend);
+            console.log('記帳操作成功，記錄：', record);
 
             const confirmMessage = {
                 type: 'text',
-                text: `記帳成功：${amount}元，項目：${tag}`
+                text: `記帳成功：${record.amount}元，項目：${record.tag}`
             };
 
 

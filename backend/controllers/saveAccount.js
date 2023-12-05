@@ -1,6 +1,6 @@
 // RecordAccount.js
 import axios from 'axios';
-import {saveAccount} from '../models/Accounting.js'
+import {saveAccount} from '../models/AccountOperation.js'
 
 const recordAccount = async (data) => {
   const { tag, amount } = data; 
@@ -24,10 +24,18 @@ const recordAccount = async (data) => {
     //     // 添加任何其他需要的header
     //   }
     // });
+    const newRecord = await saveAccount(data); // 儲存模型返回的值
 
-    console.log('紀錄成功:');
-    return;
-    
+    // 如果需要發送確認到外部API
+    // const response = await axios.post('API端點', newRecord, {
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //     // 添加任何其他需要的header
+    //   }
+    // });
+
+    console.log('紀錄成功:', newRecord); // 在這裡印出模型返回的值
+    return newRecord;
     //return newRecord; // 返回新增紀錄的資料
   } catch (error) {
     console.error('紀錄到資料庫時出錯:', error);
