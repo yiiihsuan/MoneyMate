@@ -5,13 +5,15 @@ export async function saveAccount(data) {
     console.log('data', data)
     console.log('data.tag = ', data.tag)
     console.log('data.amount = ', data.amount)
+    console.log('data.user = ', data.userId)
+
     try {
         const insertQuery = `
-        INSERT INTO accountingbook (amount, tag)
-        VALUES (?, ?)
+        INSERT INTO accountingbook (userId, amount, tag)
+        VALUES (?,?, ?)
         `;
 
-        const [insertResult] = await pool.query(insertQuery, [data.amount, data.tag]);
+        const [insertResult] = await pool.query(insertQuery, [data.userId, data.amount, data.tag]);
 
         console.log('Insert result', insertResult);
 
@@ -20,7 +22,7 @@ export async function saveAccount(data) {
             
     
             const selectQuery = `
-            SELECT id, amount, category, tag, detail, created_time
+            SELECT id, userId, amount, category, tag, detail, created_time
             FROM accountingbook
             WHERE id = ?
             `;

@@ -3,10 +3,11 @@ import axios from 'axios';
 import {saveAccount} from '../models/AccountOperation.js'
 
 const recordAccount = async (data) => {
-  const { tag, amount } = data; 
+  const { tag, amount,userId } = data; 
   console.log('準備執行記帳程序');
   console.log('項目:', tag);
   console.log('金額:', amount);
+  console.log('我是誰:', userId);
   console.log('data',data);
   
   try {
