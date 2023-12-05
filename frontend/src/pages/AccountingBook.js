@@ -1,8 +1,10 @@
 import React , {useState} from 'react';
+import { useQuery } from 'react-query';
 import styled from 'styled-components';
 import mockAccountingData from '../mockData/mockAccounting'; 
 //import AccountingTimeline from '../component/AccountingTimeline';
 import AccountingTimeline from '../component/AccountingDetail';
+import { fetchAccountingData } from './api'; 
 
 
 const AccountingBookContainer = styled.div`
@@ -58,20 +60,31 @@ const AccountingBook = () => {
   // 現在我們只是簡單地將它們設置為0
   const totalExpenditure = 0;
   const totalIncome = 0;
-  
-  const [records, setRecords] = useState(mockAccountingData);
 
-  //更新紀錄
-  const handleRecordUpdate = (updatedRecord) => {
-    setRecords((prevRecords) => {
-      return prevRecords.map((record) => {
-        if (record.id === updatedRecord.id) {
-          return updatedRecord;
-        }
-        return record;
-      });
-    });
+  const { data: records, isLoading, isError } = useQuery({
+    queryKey: ['accountData'],
+    queryFn: fetchAccountingData,
+  });
+  
+   // to do...update  data
+  //  // 更新記錄
+  const handleRecordUpdate = async (updatedRecord) => {
+  //   // 假設您有一個函數來更新API中的記錄
+  //   await updateRecordInAPI(updatedRecord);
+
+  //   // 更新查詢緩存中的數據
+  //   queryClient.setQueryData(['accountData'], (oldData) => {
+  //     return oldData.map((record) => {
+  //       if (record.id === updatedRecord.id) {
+  //         return updatedRecord;
+  //       }
+  //       return record;
+  //     });
+  //   });
   };
+
+  if (isLoading) return <div>Loading...</div>; // 加載狀態
+  if (isError) return <div>Error fetching data</div>; // 錯誤處理
 
 
   //我的記帳本 放section 上會在上方，放下面會在section 裡的左側

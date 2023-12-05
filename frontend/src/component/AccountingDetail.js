@@ -4,6 +4,7 @@ import moment from 'moment';
 import ReactModal from 'react-modal';
 import EditModal from './EditModal';
 
+
 ReactModal.setAppElement('#root');
 
 const TimelineContainer = styled.div`
