@@ -41,7 +41,7 @@ const handleTextMessage = async (event) => {
             }
         };
 
-        console.log('now user is:',userId )
+        console.log('now user in handleTextMessage is:',userId )
 
         try {
             await axios.post('https://api.line.me/v2/bot/message/reply', {
@@ -60,43 +60,23 @@ const handleTextMessage = async (event) => {
         // 其他消息處理...
     }
 
-    /*
-    // 構造回應消息
-    const replyMessage = {
-        type: 'text',
-        text: `您說了：${userMessage}`
-    };
-
-    // 發送消息
-    try {
-        await axios.post('https://api.line.me/v2/bot/message/reply', {
-            replyToken: replyToken,
-            messages: [replyMessage]
-        }, {
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${process.env.CHANNEL_ACCESS_TOKEN}`
-            }
-        });
-    } catch (error) {
-        console.error(error);
-    }
-*/
 
 };
 
 const handlePostback = async (event) => {
+    const userId = event.source.userId;
     const replyToken = event.replyToken;
     const URL = process.env.URL
     const data = querystring.parse(event.postback.data);
-    if (data.action === 'save') {
 
+    console.log('userid in handlepostback', userId);
+
+    if (data.action === 'save') {
         const tag = data.tag;
         const amount = parseInt(data.amount, 10);
-
         const dataToSend = {
             tag: tag,
-            amount: amount
+            amount: amount,
         };
 
         try {
@@ -115,8 +95,7 @@ const handlePostback = async (event) => {
             };
 
 
-            try {
-              
+            try {  
             // 發送確認消息
             await axios.post('https://api.line.me/v2/bot/message/reply', {
                 replyToken: replyToken,
@@ -233,4 +212,29 @@ const handleTextMessage = (event) => {
 const handleImageMessage = (event) => {
     // 處理圖片消息
 };
+*/
+
+
+
+   /*
+    // 構造回應消息
+    const replyMessage = {
+        type: 'text',
+        text: `您說了：${userMessage}`
+    };
+
+    // 發送消息
+    try {
+        await axios.post('https://api.line.me/v2/bot/message/reply', {
+            replyToken: replyToken,
+            messages: [replyMessage]
+        }, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${process.env.CHANNEL_ACCESS_TOKEN}`
+            }
+        });
+    } catch (error) {
+        console.error(error);
+    }
 */
