@@ -55,7 +55,7 @@ export async function getAccountingById (userId) {
             WHERE userId = ? ;
         `;
 
-        const [selectResult] = await pool.query(selectQuery, [formattedUserId]);
+        const [selectResult] = await pool.query(selectQuery, [userId]);
 
         console.log(selectResult);
         console.log(selectResult[0]);
