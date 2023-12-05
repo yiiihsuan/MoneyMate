@@ -46,11 +46,10 @@ export async function saveAccount(data) {
 
 export async function getAccountingById (userId) {
     try {
-        console.log('userId in model', userId)
-        const formattedUserId = `'${userId}'`;
-        console.log('formatted userId in model',formattedUserId)
+        console.log('userId in model', userId);
+
         const selectQuery = `
-            SELECT id, userId, amount, category, tag, detail, created_time
+            SELECT id, amount, category, tag, detail, created_time
             FROM accountingbook
             WHERE userId = ? ;
         `;
@@ -58,11 +57,10 @@ export async function getAccountingById (userId) {
         const [selectResult] = await pool.query(selectQuery, [userId]);
 
         console.log(selectResult);
-        console.log(selectResult[0]);
 
         if (selectResult.length > 0) {
-            console.log('get accounting', selectResult[0]);
-            return selectResult[0];
+            console.log('get accounting', selectResult);
+            return selectResult;
         } else {
             return null;
         }
