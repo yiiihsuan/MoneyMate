@@ -52,7 +52,7 @@ export async function getAccountingById (userId) {
         const selectQuery = `
             SELECT id, userId, amount, category, tag, detail, created_time
             FROM accountingbook
-            WHERE userId = 'U18d0d1340edcc1a781971b7905bd99fd' ;
+            WHERE userId = ? ;
         `;
 
         const [selectResult] = await pool.query(selectQuery, [formattedUserId]);
