@@ -7,7 +7,7 @@ export async function saveAccount(data) {
     console.log('data.amount = ', data.amount)
     try {
         const query = `
-        INSERT INTO accounting_book (amount, tag)
+        INSERT INTO accountingbook (amount, tag)
         VALUES (?, ?)
     `;
 
