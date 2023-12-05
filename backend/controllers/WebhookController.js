@@ -109,7 +109,7 @@ const handlePostback = async (event) => {
 
             const confirmMessage = {
                 type: 'text',
-                text: `記帳成功：\nid:${record.id}\n${record.amount}元\n分類：${record.category}\n項目：${record.tag}\n詳細：${record.detail}\n時間：${formattedTime}}`
+                text: `記帳成功：\nid:${record.id}\n${record.amount}元\n分類：${record.category}\n項目：${record.tag}\n詳細：${record.detail}\n時間：${formattedTime}`
             };
 
 
