@@ -124,7 +124,7 @@ const AccountingTimeline = ({ data, onRecordUpdate }) => {
                         <Spacer />
                         <Dot />
                         <TimeLabel>{moment(record.created_time).format('HH:mm')}</TimeLabel>
-                        <Record>{record.category} - NT${record.price} - {record.detail}</Record>
+                        <Record>{record.category} - NT${record.amount} - {record.detail}</Record>
                         <EditButton onClick={() => openEditModal(record)}>修改</EditButton>
                     </TimelineEntry>
                 );
