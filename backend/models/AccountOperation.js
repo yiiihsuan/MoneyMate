@@ -13,9 +13,12 @@ export async function saveAccount(data) {
 
     const result = await pool.query(query, [data.amount, data.tag]);
 
-    console.log('affect rows',result.affectedRows);
+    console.log('result',result);
+    console.log('result[0]',result[0]);
 
-    if (result.affectedRows === 1) {
+    console.log('affect rows',result[0].affectedRows);
+
+    if (result[0].affectedRows === 1) {
 
       
         return {
