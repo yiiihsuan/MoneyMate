@@ -103,9 +103,13 @@ const handlePostback = async (event) => {
             const record = await recordAccount(dataToSend);
             console.log('記帳操作成功，記錄：', record);
 
+            let createdTime = new Date(record.created_time);
+           let formattedTime = createdTime.toISOString().replace('T', ' ').substring(0, 19);
+
+
             const confirmMessage = {
                 type: 'text',
-                text: `記帳成功：\nid:${record.id}\n${record.amount}元\n分類：${record.category}\n項目：${record.tag}\n詳細：${record.detail}`
+                text: `記帳成功：\nid:${record.id}\n${record.amount}元\n分類：${record.category}\n項目：${record.tag}\n詳細：${record.detail}\n時間：${formattedTime}}`
             };
 
 
