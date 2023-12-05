@@ -47,13 +47,15 @@ export async function saveAccount(data) {
 export async function getAccountingById (userId) {
     try {
         console.log('userId in model', userId)
+        const formattedUserId = `'${userId}'`;
+        console.log('formatted userId in model', formattedUserId)
         const selectQuery = `
             SELECT id, userId, amount, category, tag, detail, created_time
             FROM accountingbook
             WHERE userId = ?
         `;
 
-        const [selectResult] = await pool.query(selectQuery, [userId]);
+        const [selectResult] = await pool.query(selectQuery, [formattedUserId]);
 
         if (selectResult.length === 1) {
             console.log('get accounting', selectResult[0]);
