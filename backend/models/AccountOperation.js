@@ -13,17 +13,21 @@ export async function saveAccount(data) {
 
     const result = await pool.query(query, [data.amount, data.tag]);
 
+    console.log('affect rows',result.affectedRows);
+
     if (result.affectedRows === 1) {
+
+      
         return {
             id: result.insertId,
-            price: data.amount,
+            amount: data.amount,
             category: data.category,
             tag: data.tag,
             detail: data.detail,
             created_time: new Date() // 可能需要根據您的需求修改
         };
     } else {
-        throw new Error('Failed to insert data into accounting_book table.');
+        throw new Error('Failed to insert data into accountingbook table.');
     }
 
 
