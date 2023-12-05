@@ -57,7 +57,10 @@ export async function getAccountingById (userId) {
 
         const [selectResult] = await pool.query(selectQuery, [formattedUserId]);
 
-        if (selectResult.length === 1) {
+        console.log(selectResult);
+        console.log(selectResult[0]);
+
+        if (selectResult.length > 0) {
             console.log('get accounting', selectResult[0]);
             return selectResult[0];
         } else {
