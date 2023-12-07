@@ -23,13 +23,13 @@ export async function getAccounting(req, res) {
 
 export async function updateAccounting(req, res) {
     try {
-        console.log("req.params:", req.params);
+        //console.log("req.params:", req.params);
         const userId = req.userId; 
-        const id = req.params.id; 
+       // const id = req.params.id; 
         console.log('userId in updateAccountingBYID controller',userId );
         console.log('req.body is :', req.body);
 
-        const { amount, category, tag, detail, created_time  } = req.body;
+        const { id, amount, category, tag, detail, created_time  } = req.body;
 
         // {
         //     id: 8,

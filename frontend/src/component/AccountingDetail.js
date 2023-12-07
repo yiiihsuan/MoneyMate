@@ -48,17 +48,13 @@ const chooseIcon = (category) => {
 const AccountingTimeline = ({ data, onRecordUpdate }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentRecord, setCurrentRecord] = useState(null);
-  const [formData, setFormData] = useState({});
 
   const openEditModal = (record) => {
     setCurrentRecord(record);
-    setFormData(record);
     setIsModalOpen(true);
   };
 
   const closeEditModal = () => {
-    setCurrentRecord(null);
-    setFormData({}); 
     setIsModalOpen(false);
   };
 
@@ -93,13 +89,11 @@ const AccountingTimeline = ({ data, onRecordUpdate }) => {
         ))}
       </Timeline>
       {isModalOpen && currentRecord && (
-          <EditModal
+        <EditModal
           isOpen={isModalOpen}
           onRequestClose={closeEditModal}
           record={currentRecord}
           onSave={saveRecord}
-          formData={formData}         
-          setFormData={setFormData}   
         />
       )}
     </TimelineContainer>
