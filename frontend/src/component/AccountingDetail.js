@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import moment from 'moment';
 import ReactModal from 'react-modal';
 import EditModal from './EditModal';
+import DeleteModal from './DeleteModal';
+import axios from 'axios';
 import { Timeline, TimelineItem, TimelineSeparator, TimelineDot, TimelineContent, TimelineConnector,TimelineOppositeContent } from '@mui/lab';
 import { FaUtensils, FaCar, FaTshirt, FaHome, FaGamepad, FaQuestionCircle } from 'react-icons/fa'; // 引入需要的图标
 
@@ -13,9 +15,34 @@ const TimelineContainer = styled.div`
   overflow-y: auto;
 `;
 
+const AmountText = styled.div`
+  font-size: 1.2em;  
+  font-weight: bold; 
+`;
+
 const EditButton = styled.button`
   margin-left: auto;
   padding: 5px 10px;
+  border: none; 
+  //background-color: transparent; 
+
+  &:hover {
+    border: 1px solid #ccc; 
+    cursor: pointer; 
+  }
+`;
+
+const DeleteButton = styled.button`
+  margin-left: auto;
+  padding: 5px 10px;
+  background-color: #f44336; 
+  color: white; // 白色文字
+  border: none;
+
+  &:hover {
+    background-color: #d32f2f; 
+    cursor: pointer; 
+  }
 `;
 
 const ContentContainer = styled.div`
@@ -48,6 +75,8 @@ const chooseIcon = (category) => {
 const AccountingTimeline = ({ data, onRecordUpdate }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentRecord, setCurrentRecord] = useState(null);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+
 
   const openEditModal = (record) => {
     setCurrentRecord(record);
@@ -63,13 +92,35 @@ const AccountingTimeline = ({ data, onRecordUpdate }) => {
     setIsModalOpen(false);
   };
 
+
+
+  const openDeleteModal = (record) => {
+    setCurrentRecord(record);
+    setIsDeleteModalOpen(true);
+};
+
+const closeDeleteModal = () => {
+    setIsDeleteModalOpen(false);
+};
+
+const handleDelete = async (id) => {
+  try {
+      await axios.delete(`/api/1.0/account/delete/${id}`);
+      const response = await axios.get('/api/1.0/account/getAll');
+      onRecordUpdate(response.data);
+      setIsDeleteModalOpen(false);
+  } catch (error) {
+      console.error('刪除或獲取數據失敗:', error);
+  }
+};
+
   return (
     <TimelineContainer>
       <Timeline align="alternate">
         {data.map((record) => (
           <TimelineItem key={record.id}>
             <TimelineOppositeContent>
-              <div>NT${record.amount}</div> 
+             <AmountText>NT${record.amount}</AmountText>
             </TimelineOppositeContent>
             <TimelineSeparator>
               <TimelineDot>{chooseIcon(record.category)}</TimelineDot>
@@ -79,10 +130,11 @@ const AccountingTimeline = ({ data, onRecordUpdate }) => {
               <ContentContainer>
                 <TimeTagDetail>
                   <div>{moment(record.created_time).format('HH:mm')}</div>
-                  <div>{record.category}</div>
+                  <div>{record.tag}</div>
                   <div>{record.detail}</div>
                 </TimeTagDetail>
                 <EditButton onClick={() => openEditModal(record)}>修改</EditButton>
+                <DeleteButton onClick={() => openDeleteModal(record)}>刪除</DeleteButton>
               </ContentContainer>
             </TimelineContent>
           </TimelineItem>
@@ -96,6 +148,16 @@ const AccountingTimeline = ({ data, onRecordUpdate }) => {
           onSave={saveRecord}
         />
       )}
+
+{isDeleteModalOpen && currentRecord && (
+        <DeleteModal
+          isOpen={isDeleteModalOpen}
+          onRequestClose={closeDeleteModal}
+          record={currentRecord}
+          onDelete={handleDelete}
+        />
+      )}
+
     </TimelineContainer>
   );
   
