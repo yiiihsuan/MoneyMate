@@ -70,7 +70,7 @@ export async function getAccountingById (userId) {
 };
 
 
-export async function updateAccountingById (id) {
+export async function updateAccountingById (id, userId, amount, category, tag, detail, created_time) {
     try {
         console.log('accounting id in model', id);
 
@@ -80,7 +80,7 @@ export async function updateAccountingById (id) {
         WHERE id = ? AND userId = ?;
     `;
 
-        const [updateResult] = await pool.query(updateQuery, [userId]);
+        const [updateResult] = await pool.query(updateQuery, [amount, category, tag, detail, created_time,id,userId]);
 
         console.log('result in model',updateResult);
 

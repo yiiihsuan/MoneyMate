@@ -8,7 +8,7 @@ ReactModal.setAppElement('#root'); // 放在應用程式的最外層組件
 const EditModal = ({ isOpen, onRequestClose, record, onSave }) => {
 
     const [formData, setFormData] = useState({
-        price: record?.price || '',
+        amount: record?.amount || '',
         category: record?.category || '食',
         tag: record?.tag || '',
         detail: record?.detail || '',
@@ -55,12 +55,12 @@ const EditModal = ({ isOpen, onRequestClose, record, onSave }) => {
       <form onSubmit={handleSubmit}>
 
                 <div>
-                    <label htmlFor="price">金額：</label>
+                    <label htmlFor="amount">金額：</label>
                     <input
-                        id="price"
-                        name="price"
+                        id="amount"
+                        name="amount"
                         type="number"
-                        value={formData.price}
+                        value={formData.amount}
                         onChange={handleChange}
                     />
                 </div>
