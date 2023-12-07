@@ -106,7 +106,7 @@ const closeDeleteModal = () => {
 const handleDelete = async (id) => {
   try {
       await axios.delete(`/api/1.0/account/delete/${id}`);
-      const response = await axios.get('/api/1.0/account/getAll');
+      const response = await axios.get('/api/1.0/account/list');
       onRecordUpdate(response.data);
       setIsDeleteModalOpen(false);
   } catch (error) {

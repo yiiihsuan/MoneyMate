@@ -90,11 +90,12 @@ export async function updateAccounting(req, res) {
 export async function deleteAccounting(req, res) {
     try {
         const userId = req.userId; 
-       // const id = req.params.id; 
+        const id = req.params.id; 
         console.log('userId in deleteAccountingBYID controller',userId );
-        console.log('req.body is :', req.body);
+        console.log('id is :', id);
+       // console.log('req.body is :', req.body);
 
-        const { id, amount, category, tag, detail, created_time  } = req.body;
+       // const { id, amount, category, tag, detail, created_time  } = req.body;
 
 
         /*
@@ -113,11 +114,11 @@ export async function deleteAccounting(req, res) {
 */
 
         console.log('id:', id);
-        console.log('amount:', amount);
-        console.log('category:', category);
-        console.log('tag:', tag);
-        console.log('detail:', detail);
-        console.log('created_time :', created_time);
+        // console.log('amount:', amount);
+        // console.log('category:', category);
+        // console.log('tag:', tag);
+        // console.log('detail:', detail);
+        // console.log('created_time :', created_time);
 
         if (!id ) {
             return res.status(400).json({ message: 'Missing required fields' });
