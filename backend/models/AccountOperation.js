@@ -86,7 +86,7 @@ export async function updateAccountingById (id, userId, amount, category, tag, d
 
         if (updateResult.affectedRows > 0 ) {
             console.log('finish');
-            return Result;
+            return updateResult;
         } else {
             return null;
         }
