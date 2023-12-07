@@ -29,7 +29,7 @@ const EditModal = ({ isOpen, onRequestClose, record, onSave }) => {
 
     // 調用 API 更新函數
     try {
-      const response = await axios.put(`/api/records/${formData.id}`, updatedFormData);
+      const response = await axios.put(`/api/1.0/account/update/${formData.id}`, updatedFormData);
       onSave(response.data);
       onRequestClose(); 
     } catch (error) {
