@@ -1,4 +1,4 @@
-import {getAccountingById} from '../models/AccountOperation.js'
+import {getAccountingById,updateAccountingById} from '../models/AccountOperation.js'
 
 
 export async function getAccounting(req, res) {
@@ -23,6 +23,7 @@ export async function getAccounting(req, res) {
 
 export async function updateAccounting(req, res) {
     try {
+        console.log("req.params:", req.params);
         const userId = req.userId; 
         const id = req.params.id; 
         console.log('userId in updateAccountingBYID controller',userId );
@@ -65,9 +66,9 @@ export async function updateAccounting(req, res) {
             return res.status(400).json({ message: 'Missing required fields' });
         }
 
-        console.log('check if can go to controllers...')
+        console.log('check if can go to controllers...');
 
-        // const updateData = await updateAccountingById(userId);
+        const updateData = await updateAccountingById(id, userId, amount, category, tag, detail, created_time);
         // console.log('accountingData:',accountingData);
 
         // if (accountingData) {
@@ -75,7 +76,7 @@ export async function updateAccounting(req, res) {
         // } else {
         //     res.status(404).json({ message: 'Accounting data not found' });
         // }
-        res.status(200).json({message: 'PASS update controller'});
+        res.json({ message: 'Account updated successfully', data: updateData });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Internal server error' });

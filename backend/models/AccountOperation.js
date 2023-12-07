@@ -70,6 +70,32 @@ export async function getAccountingById (userId) {
 };
 
 
+export async function updateAccountingById (id) {
+    try {
+        console.log('accounting id in model', id);
+
+        const updateQuery = `
+        UPDATE accountingbook
+        SET amount = ?, category = ?, tag = ?, detail = ?, created_time = ?
+        WHERE id = ? AND userId = ?;
+    `;
+
+        const [updateResult] = await pool.query(updateQuery, [userId]);
+
+        console.log('result in model',updateResult);
+
+        if (updateResult.affectedRows > 0 ) {
+            console.log('finish');
+            return Result;
+        } else {
+            return null;
+        }
+    } catch (error) {
+        throw error;
+    }
+};
+
+
    //     const query = `
     //     INSERT INTO accountingbook (amount, tag)
     //     VALUES (?, ?)
