@@ -1,13 +1,10 @@
-
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import moment from 'moment';
 import ReactModal from 'react-modal';
 import EditModal from './EditModal';
-import { Timeline, TimelineItem, TimelineSeparator, TimelineDot, TimelineContent, TimelineConnector } from '@mui/lab';
-
-
-
+import { Timeline, TimelineItem, TimelineSeparator, TimelineDot, TimelineContent, TimelineConnector,TimelineOppositeContent } from '@mui/lab';
+import { FaUtensils, FaCar, FaTshirt, FaHome, FaGamepad, FaQuestionCircle } from 'react-icons/fa'; // 引入需要的图标
 
 ReactModal.setAppElement('#root');
 
@@ -20,6 +17,33 @@ const EditButton = styled.button`
   margin-left: auto;
   padding: 5px 10px;
 `;
+
+const ContentContainer = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const TimeTagDetail = styled.div`
+  margin-left: 10px;
+`;
+
+
+const chooseIcon = (category) => {
+  switch (category) {
+    case '食':
+      return <FaUtensils />;
+    case '行':
+      return <FaCar />;
+    case '衣':
+      return <FaTshirt />;
+    case '住':
+      return <FaHome />;
+    case '樂':
+      return <FaGamepad />;
+    default:
+      return <FaQuestionCircle />;
+  }
+};
 
 const AccountingTimeline = ({ data, onRecordUpdate }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -39,38 +63,124 @@ const AccountingTimeline = ({ data, onRecordUpdate }) => {
     setIsModalOpen(false);
   };
 
-    return (
-      <TimelineContainer>
-        <Timeline>
-          {data.map((record) => (
-            <TimelineItem key={record.id}>
-              <TimelineSeparator>
-                <TimelineDot />
-                <TimelineConnector />
-              </TimelineSeparator>
-              <TimelineContent>
-                <div>
-                  {moment(record.created_time).format('HH:mm')}
-                  <div>{record.category} - NT${record.amount} - {record.detail}</div>
-                  <EditButton onClick={() => openEditModal(record)}>修改</EditButton>
-                </div>
-              </TimelineContent>
-            </TimelineItem>
-          ))}
-        </Timeline>
-        {isModalOpen && currentRecord && (
-          <EditModal
-            isOpen={isModalOpen}
-            onRequestClose={closeEditModal}
-            record={currentRecord}
-            onSave={saveRecord}
-          />
-        )}
-      </TimelineContainer>
-    );
-  };
+  return (
+    <TimelineContainer>
+      <Timeline align="alternate">
+        {data.map((record) => (
+          <TimelineItem key={record.id}>
+            <TimelineOppositeContent>
+              <div>NT${record.amount}</div> 
+            </TimelineOppositeContent>
+            <TimelineSeparator>
+              <TimelineDot>{chooseIcon(record.category)}</TimelineDot>
+              <TimelineConnector />
+            </TimelineSeparator>
+            <TimelineContent>
+              <ContentContainer>
+                <TimeTagDetail>
+                  <div>{moment(record.created_time).format('HH:mm')}</div>
+                  <div>{record.category}</div>
+                  <div>{record.detail}</div>
+                </TimeTagDetail>
+                <EditButton onClick={() => openEditModal(record)}>修改</EditButton>
+              </ContentContainer>
+            </TimelineContent>
+          </TimelineItem>
+        ))}
+      </Timeline>
+      {isModalOpen && currentRecord && (
+        <EditModal
+          isOpen={isModalOpen}
+          onRequestClose={closeEditModal}
+          record={currentRecord}
+          onSave={saveRecord}
+        />
+      )}
+    </TimelineContainer>
+  );
   
-  export default AccountingTimeline;
+};
+
+export default AccountingTimeline;
+
+
+//加了timeline mui
+// import React, { useState, useEffect } from 'react';
+// import styled from 'styled-components';
+// import moment from 'moment';
+// import ReactModal from 'react-modal';
+// import EditModal from './EditModal';
+// import { Timeline, TimelineItem, TimelineSeparator, TimelineDot, TimelineContent, TimelineConnector } from '@mui/lab';
+
+
+
+
+// ReactModal.setAppElement('#root');
+
+// const TimelineContainer = styled.div`
+//   height: 100vh;
+//   overflow-y: auto;
+// `;
+
+// const EditButton = styled.button`
+//   margin-left: auto;
+//   padding: 5px 10px;
+// `;
+
+// const AccountingTimeline = ({ data, onRecordUpdate }) => {
+//   const [isModalOpen, setIsModalOpen] = useState(false);
+//   const [currentRecord, setCurrentRecord] = useState(null);
+
+//   const openEditModal = (record) => {
+//     setCurrentRecord(record);
+//     setIsModalOpen(true);
+//   };
+
+//   const closeEditModal = () => {
+//     setIsModalOpen(false);
+//   };
+
+//   const saveRecord = (updatedRecord) => {
+//     onRecordUpdate(updatedRecord);
+//     setIsModalOpen(false);
+//   };
+
+//     return (
+//       <TimelineContainer>
+//         <Timeline>
+//           {data.map((record) => (
+//             <TimelineItem key={record.id}>
+//               <TimelineSeparator>
+//                 <TimelineDot />
+//                 <TimelineConnector />
+//               </TimelineSeparator>
+//               <TimelineContent>
+//                 <div>
+//                   {moment(record.created_time).format('HH:mm')}
+//                   <div>{record.category} - NT${record.amount} - {record.detail}</div>
+//                   <EditButton onClick={() => openEditModal(record)}>修改</EditButton>
+//                 </div>
+//               </TimelineContent>
+//             </TimelineItem>
+//           ))}
+//         </Timeline>
+//         {isModalOpen && currentRecord && (
+//           <EditModal
+//             isOpen={isModalOpen}
+//             onRequestClose={closeEditModal}
+//             record={currentRecord}
+//             onSave={saveRecord}
+//           />
+//         )}
+//       </TimelineContainer>
+//     );
+//   };
+  
+//   export default AccountingTimeline;
+
+
+
+
 
 
 
