@@ -12,13 +12,26 @@ const EditModal = ({ isOpen, onRequestClose, record, onSave }) => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+
+        const currentDate = new Date();
+        const dateString = currentDate.toISOString().split('T')[0]; //  YYYY-MM-DD 格式的日期
+        const timeString = `${formData.hour.padStart(2, '0')}:${formData.minute.padStart(2, '0')}:00`; // 获取 HH:MM:SS 格式的时间
+
+        // 组合成完整的日期时间字符串
+        const dateTime = `${dateString} ${timeString}`;
+
+        const updatedFormData = {
+            ...formData,
+            created_time: dateTime
+          };
+
     // 調用 API 更新函數
     try {
-      const response = await axios.put(`/api/records/${formData.id}`, formData);
+      const response = await axios.put(`/api/records/${formData.id}`, updatedFormData);
       onSave(response.data);
-      onRequestClose(); // 關閉模態
+      onRequestClose(); 
     } catch (error) {
       console.error('更新失敗', error);
     }
@@ -110,10 +123,7 @@ const EditModal = ({ isOpen, onRequestClose, record, onSave }) => {
                         placeholder="輸入詳細內容"
                     />
                 </div>
-
-
-                {/* 添加其餘的表單元素 */}
-                <button type="submit">取消</button>
+                <button type="button" onClick={onRequestClose}>取消</button>
                 <button type="submit">保存</button>
             </form>
         </ReactModal>
