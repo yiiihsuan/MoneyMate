@@ -96,6 +96,30 @@ export async function updateAccountingById (id, userId, amount, category, tag, d
 };
 
 
+export async function deleteAccountingById (id, userId) {
+    try {
+        console.log('accounting id in del model', id);
+
+        const deleteQuery = `
+        DELETE FROM accountingbook
+        WHERE id = ? AND userId = ?;
+    `;
+    
+        const [deleteResult] = await pool.query(deleteQuery, [id,userId]);
+
+        console.log('result in delete model',deleteResult);
+
+        if (deleteResult.affectedRows > 0 ) {
+            console.log('finish');
+            return deleteResult;
+        } else {
+            return null;
+        }
+    } catch (error) {
+        throw error;
+    }
+};
+
    //     const query = `
     //     INSERT INTO accountingbook (amount, tag)
     //     VALUES (?, ?)
