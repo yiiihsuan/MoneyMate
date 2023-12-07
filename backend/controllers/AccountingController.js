@@ -30,6 +30,30 @@ export async function updateAccounting(req, res) {
 
         const { amount, category, tag, detail, created_time  } = req.body;
 
+        // {
+        //     id: 8,
+        //     amount: 20,
+        //     category: null,
+        //     tag: 'null',
+        //     detail: null,
+        //     created_time: 2023-12-07T14:23:02.000Z
+        //   }
+
+        /*
+        userId in updateAccountingBYID controller U18d0d1340edcc1a781971b7905bd99fd
+        req.body is : {
+        id: 1,
+        amount: 210,
+        category: null,
+        tag: 'avc',
+        detail: 'hell',
+        created_time: '2023-12-07 21:04:00',
+        hour: '21',
+        minute: '04',
+        price: '20'
+        }
+*/
+
         console.log('id:', id);
         console.log('amount:', amount);
         console.log('category:', category);
@@ -37,7 +61,7 @@ export async function updateAccounting(req, res) {
         console.log('detail:', detail);
         console.log('created_time :', created_time);
 
-        if (!id || !amount || !category) {
+        if (!id ) {
             return res.status(400).json({ message: 'Missing required fields' });
         }
 
@@ -51,6 +75,7 @@ export async function updateAccounting(req, res) {
         // } else {
         //     res.status(404).json({ message: 'Accounting data not found' });
         // }
+        res.status(200).json({message: 'PASS update controller'});
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Internal server error' });

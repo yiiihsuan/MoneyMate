@@ -1,11 +1,22 @@
 import React, { useState } from 'react';
 import ReactModal from 'react-modal';
 import axios from 'axios';
+import moment from 'moment';
 
-ReactModal.setAppElement('#root'); // 通常你會將這行放在你的應用程式的最外層組件
+ReactModal.setAppElement('#root'); // 放在應用程式的最外層組件
 
 const EditModal = ({ isOpen, onRequestClose, record, onSave }) => {
-  const [formData, setFormData] = useState(record || {});
+
+    const [formData, setFormData] = useState({
+        price: record?.price || '',
+        category: record?.category || '食',
+        tag: record?.tag || '',
+        detail: record?.detail || '',
+        hour: record?.created_time ? moment(record.created_time).format('HH') : '00',
+        minute: record?.created_time ? moment(record.created_time).format('mm') : '00'
+    });
+
+  //const [formData, setFormData] = useState(record || {});
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -19,7 +30,6 @@ const EditModal = ({ isOpen, onRequestClose, record, onSave }) => {
         const dateString = currentDate.toISOString().split('T')[0]; //  YYYY-MM-DD 格式的日期
         const timeString = `${formData.hour.padStart(2, '0')}:${formData.minute.padStart(2, '0')}:00`; // 获取 HH:MM:SS 格式的时间
 
-        // 组合成完整的日期时间字符串
         const dateTime = `${dateString} ${timeString}`;
 
         const updatedFormData = {
@@ -27,7 +37,6 @@ const EditModal = ({ isOpen, onRequestClose, record, onSave }) => {
             created_time: dateTime
           };
 
-    // 調用 API 更新函數
     try {
       const response = await axios.put(`/api/1.0/account/update/${formData.id}`, updatedFormData);
       onSave(response.data);
@@ -70,6 +79,7 @@ const EditModal = ({ isOpen, onRequestClose, record, onSave }) => {
                         <option value="行">行</option>
                         <option value="育">育</option>
                         <option value="樂">樂</option>
+                        <option value="其他">其他</option>
                     </select>
                 </div>
 
