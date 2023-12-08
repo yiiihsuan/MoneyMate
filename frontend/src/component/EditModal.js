@@ -2,8 +2,72 @@ import React, { useState } from 'react';
 import ReactModal from 'react-modal';
 import axios from 'axios';
 import moment from 'moment';
+import styled from 'styled-components';
 
 ReactModal.setAppElement('#root'); // 放在應用程式的最外層組件
+
+
+
+const StyledForm = styled.form`
+  background-color: #fff; 
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); // 陰影
+  width: 500px; 
+  margin: 0 auto; // 置中
+`;
+
+const StyledInput = styled.input`
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+`;
+
+const StyledSelect = styled.select`
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+`;
+
+
+const StyledLabel = styled.label`
+  margin-top: 20px;
+  display: block; 
+  font-weight: bold; 
+`;
+
+
+const StyledButton = styled.button`
+  padding: 10px 20px;
+  border: none;
+  border-radius: 20px; 
+  background-color: #000; 
+  color: #fff; 
+  margin-right: 8px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #555; 
+    cursor: pointer;
+  }
+`;
+
+const ButtonContainer = styled.div`
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-end;
+`;
+
+const StyledFieldContainer = styled.div`
+  margin-bottom: 20px; 
+`;
+
 
 const EditModal = ({ isOpen, onRequestClose, record, onSave }) => {
 
@@ -53,22 +117,22 @@ const EditModal = ({ isOpen, onRequestClose, record, onSave }) => {
       onRequestClose={onRequestClose}
       contentLabel="Edit Record"
     >
-      <form onSubmit={handleSubmit}>
+     <StyledForm onSubmit={handleSubmit}>
 
-                <div>
-                    <label htmlFor="amount">金額：</label>
-                    <input
+                <StyledFieldContainer>
+                    <StyledLabel htmlFor="amount">金額：</StyledLabel>
+                    <StyledInput
                         id="amount"
                         name="amount"
                         type="number"
                         value={formData.amount}
                         onChange={handleChange}
                     />
-                </div>
+                </StyledFieldContainer>
 
-                <div>
-                    <label htmlFor="category">類別：</label>
-                    <select
+                <StyledFieldContainer>
+                    <StyledLabel htmlFor="category">類別：</StyledLabel>
+                    <StyledSelect
                         id="category"
                         name="category"
                         value={formData.category}
@@ -81,12 +145,12 @@ const EditModal = ({ isOpen, onRequestClose, record, onSave }) => {
                         <option value="育">育</option>
                         <option value="樂">樂</option>
                         <option value="其他">其他</option>
-                    </select>
-                </div>
+                    </ StyledSelect>
+                </StyledFieldContainer>
 
-                <div>
-                    <label htmlFor="tag">項目：</label>
-                    <input
+                <StyledFieldContainer>
+                    <StyledLabel htmlFor="tag">項目：</StyledLabel>
+                    <StyledInput
                         id="tag"
                         name="tag"
                         type="text"
@@ -94,11 +158,11 @@ const EditModal = ({ isOpen, onRequestClose, record, onSave }) => {
                         onChange={handleChange}
                         placeholder="輸入項目"
                     />
-                </div>
+                </StyledFieldContainer>
 
-                <div>
-                    <label htmlFor="hour">時間：</label>
-                    <select
+                <StyledFieldContainer>
+                    <StyledLabel htmlFor="hour">時間：</StyledLabel>
+                    <StyledSelect
                         id="hour"
                         name="hour"
                         value={formData.hour}
@@ -108,9 +172,9 @@ const EditModal = ({ isOpen, onRequestClose, record, onSave }) => {
                             const hour = index.toString().padStart(2, '0');
                             return <option key={hour} value={hour}>{hour}</option>;
                         })}
-                    </select>
-                    <label htmlFor="minute">：</label>
-                    <select
+                    </StyledSelect>
+                    <StyledLabel htmlFor="minute">：</StyledLabel>
+                    <StyledSelect
                         id="minute"
                         name="minute"
                         value={formData.minute}
@@ -120,23 +184,27 @@ const EditModal = ({ isOpen, onRequestClose, record, onSave }) => {
                             const minute = index.toString().padStart(2, '0');
                             return <option key={minute} value={minute}>{minute}</option>;
                         })}
-                    </select>
-                </div>
+                    </StyledSelect>
+                 </StyledFieldContainer>
+               
+                 <StyledFieldContainer>
+                <StyledLabel htmlFor="detail">詳細：</StyledLabel>
+                <StyledInput
+                    id="detail"
+                    name="detail"
+                    type="text"
+                    value={formData.detail}
+                    onChange={handleChange}
+                    placeholder="輸入詳細內容"
+                />
+                </StyledFieldContainer>
 
-                <div>
-                    <label htmlFor="detail">詳細：</label>
-                    <input
-                        id="detail"
-                        name="detail"
-                        type="text"
-                        value={formData.detail}
-                        onChange={handleChange}
-                        placeholder="輸入詳細內容"
-                    />
-                </div>
-                <button type="button" onClick={onRequestClose}>取消</button>
-                <button type="submit">保存</button>
-            </form>
+                <ButtonContainer>
+                    <StyledButton type="button" onClick={onRequestClose}>取消</StyledButton>
+                    <StyledButton type="submit">保存</StyledButton>
+                </ButtonContainer>
+
+            </StyledForm>
         </ReactModal>
     );
 };
