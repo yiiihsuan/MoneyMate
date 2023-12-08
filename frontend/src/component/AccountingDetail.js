@@ -6,7 +6,7 @@ import EditModal from './EditModal';
 import DeleteModal from './DeleteModal';
 import axios from 'axios';
 import { Timeline, TimelineItem, TimelineSeparator, TimelineDot, TimelineContent, TimelineConnector,TimelineOppositeContent } from '@mui/lab';
-import { FaUtensils, FaCar, FaTshirt, FaHome, FaGamepad, FaQuestionCircle } from 'react-icons/fa'; // 引入需要的图标
+import { FaUtensils, FaCar, FaTshirt, FaHome, FaGamepad, FaQuestionCircle } from 'react-icons/fa'; 
 
 ReactModal.setAppElement('#root');
 
