@@ -64,6 +64,24 @@ const ButtonContainer = styled.div`
   justify-content: flex-end;
 `;
 
+const StyledTimeContainer = styled.div`
+  display: flex;
+  justify-content: space-between; // 这会使子元素平均分布
+  align-items: center; // 垂直居中对齐
+
+  & > * {
+    flex: 1; // 使所有子元素占据相等的空间
+    margin: 0 5px; // 添加适当的间距
+  }
+`;
+
+
+const StyledTimeLabel = styled.span`
+  flex: 0; // 防止冒号伸展
+  text-align: center;
+  margin: 0 5px;
+`;
+
 const StyledFieldContainer = styled.div`
   margin-bottom: 20px; 
 `;
@@ -72,7 +90,7 @@ const StyledFieldContainer = styled.div`
 const EditModal = ({ isOpen, onRequestClose, record, onSave }) => {
 
     const [formData, setFormData] = useState({
-        id: record.id ,
+        id: record.id,
         amount: record?.amount || '',
         category: record?.category || '食',
         tag: record?.tag || '',
@@ -81,12 +99,12 @@ const EditModal = ({ isOpen, onRequestClose, record, onSave }) => {
         minute: record?.created_time ? moment(record.created_time).format('mm') : '00'
     });
 
-  //const [formData, setFormData] = useState(record || {});
+    //const [formData, setFormData] = useState(record || {});
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setFormData({ ...formData, [name]: value });
-  };
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+        setFormData({ ...formData, [name]: value });
+    };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -100,24 +118,24 @@ const EditModal = ({ isOpen, onRequestClose, record, onSave }) => {
         const updatedFormData = {
             ...formData,
             created_time: dateTime
-          };
+        };
 
-    try {
-      const response = await axios.put(`/api/1.0/account/update/${formData.id}`, updatedFormData);
-      onSave(response.data);
-      onRequestClose(); 
-    } catch (error) {
-      console.error('更新失敗', error);
-    }
-  };
+        try {
+            const response = await axios.put(`/api/1.0/account/update/${formData.id}`, updatedFormData);
+            onSave(response.data);
+            onRequestClose();
+        } catch (error) {
+            console.error('更新失敗', error);
+        }
+    };
 
-  return (
-    <ReactModal
-      isOpen={isOpen}
-      onRequestClose={onRequestClose}
-      contentLabel="Edit Record"
-    >
-     <StyledForm onSubmit={handleSubmit}>
+    return (
+        <ReactModal
+            isOpen={isOpen}
+            onRequestClose={onRequestClose}
+            contentLabel="Edit Record"
+        >
+            <StyledForm onSubmit={handleSubmit}>
 
                 <StyledFieldContainer>
                     <StyledLabel htmlFor="amount">金額：</StyledLabel>
@@ -161,42 +179,43 @@ const EditModal = ({ isOpen, onRequestClose, record, onSave }) => {
                 </StyledFieldContainer>
 
                 <StyledFieldContainer>
-                    <StyledLabel htmlFor="hour">時間：</StyledLabel>
-                    <StyledSelect
-                        id="hour"
-                        name="hour"
-                        value={formData.hour}
+                    <StyledLabel htmlFor="time">時間：</StyledLabel>
+                    <StyledTimeContainer>
+                        <StyledSelect
+                            id="hour"
+                            name="hour"
+                            value={formData.hour}
+                            onChange={handleChange}
+                        >
+                            {[...Array(24)].map((_, index) => {
+                                const hour = index.toString().padStart(2, '0');
+                                return <option key={hour} value={hour}>{hour}</option>;
+                            })}
+                        </StyledSelect>
+                        <StyledTimeLabel>：</StyledTimeLabel>
+                        <StyledSelect
+                            id="minute"
+                            name="minute"
+                            value={formData.minute}
+                            onChange={handleChange}
+                        >
+                            {[...Array(60)].map((_, index) => {
+                                const minute = index.toString().padStart(2, '0');
+                                return <option key={minute} value={minute}>{minute}</option>;
+                            })}
+                        </StyledSelect>
+                    </StyledTimeContainer>
+                </StyledFieldContainer>
+                <StyledFieldContainer>
+                    <StyledLabel htmlFor="detail">詳細：</StyledLabel>
+                    <StyledInput
+                        id="detail"
+                        name="detail"
+                        type="text"
+                        value={formData.detail}
                         onChange={handleChange}
-                    >
-                        {[...Array(24)].map((_, index) => {
-                            const hour = index.toString().padStart(2, '0');
-                            return <option key={hour} value={hour}>{hour}</option>;
-                        })}
-                    </StyledSelect>
-                    <StyledLabel htmlFor="minute">：</StyledLabel>
-                    <StyledSelect
-                        id="minute"
-                        name="minute"
-                        value={formData.minute}
-                        onChange={handleChange}
-                    >
-                        {[...Array(60)].map((_, index) => {
-                            const minute = index.toString().padStart(2, '0');
-                            return <option key={minute} value={minute}>{minute}</option>;
-                        })}
-                    </StyledSelect>
-                 </StyledFieldContainer>
-               
-                 <StyledFieldContainer>
-                <StyledLabel htmlFor="detail">詳細：</StyledLabel>
-                <StyledInput
-                    id="detail"
-                    name="detail"
-                    type="text"
-                    value={formData.detail}
-                    onChange={handleChange}
-                    placeholder="輸入詳細內容"
-                />
+                        placeholder="輸入詳細內容"
+                    />
                 </StyledFieldContainer>
 
                 <ButtonContainer>
