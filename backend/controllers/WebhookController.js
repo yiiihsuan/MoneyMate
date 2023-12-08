@@ -113,12 +113,12 @@ const handlePostback = async (event) => {
             const record = await recordAccount(dataToSend);
             console.log('記帳操作成功，記錄：', record);
 
-           
-            //let formattedTime = createdTime.format('YYYY-MM-DD HH:mm:ss');
-
-            let createdTime = new Date(record.created_time).tz('Asia/Taipei');
+            let createdTime = moment(record.created_time).tz('Asia/Taipei');
             let formattedTime = createdTime.format('YYYY-MM-DD HH:mm:ss');
-            //let formattedTime = createdTime.toISOString().replace('T', ' ').substring(0, 19);
+
+
+            // let createdTime = new Date(record.created_time).tz('Asia/Taipei');
+            // let formattedTime = createdTime.toISOString().replace('T', ' ').substring(0, 19);
             console.log('created time while save original',createdTime );
             console.log('time while save',formattedTime );
 
