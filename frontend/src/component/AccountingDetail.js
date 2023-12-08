@@ -24,6 +24,7 @@ const EditButton = styled.button`
   margin-left: auto;
   padding: 5px 10px;
   border: none; 
+  border-radius: 15px;
   //background-color: transparent; 
 
   &:hover {
@@ -37,6 +38,7 @@ const DeleteButton = styled.button`
   padding: 5px 10px;
   background-color: #f44336; 
   color: white; // 白色文字
+  border-radius: 15px;
   border: none;
 
   &:hover {
@@ -52,6 +54,10 @@ const ContentContainer = styled.div`
 
 const TimeTagDetail = styled.div`
   margin-left: 10px;
+`;
+
+const StyledTimeline = styled(Timeline)`
+  margin-left: -15px; 
 `;
 
 
@@ -116,7 +122,7 @@ const handleDelete = async (id) => {
 
   return (
     <TimelineContainer>
-      <Timeline align="alternate">
+     <StyledTimeline align="alternate">
         {data.map((record) => (
           <TimelineItem key={record.id}>
             <TimelineOppositeContent>
@@ -139,7 +145,7 @@ const handleDelete = async (id) => {
             </TimelineContent>
           </TimelineItem>
         ))}
-      </Timeline>
+      </StyledTimeline>
       {isModalOpen && currentRecord && (
         <EditModal
           isOpen={isModalOpen}

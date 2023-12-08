@@ -41,17 +41,7 @@ const RightColumn = styled.div`
 const SummarySection = styled.div`
   flex: 1;
   background-color: #f9f0f0; // 暫定背景色
-  
-  display: flex;
-  justify-content: center;
-  align-items: center;
- 
-`;
-
-const TotalExpenditureText = styled.p`
-  font-size: 1.5em; 
-  text-align: center; // 文字居中
-  margin: 0; 
+  // 添加更多樣式...
 `;
 
 const PieChartPlaceholder = styled.div`
@@ -68,33 +58,13 @@ const PieChartPlaceholder = styled.div`
 const AccountingBook = () => {
   // 在這裡計算總支出和總收入
   // 現在我們只是簡單地將它們設置為0
-  // const totalExpenditure = 0;
-  // const totalIncome = 0;
-
+  const totalExpenditure = 0;
+  const totalIncome = 0;
 
   const { data: records, isLoading, isError } = useQuery({
     queryKey: ['accountData'],
     queryFn: fetchAccountingData,
   });
-
-  let totalExpenditure = 0;
-  //let totalIncome = 0;
-
-    if (!isLoading && !isError) {
-      totalExpenditure = records.reduce((sum, record) => {
-        return sum + record.amount;
-      }, 0);
-    }
-
-
-   /*to do : 分為支出和收入*/ 
-    // totalExpenditure = records.reduce((sum, record) => {
-    //   return record.type === 'expenditure' ? sum + record.amount : sum;
-    // }, 0);
-    // totalIncome = records.reduce((sum, record) => {
-    //   return record.type === 'income' ? sum + record.amount : sum;
-    // }, 0);
- 
   
    // to do...update  data
   //  // 更新記錄
@@ -121,20 +91,23 @@ const AccountingBook = () => {
   return (
     <AccountingBookContainer>
     <SectionHeader>我的記帳本</SectionHeader> 
+    
       <Section>
-        <LeftColumn>
+
           {/* <AccountingTimeline data={mockAccountingData} /> */}
           <AccountingTimeline data={records} onRecordUpdate={handleRecordUpdate} />
-        </LeftColumn>
-        <RightColumn>
+   
+
           <SummarySection>
-            <TotalExpenditureText>總支出: {totalExpenditure} 元</TotalExpenditureText>
+            <p>總支出: {totalExpenditure} 元</p>
+            <p>總收入: {totalIncome} 元</p>
           </SummarySection>
+
           <PieChartPlaceholder>
             {/* 餅圖將放在這裡 */}
             <p>餅圖區域</p>
           </PieChartPlaceholder>
-        </RightColumn>
+
       </Section>
     </AccountingBookContainer>
   );

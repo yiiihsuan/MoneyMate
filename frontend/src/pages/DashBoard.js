@@ -249,10 +249,17 @@ const Dashboard = () => {
       <DashboardContainer>
         <div /> {/* 這是佔位元素 */}
         <LeftColumn>
+
           <MyAccountBook>
             <SectionHeader>我的記帳本<MoreButton>...more</MoreButton></SectionHeader>
-            {/* Content goes here */}
+            
+            <AccountingSummarySection>
+            <SectionHeader>記帳本摘要 </SectionHeader>
+            {/* 摘要内容 */}
+          </AccountingSummarySection>
+
           </MyAccountBook>
+
           <TodayStatistics>
             <SectionHeader>今日統計<MoreButton>...more</MoreButton></SectionHeader>
             {/* Content goes here */}
