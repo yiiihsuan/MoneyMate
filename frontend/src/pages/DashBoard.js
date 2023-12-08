@@ -176,6 +176,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Header from '../component/Header.js';
+//import PieChartComponent from '../component/AccountingPieChart'; 
 
 const DashboardContainer = styled.div`
   display: grid;
@@ -242,6 +243,33 @@ const MyInvestment = styled(Section)`
   flex-grow: 1;
 `;
 
+const AccountingSummarySection = styled.section`
+  background-color: #fff; // 白色背景
+  padding: 20px; // 内部留出一些空间
+  border-radius: 10px; // 轻微的圆角
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); // 细微的阴影，增加立体感
+
+  display: flex; // 使用 Flex 布局
+  flex-direction: row; // 行方向排列子元素
+  align-items: center; // 子元素垂直居中
+  justify-content: space-between; // 子元素间隔均匀分布
+
+  margin: 20px 0; // 与其他元素保持一定的间距
+`;
+
+const SmallSectionHeader = styled.h2`
+  font-size: 1.5em; 
+  color: #333; 
+  text-align: center; 
+  flex: 1; 
+  margin-right: 20px; 
+`;
+
+const PieChartContainer = styled.div`
+  flex: 1; // 使饼图占据一个 flex 项
+  // 您可以在这里添加更多样式，比如设置宽度和高度
+`;
+
 const Dashboard = () => {
   return (
     <>
@@ -252,10 +280,12 @@ const Dashboard = () => {
 
           <MyAccountBook>
             <SectionHeader>我的記帳本<MoreButton>...more</MoreButton></SectionHeader>
-            
+
             <AccountingSummarySection>
-            <SectionHeader>記帳本摘要 </SectionHeader>
-            {/* 摘要内容 */}
+            <SmallSectionHeader>記帳本摘要 </SmallSectionHeader>
+            <PieChartContainer>
+            {/* <PieChartComponent data={pieChartData} /> */}
+            </PieChartContainer>
           </AccountingSummarySection>
 
           </MyAccountBook>

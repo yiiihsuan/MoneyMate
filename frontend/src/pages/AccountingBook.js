@@ -1,10 +1,10 @@
-import React , {useState} from 'react';
+import React  from 'react';
 import { useQuery } from 'react-query';
 import styled from 'styled-components';
-import mockAccountingData from '../mockData/mockAccounting'; 
 //import AccountingTimeline from '../component/AccountingTimeline';
 import AccountingTimeline from '../component/AccountingDetail';
 import { fetchAccountingData } from '../api'; 
+import PieChartComponent from '../component/AccountingPieChart';
 
 
 const AccountingBookContainer = styled.div`
@@ -77,6 +77,19 @@ const AccountingBook = () => {
     queryFn: fetchAccountingData,
   });
 
+  let categoryData = {};
+
+  if (!isLoading && !isError) {
+    records.forEach(record => {
+      categoryData[record.category] = (categoryData[record.category] || 0) + record.amount;
+    });
+  }
+
+  const pieChartData = Object.keys(categoryData).map((key, index) => ({
+    name: key,
+    value: categoryData[key],
+  }));
+
   let totalExpenditure = 0;
   //let totalIncome = 0;
 
@@ -131,8 +144,7 @@ const AccountingBook = () => {
             <TotalExpenditureText>總支出: {totalExpenditure} 元</TotalExpenditureText>
           </SummarySection>
           <PieChartPlaceholder>
-            {/* 餅圖將放在這裡 */}
-            <p>餅圖區域</p>
+            <PieChartComponent data={pieChartData} />
           </PieChartPlaceholder>
         </RightColumn>
       </Section>

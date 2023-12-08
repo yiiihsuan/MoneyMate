@@ -1,8 +1,6 @@
-import React , {useState} from 'react';
+import React  from 'react';
 import { useQuery } from 'react-query';
 import styled from 'styled-components';
-import mockAccountingData from '../mockData/mockAccounting'; 
-//import AccountingTimeline from '../component/AccountingTimeline';
 import AccountingTimeline from '../component/AccountingDetail';
 import { fetchAccountingData } from '../api'; 
 
@@ -27,16 +25,6 @@ const Section = styled.section`
   height: calc(100vh - 20px); // 上下留10px空間
 `;
 
-const LeftColumn = styled.div`
-  flex: 1;
-  overflow-y: auto; // 如果內容很長，需要滾動條
-`;
-
-const RightColumn = styled.div`
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-`;
 
 const SummarySection = styled.div`
   flex: 1;
@@ -91,7 +79,7 @@ const AccountingBook = () => {
   return (
     <AccountingBookContainer>
     <SectionHeader>我的記帳本</SectionHeader> 
-    
+
       <Section>
 
           {/* <AccountingTimeline data={mockAccountingData} /> */}
