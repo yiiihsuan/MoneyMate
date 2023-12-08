@@ -24,7 +24,7 @@ const EditButton = styled.button`
   margin-left: auto;
   padding: 5px 10px;
   border: none; 
-  border-radius: 15px;
+  border-radius: 10px;
   //background-color: transparent; 
 
   &:hover {
@@ -38,7 +38,7 @@ const DeleteButton = styled.button`
   padding: 5px 10px;
   background-color: #f44336; 
   color: white; // 白色文字
-  border-radius: 15px;
+  border-radius: 10px;
   border: none;
 
   &:hover {

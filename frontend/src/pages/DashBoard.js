@@ -244,17 +244,17 @@ const MyInvestment = styled(Section)`
 `;
 
 const AccountingSummarySection = styled.section`
-  background-color: #fff; // 白色背景
-  padding: 20px; // 内部留出一些空间
-  border-radius: 10px; // 轻微的圆角
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); // 细微的阴影，增加立体感
+  background-color: #fff; 
+  padding: 20px; 
+  border-radius: 10px; 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
 
-  display: flex; // 使用 Flex 布局
-  flex-direction: row; // 行方向排列子元素
-  align-items: center; // 子元素垂直居中
-  justify-content: space-between; // 子元素间隔均匀分布
+  display: flex; 
+  flex-direction: row; 
+  align-items: center; 
+  justify-content: space-between; 
 
-  margin: 20px 0; // 与其他元素保持一定的间距
+  margin: 20px 0; 
 `;
 
 const SmallSectionHeader = styled.h2`
@@ -266,8 +266,8 @@ const SmallSectionHeader = styled.h2`
 `;
 
 const PieChartContainer = styled.div`
-  flex: 1; // 使饼图占据一个 flex 项
-  // 您可以在这里添加更多样式，比如设置宽度和高度
+  flex: 1; 
+
 `;
 
 const Dashboard = () => {
@@ -295,6 +295,7 @@ const Dashboard = () => {
             {/* Content goes here */}
           </TodayStatistics>
         </LeftColumn>
+
         <RightColumn>
           <MyAccount>
             <SectionHeader>我的帳戶<MoreButton>...more</MoreButton></SectionHeader>
