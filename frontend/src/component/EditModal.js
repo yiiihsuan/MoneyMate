@@ -66,12 +66,12 @@ const ButtonContainer = styled.div`
 
 const StyledTimeContainer = styled.div`
   display: flex;
-  justify-content: space-between; // 这会使子元素平均分布
-  align-items: center; // 垂直居中对齐
+  justify-content: space-between; 
+  align-items: center;
 
   & > * {
-    flex: 1; // 使所有子元素占据相等的空间
-    margin: 0 5px; // 添加适当的间距
+    flex: 1;
+    margin: 0 5px; 
   }
 `;
 
@@ -109,15 +109,24 @@ const EditModal = ({ isOpen, onRequestClose, record, onSave }) => {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        const currentDate = new Date();
-        const dateString = currentDate.toISOString().split('T')[0]; //  YYYY-MM-DD 格式的日期
-        const timeString = `${formData.hour.padStart(2, '0')}:${formData.minute.padStart(2, '0')}:00`; // 获取 HH:MM:SS 格式的时间
+        // const currentDate = new Date();
+        // const dateString = currentDate.toISOString().split('T')[0]; //  YYYY-MM-DD 格式的日期
+        // const timeString = `${formData.hour.padStart(2, '0')}:${formData.minute.padStart(2, '0')}:00`; 
+        //const dateTime = `${dateString} ${timeString}`;
 
-        const dateTime = `${dateString} ${timeString}`;
+        //const dateTime = `${formData.date} ${formData.hour.padStart(2, '0')}:${formData.minute.padStart(2, '0')}:00`;
+         //console.log('update in frontend date time:' , dateTime);
+     
 
+        const selectedDateTime = moment(`${formData.date} ${formData.hour.padStart(2, '0')}:${formData.minute.padStart(2, '0')}:00`);
+        const adjustedDateTime = selectedDateTime.subtract(8, 'hours').format('YYYY-MM-DD HH:mm:ss');
+        console.log('Adjusted Date Time:', adjustedDateTime);
+
+
+       
         const updatedFormData = {
             ...formData,
-            created_time: dateTime
+            created_time: adjustedDateTime
         };
 
         try {

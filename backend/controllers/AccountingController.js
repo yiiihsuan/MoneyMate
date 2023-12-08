@@ -60,7 +60,7 @@ export async function updateAccounting(req, res) {
         console.log('category:', category);
         console.log('tag:', tag);
         console.log('detail:', detail);
-        console.log('created_time :', created_time);
+        console.log('updated created_time :', created_time);
 
         if (!id ) {
             return res.status(400).json({ message: 'Missing required fields' });

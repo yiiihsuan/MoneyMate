@@ -30,6 +30,9 @@ const Section = styled.section`
 const LeftColumn = styled.div`
   flex: 1;
   overflow-y: auto; // 如果內容很長，需要滾動條
+  text-align: left;
+  padding-left :10px;
+
 `;
 
 const RightColumn = styled.div`
@@ -57,7 +60,6 @@ const TotalExpenditureText = styled.p`
 const PieChartPlaceholder = styled.div`
   flex: 2;
   background-color: #fff;
-  // 添加更多樣式...
   display: flex;
   justify-content: center;
   align-items: center;
