@@ -3,6 +3,9 @@ import { useQuery } from 'react-query';
 import styled from 'styled-components';
 import AccountingTimeline from '../component/AccountingDetail';
 import { fetchAccountingData } from '../api'; 
+import PieChartComponent from '../component/AccountingPieChart';
+
+
 
 
 const AccountingBookContainer = styled.div`
@@ -22,8 +25,14 @@ const SectionHeader = styled.div`
 
 const Section = styled.section`
   display: flex;
+  flex-direction: column;
   height: calc(100vh - 20px); // 上下留10px空間
 `;
+
+// const Section = styled.section`
+//   display: block; // 'flex' +'flex-direction: column;'
+//   height: calc(100vh - 20px); // 上下留10px空间
+// `;
 
 
 const SummarySection = styled.div`
@@ -41,19 +50,45 @@ const PieChartPlaceholder = styled.div`
   align-items: center;
 `;
 
+const TotalExpenditureText = styled.p`
+  font-size: 1.5em; 
+  text-align: center; // 文字居中
+  margin: 0; 
+`;
+
 
 
 const AccountingBook = () => {
   // 在這裡計算總支出和總收入
   // 現在我們只是簡單地將它們設置為0
-  const totalExpenditure = 0;
-  const totalIncome = 0;
+
 
   const { data: records, isLoading, isError } = useQuery({
     queryKey: ['accountData'],
     queryFn: fetchAccountingData,
   });
-  
+
+  let categoryData = {};
+
+  if (!isLoading && !isError) {
+    records.forEach(record => {
+      categoryData[record.category] = (categoryData[record.category] || 0) + record.amount;
+    });
+  }
+
+  const pieChartData = Object.keys(categoryData).map((key, index) => ({
+    name: key,
+    value: categoryData[key],
+  }));
+
+  let totalExpenditure = 0;
+  //let totalIncome = 0;
+
+    if (!isLoading && !isError) {
+      totalExpenditure = records.reduce((sum, record) => {
+        return sum + record.amount;
+      }, 0);
+    }
    // to do...update  data
   //  // 更新記錄
   const handleRecordUpdate = async (updatedRecord) => {
@@ -84,16 +119,14 @@ const AccountingBook = () => {
 
           {/* <AccountingTimeline data={mockAccountingData} /> */}
           <AccountingTimeline data={records} onRecordUpdate={handleRecordUpdate} />
-   
+
 
           <SummarySection>
-            <p>總支出: {totalExpenditure} 元</p>
-            <p>總收入: {totalIncome} 元</p>
+          <TotalExpenditureText>總支出: {totalExpenditure} 元</TotalExpenditureText>
           </SummarySection>
 
           <PieChartPlaceholder>
-            {/* 餅圖將放在這裡 */}
-            <p>餅圖區域</p>
+            <PieChartComponent data={pieChartData} />
           </PieChartPlaceholder>
 
       </Section>
