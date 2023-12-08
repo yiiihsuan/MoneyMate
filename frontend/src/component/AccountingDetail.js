@@ -57,7 +57,7 @@ const TimeTagDetail = styled.div`
 `;
 
 const StyledTimeline = styled(Timeline)`
-  margin-left: -15px; 
+  margin-left: -30px; 
 `;
 
 
