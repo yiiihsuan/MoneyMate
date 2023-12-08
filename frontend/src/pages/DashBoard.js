@@ -176,6 +176,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Header from '../component/Header.js';
+//import PieChartComponent from '../component/AccountingPieChart'; 
 
 const DashboardContainer = styled.div`
   display: grid;
@@ -242,6 +243,33 @@ const MyInvestment = styled(Section)`
   flex-grow: 1;
 `;
 
+const AccountingSummarySection = styled.section`
+  background-color: #fff; 
+  padding: 20px; 
+  border-radius: 10px; 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+
+  display: flex; 
+  flex-direction: row; 
+  align-items: center; 
+  justify-content: space-between; 
+
+  margin: 20px 0; 
+`;
+
+const SmallSectionHeader = styled.h2`
+  font-size: 1.5em; 
+  color: #333; 
+  text-align: center; 
+  flex: 1; 
+  margin-right: 20px; 
+`;
+
+const PieChartContainer = styled.div`
+  flex: 1; 
+
+`;
+
 const Dashboard = () => {
   return (
     <>
@@ -249,15 +277,25 @@ const Dashboard = () => {
       <DashboardContainer>
         <div /> {/* 這是佔位元素 */}
         <LeftColumn>
+
           <MyAccountBook>
             <SectionHeader>我的記帳本<MoreButton>...more</MoreButton></SectionHeader>
-            {/* Content goes here */}
+
+            <AccountingSummarySection>
+            <SmallSectionHeader>記帳本摘要 </SmallSectionHeader>
+            <PieChartContainer>
+            {/* <PieChartComponent data={pieChartData} /> */}
+            </PieChartContainer>
+          </AccountingSummarySection>
+
           </MyAccountBook>
+
           <TodayStatistics>
             <SectionHeader>今日統計<MoreButton>...more</MoreButton></SectionHeader>
             {/* Content goes here */}
           </TodayStatistics>
         </LeftColumn>
+
         <RightColumn>
           <MyAccount>
             <SectionHeader>我的帳戶<MoreButton>...more</MoreButton></SectionHeader>

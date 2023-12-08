@@ -70,6 +70,56 @@ export async function getAccountingById (userId) {
 };
 
 
+export async function updateAccountingById (id, userId, amount, category, tag, detail, created_time) {
+    try {
+        console.log('accounting id in model', id);
+
+        const updateQuery = `
+        UPDATE accountingbook
+        SET amount = ?, category = ?, tag = ?, detail = ?, created_time = ?
+        WHERE id = ? AND userId = ?;
+    `;
+
+        const [updateResult] = await pool.query(updateQuery, [amount, category, tag, detail, created_time,id,userId]);
+
+        console.log('result in model',updateResult);
+
+        if (updateResult.affectedRows > 0 ) {
+            console.log('finish');
+            return updateResult;
+        } else {
+            return null;
+        }
+    } catch (error) {
+        throw error;
+    }
+};
+
+
+export async function deleteAccountingById (id, userId) {
+    try {
+        console.log('accounting id in del model', id);
+
+        const deleteQuery = `
+        DELETE FROM accountingbook
+        WHERE id = ? AND userId = ?;
+    `;
+    
+        const [deleteResult] = await pool.query(deleteQuery, [id,userId]);
+
+        console.log('result in delete model',deleteResult);
+
+        if (deleteResult.affectedRows > 0 ) {
+            console.log('finish');
+            return deleteResult;
+        } else {
+            return null;
+        }
+    } catch (error) {
+        throw error;
+    }
+};
+
    //     const query = `
     //     INSERT INTO accountingbook (amount, tag)
     //     VALUES (?, ?)
