@@ -112,6 +112,7 @@ const handlePostback = async (event) => {
 
             let createdTime = new Date(record.created_time);
             let formattedTime = createdTime.toISOString().replace('T', ' ').substring(0, 19);
+            console.log('time while save',formattedTime );
 
 
             const confirmMessage = {
