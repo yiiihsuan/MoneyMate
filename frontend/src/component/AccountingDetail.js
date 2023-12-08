@@ -93,10 +93,23 @@ const AccountingTimeline = ({ data, onRecordUpdate }) => {
     setIsModalOpen(false);
   };
 
-  const saveRecord = (updatedRecord) => {
-    onRecordUpdate(updatedRecord);
+  // const saveRecord = (updatedRecord) => {
+  //   onRecordUpdate(updatedRecord);
+  //   setIsModalOpen(false);
+  // };
+
+  const saveRecord = async (updatedRecord) => {
+    try {
+      const response = await axios.put(`/api/1.0/account/update/${updatedRecord.id}`, updatedRecord);
+      const updatedData = await axios.get('/api/1.0/account/list');
+      console.log(response.data);
+      onRecordUpdate(updatedData.data.sort((a, b) => new Date(a.created_time) - new Date(b.created_time)));
+    } catch (error) {
+      console.error('更新失敗:', error);
+    }
     setIsModalOpen(false);
   };
+  
 
 
 
@@ -122,12 +135,13 @@ const handleDelete = async (id) => {
 
   return (
     <TimelineContainer>
-     <StyledTimeline align="alternate">
-        {data.map((record) => (
-          <TimelineItem key={record.id}>
-            <TimelineOppositeContent>
-             <AmountText>NT${record.amount}</AmountText>
-            </TimelineOppositeContent>
+      <StyledTimeline align="alternate">
+        {data.sort((a, b) => new Date(a.created_time) - new Date(b.created_time))
+          .map((record) => (
+            <TimelineItem key={record.id}>
+              <TimelineOppositeContent>
+                <AmountText>NT${record.amount}</AmountText>
+              </TimelineOppositeContent>
             <TimelineSeparator>
               <TimelineDot>{chooseIcon(record.category)}</TimelineDot>
               <TimelineConnector />
