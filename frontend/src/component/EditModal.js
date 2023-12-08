@@ -109,7 +109,7 @@ const EditModal = ({ isOpen, onRequestClose, record, onSave }) => {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        // const currentDate = new Date();
+         const currentDate = new Date();
         // const dateString = currentDate.toISOString().split('T')[0]; //  YYYY-MM-DD 格式的日期
         // const timeString = `${formData.hour.padStart(2, '0')}:${formData.minute.padStart(2, '0')}:00`; 
         //const dateTime = `${dateString} ${timeString}`;
@@ -118,7 +118,7 @@ const EditModal = ({ isOpen, onRequestClose, record, onSave }) => {
          //console.log('update in frontend date time:' , dateTime);
      
 
-        const selectedDateTime = moment(`${formData.date} ${formData.hour.padStart(2, '0')}:${formData.minute.padStart(2, '0')}:00`);
+        const selectedDateTime = moment(`${currentDate.toISOString().split('T')[0]} ${formData.hour.padStart(2, '0')}:${formData.minute.padStart(2, '0')}:00`);
         const adjustedDateTime = selectedDateTime.subtract(8, 'hours').format('YYYY-MM-DD HH:mm:ss');
         console.log('Adjusted Date Time:', adjustedDateTime);
 
