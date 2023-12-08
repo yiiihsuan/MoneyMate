@@ -68,12 +68,7 @@ const PieChartPlaceholder = styled.div`
 
 
 const AccountingBook = () => {
-  // 在這裡計算總支出和總收入
-  // 現在我們只是簡單地將它們設置為0
-  // const totalExpenditure = 0;
-  // const totalIncome = 0;
-
-
+  
   const { data: records, isLoading, isError } = useQuery({
     queryKey: ['accountData'],
     queryFn: fetchAccountingData,
@@ -114,6 +109,13 @@ const AccountingBook = () => {
    // to do...update  data
   //  // 更新記錄
   const handleRecordUpdate = async (updatedRecord) => {
+    // try {
+    //   await updateRecordInAPI(updatedRecord); // 假設這是更新API中記錄的函數
+    //   queryClient.invalidateQueries(['accountData']); // 使得特定查詢的緩存無效
+    // } catch (error) {
+    //   console.error('更新記錄失敗:', error);
+    // }
+  };
   //   // 假設您有一個函數來更新API中的記錄
   //   await updateRecordInAPI(updatedRecord);
 
@@ -126,7 +128,7 @@ const AccountingBook = () => {
   //       return record;
   //     });
   //   });
-  };
+ 
 
   if (isLoading) return <div>Loading...</div>; // 加載狀態
   if (isError) return <div>Error fetching data</div>; // 錯誤處理
