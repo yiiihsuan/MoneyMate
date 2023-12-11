@@ -1,11 +1,11 @@
 
-import React from 'react';
+import React,{useState,useEffect} from 'react';
 import styled from 'styled-components';
 import Header from '../component/Header.js';
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { fetchAccountingDataForToday } from '../api'; 
-//import PieChartComponent from '../component/AccountingPieChart'; 
+import PieChartComponent from '../component/AccountingPieChart';
 
 const DashboardContainer = styled.div`
   display: grid;
@@ -124,6 +124,13 @@ const Amount = styled.div`
 font-size: 1.5em; 
 `;
 
+const TotalExpenditureText = styled.p`
+  font-size: 1.5em; 
+  text-align: center; 
+  margin: 0; 
+`;
+
+
 function formatNumber(num) {
   return (num >= 0 ? "+" : "") + num.toLocaleString();
 }
@@ -135,10 +142,33 @@ const Dashboard = () => {
     queryFn: fetchAccountingDataForToday
   });
 
+  const [totalExpenditure, setTotalExpenditure] = useState(0);
+  const [pieChartData, setPieChartData] = useState([]);
+
+  useEffect(() => {
+    if (datas && datas.length > 0) {
+      const newTotalExpenditure = datas.reduce((sum, record) => sum + record.amount, 0);
+      setTotalExpenditure(newTotalExpenditure);
+  
+      let newCategoryData = {};
+      datas.forEach(record => {
+        if (!newCategoryData[record.category]) {
+          newCategoryData[record.category] = 0;
+        }
+        newCategoryData[record.category] += record.amount;
+      });
+      const newPieChartData = Object.keys(newCategoryData).map(key => ({
+        name: key,
+        value: newCategoryData[key],
+      }));
+      setPieChartData(newPieChartData);
+    }
+  }, [datas]);
+
 
   console.log('data fetch today: ' ,datas);
  
-  //const [totalExpenditure, setTotalExpenditure] = useState(0);
+  
 
   const cumulativeProfitLoss = +150000; // 累積損益
   const dailyProfitLoss = -300;       //當日損益
@@ -170,10 +200,10 @@ const Dashboard = () => {
 
             <AccountingSummarySection>
             <SmallSectionHeader>記帳本摘要 </SmallSectionHeader>
-      
-
+            <TotalExpenditureText>總支出: {totalExpenditure} 元</TotalExpenditureText>
+    
             <PieChartContainer>
-            {/* <PieChartComponent data={pieChartData} /> */}
+            <PieChartComponent data={pieChartData} />
             </PieChartContainer>
           </AccountingSummarySection>
 

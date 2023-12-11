@@ -56,7 +56,7 @@ const SummarySection = styled.div`
 
 const TotalExpenditureText = styled.p`
   font-size: 1.5em; 
-  text-align: center; // 文字居中
+  text-align: center; 
   margin: 0; 
 `;
 
