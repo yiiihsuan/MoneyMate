@@ -93,9 +93,12 @@ const AccountingTimeline = ({ data, onRecordUpdate , selectedDate}) => {
 
   const filteredData = data.filter((record) => {
     const recordDate = moment(record.created_time);
+    console.log('recordDate', moment(record.created_time));
     const selectedDateMoment = moment(selectedDate);
+    console.log('selectedDateMoment', moment(selectedDate));
     return recordDate.isSame(selectedDateMoment, 'day');
   });
+
 
   console.log('filter data :',filteredData );
 

@@ -8,6 +8,7 @@ const Calendar = ( onDateChange) => {
     const handleChange = (d) => {
       const [newSelectedDate] = d; // 假設 d 是一個陣列，包含選中的日期
       setSelectedDate(newSelectedDate); // 更新選中的日期
+      console.log('選擇日期:', newSelectedDate);
     };
 
     const oneMonthAgo = new Date();

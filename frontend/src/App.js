@@ -38,7 +38,7 @@ const App = () => {
           <Routes>
             {isInLiff ? (
               <>
-                <Route path="/accountingbook" element={<AccountingBookForLiff />} />
+                <Route path="/accountingbookliff" element={<AccountingBookForLiff />} />
               </>
             ) : (
               <>
