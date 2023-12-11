@@ -13,6 +13,12 @@ ReactModal.setAppElement('#root');
 const TimelineContainer = styled.div`
   height: 100vh;
   overflow-y: auto;
+  padding -left :100px;
+`;
+
+const OppContentContainer = styled.div`
+  display: flex;
+  align-items: center;
 `;
 
 const AmountText = styled.div`
@@ -140,7 +146,6 @@ const handleDelete = async (id) => {
           .map((record) => (
             <TimelineItem key={record.id}>
               <TimelineOppositeContent>
-               <EditButton onClick={() => openEditModal(record)}>修改</EditButton>
                 <AmountText>NT${record.amount}</AmountText>
               </TimelineOppositeContent>
             <TimelineSeparator>
