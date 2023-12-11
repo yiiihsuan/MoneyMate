@@ -179,7 +179,7 @@ const AccountingBook = () => {
         <LeftColumn>
         <Calendar onDateChange={handleDateChange} />
           {/* <AccountingTimeline data={mockAccountingData} /> */}
-          {/* <AccountingTimeline data={records} onRecordUpdate={handleRecordUpdate} selectedDate={selectedDate}  /> */}
+          <AccountingTimeline data={filteredData} onRecordUpdate={handleRecordUpdate} selectedDate={selectedDate}  />
         </LeftColumn>
         <RightColumn>
           <SummarySection>
