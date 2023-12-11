@@ -123,6 +123,7 @@ app.get('/api/1.0/logout', (req, res) => {
 
 app.get('/api/1.0/account/list', isAuthenticated, getAccounting);
 
+
 app.put('/api/1.0/account/update/:id', isAuthenticated, updateAccounting)
 
 app.delete('/api/1.0/account/delete/:id', isAuthenticated, deleteAccounting)

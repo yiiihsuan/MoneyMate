@@ -3,6 +3,8 @@ import React from 'react';
 import styled from 'styled-components';
 import Header from '../component/Header.js';
 import { useNavigate } from 'react-router-dom';
+import { useQuery } from 'react-query';
+import { fetchAccountingDataForToday } from '../api'; 
 //import PieChartComponent from '../component/AccountingPieChart'; 
 
 const DashboardContainer = styled.div`
@@ -127,6 +129,15 @@ function formatNumber(num) {
 }
 
 const Dashboard = () => {
+
+  const { data: datas, isLoading, isError } = useQuery({
+    queryKey: ['accountDataToday'],
+    queryFn: fetchAccountingDataForToday
+  });
+
+
+  console.log('data fetch today: ' ,datas);
+ 
   //const [totalExpenditure, setTotalExpenditure] = useState(0);
 
   const cumulativeProfitLoss = +150000; // 累積損益
@@ -136,8 +147,13 @@ const Dashboard = () => {
   const navigate = useNavigate();
 
   const handleMoreClick = () => {
-    navigate('/accountingbook'); // 導航到 /accountingbook 路徑
+    navigate('/accountingbook'); 
   };
+
+  if (isLoading) return <div>Loading...</div>; // 加載狀態
+  if (isError) return <div>Error fetching data</div>; // 錯誤處理
+
+
 
 
   return (

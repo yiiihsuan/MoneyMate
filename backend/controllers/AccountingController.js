@@ -4,16 +4,27 @@ import {getAccountingById,updateAccountingById,deleteAccountingById} from '../mo
 export async function getAccounting(req, res) {
     try {
         const userId = req.userId; 
+        console.log('req date is:',req.query.date);
         console.log('userId in getAccountingBYID controller',userId )
 
+
+        if(!req.query.date){
         const accountingData = await getAccountingById(userId);
         console.log('accountingData:',accountingData);
-
+    
         if (accountingData) {
             res.status(200).json(accountingData);
         } else {
             res.status(404).json({ message: 'Accounting data not found' });
         }
+
+    }
+    else{
+
+        console.log('req date is:',req.query.date);
+
+        
+    }
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Internal server error' });
