@@ -8,7 +8,7 @@ export async function getBankbookList(req, res) {
         console.log('userId in getBankbookList controller',userId )
         const bankbookData =await getBankBookByuserId(userId)
   
-    if (accountingData) {
+    if (bankbookData ) {
         res.status(200).json(bankbookData);
     } else {
         res.status(404).json({ message: 'Accounting data not found' });
