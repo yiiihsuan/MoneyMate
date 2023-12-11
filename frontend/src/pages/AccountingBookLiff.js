@@ -5,11 +5,11 @@ import AccountingTimeline from '../component/AccountingDetail';
 import { fetchAccountingData } from '../api'; 
 import PieChartComponent from '../component/AccountingPieChart';
 
-
-
-
 const AccountingBookContainer = styled.div`
-  margin-left: 60px; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 60px;
   margin-right: 10px;
   margin-top: 10px;
   margin-bottom: 10px;
@@ -17,46 +17,44 @@ const AccountingBookContainer = styled.div`
 
 const SectionHeader = styled.div`
   font-size: 1.2em;
-  background-color: #f9e0e0; /* 粉紅色背景 */
+  background-color: #f9e0e0;
   color: #333;
   padding: 10px;
   border-radius: 8px;
-`;
-
-const Section = styled.section`
-  display: flex;
-  flex-direction: column;
-  height: calc(100vh - 20px); // 上下留10px空間
+  margin-bottom: 10px;
 `;
 
 const AccountingTimelineSection = styled.div`
-  flex: 1; 
-  overflow-y: auto; // 如果內容很長，需要滾動條
+  flex: 1;
+  width: 100%;
+  overflow-y: auto;
   text-align: left;
   padding-left: 10px;
+  margin-bottom: 10px; 
 `;
 
 const SummarySection = styled.div`
   flex: 1;
-  background-color: #f9f0f0; // 暫定背景色
-  // 添加更多樣式...
+  background-color: #f9f0f0;
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 10px; 
 `;
 
 const PieChartPlaceholder = styled.div`
-  flex: 2;
+  flex: 1; 
   background-color: #fff;
-  // 添加更多樣式...
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
 `;
 
 const TotalExpenditureText = styled.p`
-  font-size: 1.5em; 
-  text-align: center; // 文字居中
-  margin: 0; 
+  font-size: 1.5em;
+  text-align: center;
+  margin: 0;
 `;
-
 
 
 const AccountingBook = () => {
@@ -113,7 +111,7 @@ const AccountingBook = () => {
     <AccountingBookContainer>
     <SectionHeader>我的記帳本</SectionHeader> 
 
-      <Section>
+
         <AccountingTimelineSection>
         <AccountingTimeline data={records} onRecordUpdate={handleRecordUpdate} />
         </AccountingTimelineSection>
@@ -127,7 +125,7 @@ const AccountingBook = () => {
             <PieChartComponent data={pieChartData} />
           </PieChartPlaceholder>
 
-      </Section>
+
     </AccountingBookContainer>
   );
 };

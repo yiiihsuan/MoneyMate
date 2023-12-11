@@ -84,11 +84,20 @@ const AccountingTimeline = ({ data, onRecordUpdate , selectedDate}) => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   /* for selected time*/
+  // const filteredData = data.filter((record) => {
+  //   const recordDate = moment(record.created_time).format('YYYY-MM-DD');
+  //   const selectedDateString = moment(selectedDate).format('YYYY-MM-DD');
+    
+  //   return recordDate === selectedDateString;
+  // });
+
   const filteredData = data.filter((record) => {
-    const recordDate = moment(record.created_time).format('YYYY-MM-DD');
-    const selectedDateString = moment(selectedDate).format('YYYY-MM-DD');
-    return recordDate === selectedDateString;
+    const recordDate = moment(record.created_time);
+    const selectedDateMoment = moment(selectedDate);
+    return recordDate.isSame(selectedDateMoment, 'day');
   });
+
+  console.log('filter data :',filteredData );
 
 
   const openEditModal = (record) => {
