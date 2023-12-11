@@ -82,7 +82,9 @@ const AccountingBook = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [filteredData, setFilteredData] = useState([]);
   //records.filter((record) => moment(record.created_time).format('YYYY-MM-DD') === moment(new Date()).format('YYYY-MM-DD'))
-
+  let categoryData = {};
+  let totalExpenditure = 0;
+  //let totalIncome = 0;
 
   //default value
   useEffect(() => { 
@@ -93,7 +95,7 @@ const AccountingBook = () => {
             moment(record.created_time).format('YYYY-MM-DD') ===
             moment(new Date()).format('YYYY-MM-DD')
         )
-      );
+      );      
     }
   }, [records, isLoading, isError]);
 
@@ -112,15 +114,6 @@ const AccountingBook = () => {
     console.log('now data outside :', filteredData);
   }, [filteredData]);
 
-
-  if (!isLoading && !isError) {
-    setFilteredData(records.filter((record) => moment(record.created_time).format('YYYY-MM-DD') === moment(new Date()).format('YYYY-MM-DD')));
-  }
-
-
-
-  let categoryData = {};
-
   if (!isLoading && !isError) {
     records.forEach(record => {
         const recordDate = moment(record.created_time).format('YYYY-MM-DD');
@@ -134,14 +127,13 @@ const AccountingBook = () => {
     value: categoryData[key],
   }));
 
-  let totalExpenditure = 0;
-  //let totalIncome = 0;
 
     if (!isLoading && !isError) {
       totalExpenditure = records.reduce((sum, record) => {
         return sum + record.amount;
       }, 0);
     }
+
 
 
    /*to do : 分為支出和收入*/ 
