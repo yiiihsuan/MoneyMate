@@ -10,14 +10,14 @@ const PieChartComponent = ({ data }) => {
   }));
 
   return (
-    <PieChart width={400} height={400}>
+    <PieChart width={300} height={300}>
       <Pie
         dataKey="value"
         isAnimationActive={true}
         data={pieChartData}
-        cx={200}
-        cy={200}
-        outerRadius={80}
+        cx={150}
+        cy={150}
+        outerRadius={100}
         fill="#8884d8"
         label
       >

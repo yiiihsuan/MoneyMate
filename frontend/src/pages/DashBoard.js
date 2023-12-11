@@ -79,17 +79,13 @@ const MyInvestment = styled(Section)`
 
 const AccountingSummarySection = styled.section`
   background-color: #f0f0f0;
-  padding: 20px; 
+  padding: 3%; 
   border-radius: 10px; 
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
-  background:
-
   display: flex; 
   flex-direction: row; 
   align-items: center; 
   justify-content: space-between; 
-
-  margin: 20px 0; 
+  margin: 3px 0; 
 `;
 
 const SmallSectionHeader = styled.h2`
@@ -203,7 +199,7 @@ const Dashboard = () => {
               </SectionHeader>
 
             <AccountingSummarySection>
-            <SmallSectionHeader>記帳本摘要 </SmallSectionHeader>
+            {/* <SmallSectionHeader>記帳本摘要 </SmallSectionHeader> */}
             <TotalExpenditureText>今日花費: {totalExpenditure} 元</TotalExpenditureText>
     
             <PieChartContainer>
