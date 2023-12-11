@@ -80,7 +80,7 @@ const AccountingBook = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   
 
-  const filteredData = [];
+  let filteredData = [];
 
   const handleDateChange = (newDate) => {
     setSelectedDate(newDate);
@@ -105,6 +105,8 @@ const AccountingBook = () => {
     console.log('now data:', filteredData);
 
   };
+
+  console.log('now data outside:', filteredData);
 
 
 

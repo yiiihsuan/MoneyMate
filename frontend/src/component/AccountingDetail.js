@@ -83,15 +83,6 @@ const AccountingTimeline = ({ data, onRecordUpdate , selectedDate}) => {
   const [currentRecord, setCurrentRecord] = useState(null);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
-  /* for selected time*/
-  // const filteredData = data.filter((record) => {
-  //   const recordDate = moment(record.created_time).format('YYYY-MM-DD');
-  //   const selectedDateString = moment(selectedDate).format('YYYY-MM-DD');
-    
-  //   return recordDate === selectedDateString;
-  // });
-
- 
 
   const openEditModal = (record) => {
     setCurrentRecord(record);
