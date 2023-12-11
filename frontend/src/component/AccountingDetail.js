@@ -57,10 +57,7 @@ const TimeTagDetail = styled.div`
 `;
 
 const StyledTimeline = styled(Timeline)`
-&& { // Increase specificity to override Material-UI styles
-  padding-left: -60px;
-  margin-left: 0;
-}
+   margin-left: 0px;
 `;
 
 
@@ -143,6 +140,7 @@ const handleDelete = async (id) => {
           .map((record) => (
             <TimelineItem key={record.id}>
               <TimelineOppositeContent>
+               <EditButton onClick={() => openEditModal(record)}>修改</EditButton>
                 <AmountText>NT${record.amount}</AmountText>
               </TimelineOppositeContent>
             <TimelineSeparator>
@@ -156,7 +154,6 @@ const handleDelete = async (id) => {
                   <div>{record.tag}</div>
                   <div>{record.detail}</div>
                 </TimeTagDetail>
-                <EditButton onClick={() => openEditModal(record)}>修改</EditButton>
                 <DeleteButton onClick={() => openDeleteModal(record)}>刪除</DeleteButton>
               </ContentContainer>
             </TimelineContent>
