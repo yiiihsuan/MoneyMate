@@ -80,15 +80,30 @@ const AccountingBook = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   
 
-  // const filteredData = data.filter((record) => {
-  //   const recordDate = moment(record.created_time).format('YYYY-MM-DD');
-  //   const selectedDateString = moment(selectedDate).format('YYYY-MM-DD');
-  //   return recordDate === selectedDateString;
-  // });
+  const filteredData = [];
 
   const handleDateChange = (newDate) => {
     setSelectedDate(newDate);
+    const formattedDate = `${newDate.getFullYear()}-${newDate.getMonth() + 1}-${newDate.getDate()}`;
+    console.log('accountingbook format date:', formattedDate);
+
+    filteredData.length = 0; 
+
+    records.forEach((record) => {
+      const recordDate = moment(record.created_time).format('YYYY-MM-DD');
+      console.log('recordDate:',recordDate);
+      console.log('formatted:',formattedDate);
+      if (recordDate === formattedDate) {
+        filteredData.push(record); 
+      }
+    });
+
+    console.log('now data:', filteredData);
+
   };
+
+
+
 
   let categoryData = {};
 
@@ -160,7 +175,7 @@ const AccountingBook = () => {
         <LeftColumn>
         <Calendar onDateChange={handleDateChange} />
           {/* <AccountingTimeline data={mockAccountingData} /> */}
-          <AccountingTimeline data={records} onRecordUpdate={handleRecordUpdate} selectedDate={selectedDate}  />
+          {/* <AccountingTimeline data={records} onRecordUpdate={handleRecordUpdate} selectedDate={selectedDate}  /> */}
         </LeftColumn>
         <RightColumn>
           <SummarySection>
