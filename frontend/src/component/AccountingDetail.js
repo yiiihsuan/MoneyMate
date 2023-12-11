@@ -13,7 +13,7 @@ ReactModal.setAppElement('#root');
 const TimelineContainer = styled.div`
   height: 100vh;
   overflow-y: auto;
-  padding -left :100px;
+  padding -left :-200px;
 `;
 
 const OppContentContainer = styled.div`
