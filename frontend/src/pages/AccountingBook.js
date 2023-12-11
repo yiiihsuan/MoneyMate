@@ -80,7 +80,7 @@ const AccountingBook = () => {
 
 
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const [filteredData, setFilteredData] = useState(records.filter((record) => moment(record.created_time).format('YYYY-MM-DD') === moment(new Date()).format('YYYY-MM-DD')));
+  const [filteredData, setFilteredData] = useState([]);
   //records.filter((record) => moment(record.created_time).format('YYYY-MM-DD') === moment(new Date()).format('YYYY-MM-DD'))
 
   const handleDateChange = (newDate) => {
