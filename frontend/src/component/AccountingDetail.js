@@ -58,7 +58,7 @@ const TimeTagDetail = styled.div`
 
 const StyledTimeline = styled(Timeline)`
 && { // Increase specificity to override Material-UI styles
-  padding-left: 0;
+  padding-left: -60px;
   margin-left: 0;
 }
 `;
