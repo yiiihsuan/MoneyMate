@@ -2,6 +2,7 @@ import React from "react";
 import { Datepicker } from "@meinefinsternis/react-horizontal-date-picker";
 import { zhTW } from "date-fns/locale";
 
+
 const Calendar = ( onDateChange) => {
     const [selectedDate, setSelectedDate] = React.useState(new Date());
 
@@ -9,7 +10,21 @@ const Calendar = ( onDateChange) => {
       const [newSelectedDate] = d; // 假設 d 是一個陣列，包含選中的日期
       setSelectedDate(newSelectedDate); // 更新選中的日期
       console.log('選擇日期:', newSelectedDate);
+      console.log('選擇的年:', newSelectedDate.getFullYear());
+      console.log('選擇的月:', newSelectedDate.getMonth());
+      console.log('選擇的日:', newSelectedDate.getDate());
+
     };
+
+    // const handleChange = (d) => {
+    //     const newSelectedDate = d; // 假設 d 是一個陣列，包含選中的日期
+    //     const dateObject = new Date(newSelectedDate);
+    //     const formattedDate = dateObject.toISOString().split('T')[0];
+    //     console.log('選擇日期:', newSelectedDate);
+    //     console.log('選擇日期format:', formattedDate);
+    //     setSelectedDate(formattedDate);
+    //   };
+
 
     const oneMonthAgo = new Date();
     oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);

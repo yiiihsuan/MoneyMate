@@ -78,29 +78,24 @@ const AccountingBook = () => {
   });
 
   const [selectedDate, setSelectedDate] = useState(new Date());
+  
 
-
+  // const filteredData = data.filter((record) => {
+  //   const recordDate = moment(record.created_time).format('YYYY-MM-DD');
+  //   const selectedDateString = moment(selectedDate).format('YYYY-MM-DD');
+  //   return recordDate === selectedDateString;
+  // });
 
   const handleDateChange = (newDate) => {
     setSelectedDate(newDate);
   };
 
-  const filteredData = records.filter((record) => {
-    const recordDate = moment(record.created_time);
-    console.log('recordDate', moment(record.created_time));
-    const selectedDateMoment = moment(selectedDate);
-    console.log('selectedDateMoment', moment(selectedDate));
-    return recordDate.isSame(selectedDateMoment, 'day');
-  });
-
-
-  console.log('filter data :',filteredData );
-
-
   let categoryData = {};
 
   if (!isLoading && !isError) {
     records.forEach(record => {
+        const recordDate = moment(record.created_time).format('YYYY-MM-DD');
+        console.log('資料庫時間:', recordDate);
       categoryData[record.category] = (categoryData[record.category] || 0) + record.amount;
     });
   }
@@ -165,7 +160,7 @@ const AccountingBook = () => {
         <LeftColumn>
         <Calendar onDateChange={handleDateChange} />
           {/* <AccountingTimeline data={mockAccountingData} /> */}
-          <AccountingTimeline data={filteredData} onRecordUpdate={handleRecordUpdate} selectedDate={selectedDate}  />
+          <AccountingTimeline data={records} onRecordUpdate={handleRecordUpdate} selectedDate={selectedDate}  />
         </LeftColumn>
         <RightColumn>
           <SummarySection>
