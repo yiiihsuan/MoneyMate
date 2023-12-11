@@ -78,7 +78,7 @@ const AccountingBook = () => {
   });
 
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const [filteredData, setFilteredData] = useState([]);
+  const [filteredData, setFilteredData] = useState(records.filter((record) => moment(record.created_time).format('YYYY-MM-DD') === moment(new Date()).format('YYYY-MM-DD')));
   
 
   const handleDateChange = (newDate) => {
@@ -90,32 +90,13 @@ const AccountingBook = () => {
     //const formattedDate = `${newDate.getFullYear()}-${newDate.getMonth() + 1}-${newDate.getDate()}`;
     console.log('accountingbook format date:', formattedDate);
 
-    // setFilteredData([]);
     setFilteredData(records.filter((record) => moment(record.created_time).format('YYYY-MM-DD') === formattedDate));
 
-
-    // records.forEach((record) => {
-    //   const recordDate = moment(record.created_time).format('YYYY-MM-DD');
-
-    //   // if (recordDate === formattedDate) {
-    //   //   setFilteredData([...filteredData, record]); 
-    //   // }
-
-    //   if (recordDate === formattedDate) {
-    //     setFilteredData((prevData) => [...prevData, record]);
-    //   }
-
-    // });
   };
 
   useEffect(() => {
-    // 在 filteredData 更新後執行其他操作
     console.log('now data outside :', filteredData);
   }, [filteredData]);
-
-
-  //console.log('now data outside:', filteredData);
-
 
 
 
