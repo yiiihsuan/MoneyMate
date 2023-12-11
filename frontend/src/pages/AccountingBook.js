@@ -1,4 +1,4 @@
-import React,{useState}  from 'react';
+import React,{useState,useEffect}  from 'react';
 import { useQuery } from 'react-query';
 import styled from 'styled-components';
 //import AccountingTimeline from '../component/AccountingTimeline';
@@ -78,9 +78,8 @@ const AccountingBook = () => {
   });
 
   const [selectedDate, setSelectedDate] = useState(new Date());
+  const [filteredData, setFilteredData] = useState([]);
   
-
-  let filteredData = [];
 
   const handleDateChange = (newDate) => {
     setSelectedDate(newDate);
@@ -91,20 +90,19 @@ const AccountingBook = () => {
     //const formattedDate = `${newDate.getFullYear()}-${newDate.getMonth() + 1}-${newDate.getDate()}`;
     console.log('accountingbook format date:', formattedDate);
 
-    filteredData.length = 0; 
-
     records.forEach((record) => {
       const recordDate = moment(record.created_time).format('YYYY-MM-DD');
-      console.log('recordDate:',recordDate);
-      console.log('formatted:',formattedDate);
       if (recordDate === formattedDate) {
-        filteredData.push(record); 
+        setFilteredData((prevData) => [...prevData, record]);
       }
     });
-
-    console.log('now data:', filteredData);
-
   };
+
+  useEffect(() => {
+    // 在 filteredData 更新後執行其他操作
+    console.log('now data outside :', filteredData);
+  }, [filteredData]);
+
 
   console.log('now data outside:', filteredData);
 
@@ -181,7 +179,7 @@ const AccountingBook = () => {
         <LeftColumn>
         <Calendar onDateChange={handleDateChange} />
           {/* <AccountingTimeline data={mockAccountingData} /> */}
-          <AccountingTimeline data={filteredData} onRecordUpdate={handleRecordUpdate} selectedDate={selectedDate}  />
+          {/* <AccountingTimeline data={filteredData} onRecordUpdate={handleRecordUpdate} selectedDate={selectedDate}  /> */}
         </LeftColumn>
         <RightColumn>
           <SummarySection>
