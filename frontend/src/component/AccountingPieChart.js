@@ -13,7 +13,7 @@ const PieChartComponent = ({ data }) => {
     <PieChart width={400} height={400}>
       <Pie
         dataKey="value"
-        isAnimationActive={false}
+        isAnimationActive={true}
         data={pieChartData}
         cx={200}
         cy={200}

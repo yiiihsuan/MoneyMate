@@ -82,8 +82,10 @@ const AccountingBook = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [filteredData, setFilteredData] = useState([]);
   const [totalExpenditure, setTotalExpenditure] = useState(0);
+  const [pieChartData, setPieChartData] = useState([]);
+
   //records.filter((record) => moment(record.created_time).format('YYYY-MM-DD') === moment(new Date()).format('YYYY-MM-DD'))
-  let categoryData = {};
+  //let categoryData = {};
   //let totalExpenditure = 0;
   //let totalIncome = 0;
 
@@ -121,23 +123,40 @@ const AccountingBook = () => {
   useEffect(() => {
     console.log('now data outside :', filteredData);
     const newTotalExpenditure = filteredData.reduce((sum, record) => sum + record.amount, 0);
+
     setTotalExpenditure(newTotalExpenditure);
+
+    let newCategoryData = {};
+
+    filteredData.forEach(record => {
+      if (!newCategoryData[record.category]) {
+        newCategoryData[record.category] = 0;
+      }
+      newCategoryData[record.category] += record.amount;
+    });
+  
+    const newPieChartData = Object.keys(newCategoryData).map((key) => ({
+      name: key,
+      value: newCategoryData[key],
+    }));
+  
+    setPieChartData(newPieChartData);
   }, [filteredData]);
 
  
 
-  if (!isLoading && !isError) {
-    records.forEach(record => {
-        const recordDate = moment(record.created_time).format('YYYY-MM-DD');
-        console.log('資料庫時間:', recordDate);
-      categoryData[record.category] = (categoryData[record.category] || 0) + record.amount;
-    });
-  }
+  // if (!isLoading && !isError) {
+  //   records.forEach(record => {
+  //       const recordDate = moment(record.created_time).format('YYYY-MM-DD');
+  //       console.log('資料庫時間:', recordDate);
+  //     categoryData[record.category] = (categoryData[record.category] || 0) + record.amount;
+  //   });
+  // }
 
-  const pieChartData = Object.keys(categoryData).map((key, index) => ({
-    name: key,
-    value: categoryData[key],
-  }));
+  // const pieChartData = Object.keys(categoryData).map((key, index) => ({
+  //   name: key,
+  //   value: categoryData[key],
+  // }));
 
 
     // if (!isLoading && !isError) {
