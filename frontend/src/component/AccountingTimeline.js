@@ -7,7 +7,7 @@ import { FaUtensils, FaCar, FaTshirt, FaHome, FaGamepad, FaQuestionCircle } from
 
 
 const TimelineContainer = styled.div`
-  height: 100vh;
+  height: auto;
   overflow-y: auto;
 `;
 

@@ -87,7 +87,6 @@ const AccountingSummarySection = styled.section`
   align-items: center; 
   justify-content: space-between; 
   margin: 3px 0; 
-  max-height: calc(100vh * 0.6); 
   overflow: auto; 
 `;
 
