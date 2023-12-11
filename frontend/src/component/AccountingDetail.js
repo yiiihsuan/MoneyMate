@@ -91,17 +91,7 @@ const AccountingTimeline = ({ data, onRecordUpdate , selectedDate}) => {
   //   return recordDate === selectedDateString;
   // });
 
-  const filteredData = data.filter((record) => {
-    const recordDate = moment(record.created_time);
-    console.log('recordDate', moment(record.created_time));
-    const selectedDateMoment = moment(selectedDate);
-    console.log('selectedDateMoment', moment(selectedDate));
-    return recordDate.isSame(selectedDateMoment, 'day');
-  });
-
-
-  console.log('filter data :',filteredData );
-
+ 
 
   const openEditModal = (record) => {
     setCurrentRecord(record);
@@ -155,7 +145,7 @@ const handleDelete = async (id) => {
   return (
     <TimelineContainer>
       <StyledTimeline align="alternate">
-        { filteredData.sort((a, b) => new Date(a.created_time) - new Date(b.created_time))
+        { data.sort((a, b) => new Date(a.created_time) - new Date(b.created_time))
           .map((record) => (
             <TimelineItem key={record.id}>
               <TimelineOppositeContent>

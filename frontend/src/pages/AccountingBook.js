@@ -7,6 +7,7 @@ import { fetchAccountingData } from '../api';
 import PieChartComponent from '../component/AccountingPieChart';
 import Calendar from '../component/Calendar';
 //import { Datepicker } from "@meinefinsternis/react-horizontal-date-picker";
+import moment from 'moment';
 
 
 const AccountingBookContainer = styled.div`
@@ -84,6 +85,18 @@ const AccountingBook = () => {
     setSelectedDate(newDate);
   };
 
+  const filteredData = records.filter((record) => {
+    const recordDate = moment(record.created_time);
+    console.log('recordDate', moment(record.created_time));
+    const selectedDateMoment = moment(selectedDate);
+    console.log('selectedDateMoment', moment(selectedDate));
+    return recordDate.isSame(selectedDateMoment, 'day');
+  });
+
+
+  console.log('filter data :',filteredData );
+
+
   let categoryData = {};
 
   if (!isLoading && !isError) {
@@ -152,7 +165,7 @@ const AccountingBook = () => {
         <LeftColumn>
         <Calendar onDateChange={handleDateChange} />
           {/* <AccountingTimeline data={mockAccountingData} /> */}
-          <AccountingTimeline data={records} onRecordUpdate={handleRecordUpdate} selectedDate={selectedDate}  />
+          <AccountingTimeline data={filteredData} onRecordUpdate={handleRecordUpdate} selectedDate={selectedDate}  />
         </LeftColumn>
         <RightColumn>
           <SummarySection>
