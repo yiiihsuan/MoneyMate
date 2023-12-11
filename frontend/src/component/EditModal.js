@@ -77,7 +77,7 @@ const StyledTimeContainer = styled.div`
 
 
 const StyledTimeLabel = styled.span`
-  flex: 0; // 防止冒号伸展
+  flex: 0; 
   text-align: center;
   margin: 0 5px;
 `;
@@ -160,6 +160,14 @@ const EditModal = ({ isOpen, onRequestClose, record, onSave }) => {
             isOpen={isOpen}
             onRequestClose={onRequestClose}
             contentLabel="Edit Record"
+            style={{
+                overlay: {
+                  zIndex: 1000, //higher z-index
+                },
+                content: {
+                  //more format
+                },
+              }}
         >
             <StyledForm onSubmit={handleSubmit}>
 
