@@ -13,7 +13,6 @@ ReactModal.setAppElement('#root');
 const TimelineContainer = styled.div`
   height: 100vh;
   overflow-y: auto;
-  margin-left:-50px;
 `;
 
 const AmountText = styled.div`
@@ -58,7 +57,10 @@ const TimeTagDetail = styled.div`
 `;
 
 const StyledTimeline = styled(Timeline)`
-   margin-left: 0px;
+&& { // Increase specificity to override Material-UI styles
+  padding-left: 0;
+  margin-left: 0;
+}
 `;
 
 
