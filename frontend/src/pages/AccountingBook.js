@@ -90,11 +90,19 @@ const AccountingBook = () => {
     //const formattedDate = `${newDate.getFullYear()}-${newDate.getMonth() + 1}-${newDate.getDate()}`;
     console.log('accountingbook format date:', formattedDate);
 
+    setFilteredData([]);
+
     records.forEach((record) => {
       const recordDate = moment(record.created_time).format('YYYY-MM-DD');
+
       if (recordDate === formattedDate) {
-        setFilteredData((prevData) => [...prevData, record]);
+        setFilteredData([...filteredData, record]); 
       }
+
+      // if (recordDate === formattedDate) {
+      //   setFilteredData((prevData) => [...prevData, record]);
+      // }
+      
     });
   };
 
@@ -179,7 +187,7 @@ const AccountingBook = () => {
         <LeftColumn>
         <Calendar onDateChange={handleDateChange} />
           {/* <AccountingTimeline data={mockAccountingData} /> */}
-          {/* <AccountingTimeline data={filteredData} onRecordUpdate={handleRecordUpdate} selectedDate={selectedDate}  /> */}
+          <AccountingTimeline data={filteredData} onRecordUpdate={handleRecordUpdate} selectedDate={selectedDate}  />
         </LeftColumn>
         <RightColumn>
           <SummarySection>
