@@ -84,7 +84,11 @@ const AccountingBook = () => {
 
   const handleDateChange = (newDate) => {
     setSelectedDate(newDate);
-    const formattedDate = `${newDate.getFullYear()}-${newDate.getMonth() + 1}-${newDate.getDate()}`;
+    const year = newDate.getFullYear();
+    const month = (newDate.getMonth() + 1).toString().padStart(2, '0'); 
+    const date = newDate.getDate().toString().padStart(2, '0'); 
+    const formattedDate = `${year}-${month}-${date}`;
+    //const formattedDate = `${newDate.getFullYear()}-${newDate.getMonth() + 1}-${newDate.getDate()}`;
     console.log('accountingbook format date:', formattedDate);
 
     filteredData.length = 0; 
