@@ -83,6 +83,20 @@ const AccountingBook = () => {
   const [filteredData, setFilteredData] = useState([]);
   //records.filter((record) => moment(record.created_time).format('YYYY-MM-DD') === moment(new Date()).format('YYYY-MM-DD'))
 
+
+  //default value
+  useEffect(() => { 
+    if (!isLoading && !isError) {
+      setFilteredData(
+        records.filter(
+          (record) =>
+            moment(record.created_time).format('YYYY-MM-DD') ===
+            moment(new Date()).format('YYYY-MM-DD')
+        )
+      );
+    }
+  }, [records, isLoading, isError]);
+
   const handleDateChange = (newDate) => {
     setSelectedDate(newDate);
     const year = newDate.getFullYear();
@@ -91,9 +105,7 @@ const AccountingBook = () => {
     const formattedDate = `${year}-${month}-${date}`;
     //const formattedDate = `${newDate.getFullYear()}-${newDate.getMonth() + 1}-${newDate.getDate()}`;
     console.log('accountingbook format date:', formattedDate);
-
     setFilteredData(records.filter((record) => moment(record.created_time).format('YYYY-MM-DD') === formattedDate));
-
   };
 
   useEffect(() => {
