@@ -5,6 +5,7 @@ import Header from '../component/Header.js';
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { fetchAccountingDataForToday } from '../api'; 
+import AccountingTimeline from '../component/AccountingTimeline';
 import PieChartComponent from '../component/AccountingPieChart';
 
 const DashboardContainer = styled.div`
@@ -201,17 +202,17 @@ const Dashboard = () => {
             <AccountingSummarySection>
             {/* <SmallSectionHeader>記帳本摘要 </SmallSectionHeader> */}
             <TotalExpenditureText>今日花費: {totalExpenditure} 元</TotalExpenditureText>
+            <AccountingTimeline data={datas} />
     
-            <PieChartContainer>
-            <PieChartComponent data={pieChartData} />
-            </PieChartContainer>
           </AccountingSummarySection>
 
           </MyAccountBook>
 
           <TodayStatistics>
             <SectionHeader>今日統計<MoreButton>...more</MoreButton></SectionHeader>
-            {/* Content goes here */}
+            <PieChartContainer>
+            <PieChartComponent data={pieChartData} />
+            </PieChartContainer>
           </TodayStatistics>
         </LeftColumn>
 
