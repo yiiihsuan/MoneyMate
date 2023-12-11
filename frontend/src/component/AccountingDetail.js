@@ -13,7 +13,6 @@ ReactModal.setAppElement('#root');
 const TimelineContainer = styled.div`
   height: 100vh;
   overflow-y: auto;
-  padding -left :-200px;
 `;
 
 const OppContentContainer = styled.div`
@@ -27,7 +26,7 @@ const AmountText = styled.div`
 `;
 
 const EditButton = styled.button`
-  margin-left: auto;
+  margin-right: auto;
   padding: 5px 10px;
   border: none; 
   border-radius: 10px;
@@ -146,7 +145,10 @@ const handleDelete = async (id) => {
           .map((record) => (
             <TimelineItem key={record.id}>
               <TimelineOppositeContent>
+              <OppContentContainer > 
+                <EditButton onClick={() => openEditModal(record)}>修改</EditButton>
                 <AmountText>NT${record.amount}</AmountText>
+                </OppContentContainer>
               </TimelineOppositeContent>
             <TimelineSeparator>
               <TimelineDot>{chooseIcon(record.category)}</TimelineDot>
