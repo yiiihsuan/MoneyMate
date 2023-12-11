@@ -13,6 +13,7 @@ ReactModal.setAppElement('#root');
 const TimelineContainer = styled.div`
   height: 100vh;
   overflow-y: auto;
+  margin-left:30px;
 `;
 
 const AmountText = styled.div`
