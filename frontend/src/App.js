@@ -6,6 +6,7 @@ import HomePage from './pages/HomePage';
 import Dashboard from './pages/DashBoard.js';
 import AccountingBook from './pages/AccountingBook.js';
 import AccountingBookForLiff from './pages/AccountingBookLiff.js';
+import  SaveStock from './pages/SaveStock.js';
 import Calendar from './component/Calendar.js';
 import liff from '@line/liff';
 //<Route path="/" element={<HomePageForLiff />} />
@@ -39,6 +40,7 @@ const App = () => {
             {isInLiff ? (
               <>
                 <Route path="/accountingbookliff" element={<AccountingBookForLiff />} />
+                <Route path="/savestock" element={<SaveStock />} />
               </>
             ) : (
               <>
@@ -47,6 +49,7 @@ const App = () => {
                 <Route path="/accountingbook" element={<AccountingBook />} />
                 <Route path="/accountingbookliff" element={<AccountingBookForLiff />} />
                 <Route path="/Calendar" element={<Calendar />} />
+                <Route path="/savestock" element={<SaveStock />} />
               </>
             )}
           </Routes>

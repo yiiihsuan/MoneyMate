@@ -21,4 +21,24 @@ export const fetchAccountingData= async () => {
     }
     return response.json();
   };
+
+
+  //fetchUserAccountData -> 給userId
+  export const fetchUserAccountData = async () => {
+    const response = await fetch(`${BASE_URL}/bankbook/list`);
+  
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return response.json();
+  };
+
+
+
+  //fetchUserCardData
+
+
+
+
+  //fetchUserStockData
   
