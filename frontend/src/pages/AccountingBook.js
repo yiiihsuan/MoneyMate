@@ -90,20 +90,22 @@ const AccountingBook = () => {
     //const formattedDate = `${newDate.getFullYear()}-${newDate.getMonth() + 1}-${newDate.getDate()}`;
     console.log('accountingbook format date:', formattedDate);
 
-    setFilteredData([]);
+    // setFilteredData([]);
+    setFilteredData(records.filter((record) => moment(record.created_time).format('YYYY-MM-DD') === formattedDate));
 
-    records.forEach((record) => {
-      const recordDate = moment(record.created_time).format('YYYY-MM-DD');
 
-      if (recordDate === formattedDate) {
-        setFilteredData([...filteredData, record]); 
-      }
+    // records.forEach((record) => {
+    //   const recordDate = moment(record.created_time).format('YYYY-MM-DD');
 
-      // if (recordDate === formattedDate) {
-      //   setFilteredData((prevData) => [...prevData, record]);
-      // }
-      
-    });
+    //   // if (recordDate === formattedDate) {
+    //   //   setFilteredData([...filteredData, record]); 
+    //   // }
+
+    //   if (recordDate === formattedDate) {
+    //     setFilteredData((prevData) => [...prevData, record]);
+    //   }
+
+    // });
   };
 
   useEffect(() => {
@@ -112,7 +114,7 @@ const AccountingBook = () => {
   }, [filteredData]);
 
 
-  console.log('now data outside:', filteredData);
+  //console.log('now data outside:', filteredData);
 
 
 
