@@ -10,7 +10,7 @@ const StyledModalContent = styled.div`
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  width: 500px;
+  width: 100%
   margin: 0 auto;
 `;
 

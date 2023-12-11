@@ -1,10 +1,13 @@
-import React  from 'react';
+import React,{useState,useEffect}  from 'react';
 import { useQuery } from 'react-query';
 import styled from 'styled-components';
 //import AccountingTimeline from '../component/AccountingTimeline';
 import AccountingTimeline from '../component/AccountingDetail';
 import { fetchAccountingData } from '../api'; 
 import PieChartComponent from '../component/AccountingPieChart';
+import Calendar from '../component/Calendar';
+//import { Datepicker } from "@meinefinsternis/react-horizontal-date-picker";
+import moment from 'moment';
 
 
 const AccountingBookContainer = styled.div`
@@ -74,27 +77,94 @@ const AccountingBook = () => {
     queryFn: fetchAccountingData,
   });
 
-  let categoryData = {};
 
-  if (!isLoading && !isError) {
-    records.forEach(record => {
-      categoryData[record.category] = (categoryData[record.category] || 0) + record.amount;
-    });
-  }
 
-  const pieChartData = Object.keys(categoryData).map((key, index) => ({
-    name: key,
-    value: categoryData[key],
-  }));
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [filteredData, setFilteredData] = useState([]);
+  const [totalExpenditure, setTotalExpenditure] = useState(0);
+  const [pieChartData, setPieChartData] = useState([]);
 
-  let totalExpenditure = 0;
+  //records.filter((record) => moment(record.created_time).format('YYYY-MM-DD') === moment(new Date()).format('YYYY-MM-DD'))
+  //let categoryData = {};
+  //let totalExpenditure = 0;
   //let totalIncome = 0;
 
+  //default value
+  useEffect(() => { 
     if (!isLoading && !isError) {
-      totalExpenditure = records.reduce((sum, record) => {
-        return sum + record.amount;
-      }, 0);
+
+      setFilteredData(
+        records.filter(
+          (record) =>
+            moment(record.created_time).format('YYYY-MM-DD') ===
+            moment(new Date()).format('YYYY-MM-DD')
+        )
+      ); 
+      
+      
     }
+  }, [records, isLoading, isError]);
+
+  const handleDateChange = (newDate) => {
+    setSelectedDate(newDate);
+    const year = newDate.getFullYear();
+    const month = (newDate.getMonth() + 1).toString().padStart(2, '0'); 
+    const date = newDate.getDate().toString().padStart(2, '0'); 
+    const formattedDate = `${year}-${month}-${date}`;
+    console.log('accountingbook format date:', formattedDate);
+    //setFilteredData(records.filter((record) => moment(record.created_time).format('YYYY-MM-DD') === formattedDate));
+    const newData = records.filter((record) => moment(record.created_time).format('YYYY-MM-DD') === formattedDate);
+    setFilteredData(newData);
+
+    const newTotalExpenditure = newData.reduce((sum, record) => sum + record.amount, 0);
+    setTotalExpenditure(newTotalExpenditure); 
+  };
+
+  useEffect(() => {
+    console.log('now data outside :', filteredData);
+    const newTotalExpenditure = filteredData.reduce((sum, record) => sum + record.amount, 0);
+
+    setTotalExpenditure(newTotalExpenditure);
+
+    let newCategoryData = {};
+
+    filteredData.forEach(record => {
+      if (!newCategoryData[record.category]) {
+        newCategoryData[record.category] = 0;
+      }
+      newCategoryData[record.category] += record.amount;
+    });
+  
+    const newPieChartData = Object.keys(newCategoryData).map((key) => ({
+      name: key,
+      value: newCategoryData[key],
+    }));
+  
+    setPieChartData(newPieChartData);
+  }, [filteredData]);
+
+ 
+
+  // if (!isLoading && !isError) {
+  //   records.forEach(record => {
+  //       const recordDate = moment(record.created_time).format('YYYY-MM-DD');
+  //       console.log('資料庫時間:', recordDate);
+  //     categoryData[record.category] = (categoryData[record.category] || 0) + record.amount;
+  //   });
+  // }
+
+  // const pieChartData = Object.keys(categoryData).map((key, index) => ({
+  //   name: key,
+  //   value: categoryData[key],
+  // }));
+
+
+    // if (!isLoading && !isError) {
+    //   totalExpenditure = records.reduce((sum, record) => {
+    //     return sum + record.amount;
+    //   }, 0);
+    // }
+
 
 
    /*to do : 分為支出和收入*/ 
@@ -140,8 +210,9 @@ const AccountingBook = () => {
     <SectionHeader>我的記帳本</SectionHeader> 
       <Section>
         <LeftColumn>
+        <Calendar onDateChange={handleDateChange} />
           {/* <AccountingTimeline data={mockAccountingData} /> */}
-          <AccountingTimeline data={records} onRecordUpdate={handleRecordUpdate} />
+          <AccountingTimeline data={filteredData} onRecordUpdate={handleRecordUpdate} selectedDate={selectedDate}  />
         </LeftColumn>
         <RightColumn>
           <SummarySection>

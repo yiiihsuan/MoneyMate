@@ -15,13 +15,18 @@ const TimelineContainer = styled.div`
   overflow-y: auto;
 `;
 
+const OppContentContainer = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
 const AmountText = styled.div`
   font-size: 1.2em;  
   font-weight: bold; 
 `;
 
 const EditButton = styled.button`
-  margin-left: auto;
+  margin-right: auto;
   padding: 5px 10px;
   border: none; 
   border-radius: 10px;
@@ -57,7 +62,7 @@ const TimeTagDetail = styled.div`
 `;
 
 const StyledTimeline = styled(Timeline)`
-  margin-left: -30px; 
+   margin-left: 0px;
 `;
 
 
@@ -78,7 +83,7 @@ const chooseIcon = (category) => {
   }
 };
 
-const AccountingTimeline = ({ data, onRecordUpdate }) => {
+const AccountingTimeline = ({ data, onRecordUpdate , selectedDate}) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentRecord, setCurrentRecord] = useState(null);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -136,11 +141,14 @@ const handleDelete = async (id) => {
   return (
     <TimelineContainer>
       <StyledTimeline align="alternate">
-        {data.sort((a, b) => new Date(a.created_time) - new Date(b.created_time))
+        { data.sort((a, b) => new Date(a.created_time) - new Date(b.created_time))
           .map((record) => (
             <TimelineItem key={record.id}>
               <TimelineOppositeContent>
+              <OppContentContainer > 
+                <EditButton onClick={() => openEditModal(record)}>修改</EditButton>
                 <AmountText>NT${record.amount}</AmountText>
+                </OppContentContainer>
               </TimelineOppositeContent>
             <TimelineSeparator>
               <TimelineDot>{chooseIcon(record.category)}</TimelineDot>
@@ -153,7 +161,6 @@ const handleDelete = async (id) => {
                   <div>{record.tag}</div>
                   <div>{record.detail}</div>
                 </TimeTagDetail>
-                <EditButton onClick={() => openEditModal(record)}>修改</EditButton>
                 <DeleteButton onClick={() => openDeleteModal(record)}>刪除</DeleteButton>
               </ContentContainer>
             </TimelineContent>
