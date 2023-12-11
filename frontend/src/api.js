@@ -24,7 +24,7 @@ export const fetchAccountingData= async () => {
 
 
   //fetchUserAccountData -> 給userId
-  export const fetchUserAccountData = async () => {
+  export const fetchUserBankData = async () => {
     const response = await fetch(`${BASE_URL}/bankbook/list`);
   
     if (!response.ok) {

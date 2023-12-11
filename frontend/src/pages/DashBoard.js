@@ -4,9 +4,10 @@ import styled from 'styled-components';
 import Header from '../component/Header.js';
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from 'react-query';
-import { fetchAccountingDataForToday } from '../api'; 
+import { fetchAccountingDataForToday ,fetchUserBankData} from '../api'; 
 import AccountingTimeline from '../component/AccountingTimeline';
 import PieChartComponent from '../component/AccountingPieChart';
+import BankPieComponent from '../component/BankBookPieChart';
 
 const DashboardContainer = styled.div`
   display: grid;
@@ -144,6 +145,11 @@ const Dashboard = () => {
     queryFn: fetchAccountingDataForToday
   });
 
+  const { data: userBankData, isLoading: isUserBankLoading, isError: isUserBankError } = useQuery({
+    queryKey: ['userBankData'],
+    queryFn: fetchUserBankData
+  });
+
   const [totalExpenditure, setTotalExpenditure] = useState(0);
   const [pieChartData, setPieChartData] = useState([]);
 
@@ -182,11 +188,15 @@ const Dashboard = () => {
     navigate('/accountingbook'); 
   };
 
-  if (isLoading) return <div>Loading...</div>; // 加載狀態
-  if (isError) return <div>Error fetching data</div>; // 錯誤處理
+  // Loading 狀態處理
+  if (isLoading || isUserBankLoading) {
+    return <div>Loading...</div>;
+  }
 
-
-
+  // Error 狀態處理
+  if (isError || isUserBankError) {
+    return <div>Error loading data</div>;
+  }
 
   return (
     <>
@@ -220,7 +230,7 @@ const Dashboard = () => {
         <RightColumn>
           <MyAccount>
             <SectionHeader>我的帳戶<MoreButton>...more</MoreButton></SectionHeader>
-            {/* Content goes here */}
+            <BankPieComponent data={userBankData} />
           </MyAccount>
           <MyCreditCard>
             <SectionHeader>我的信用卡<MoreButton>...more</MoreButton></SectionHeader>
