@@ -77,8 +77,10 @@ const AccountingBook = () => {
     queryFn: fetchAccountingData,
   });
 
+
+
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const [filteredData, setFilteredData] = useState([]);
+  const [filteredData, setFilteredData] = useState(records.filter((record) => moment(record.created_time).format('YYYY-MM-DD') === moment(new Date()).format('YYYY-MM-DD')));
   //records.filter((record) => moment(record.created_time).format('YYYY-MM-DD') === moment(new Date()).format('YYYY-MM-DD'))
 
   const handleDateChange = (newDate) => {
@@ -97,6 +99,11 @@ const AccountingBook = () => {
   useEffect(() => {
     console.log('now data outside :', filteredData);
   }, [filteredData]);
+
+
+  if (!isLoading && !isError) {
+    setFilteredData(records.filter((record) => moment(record.created_time).format('YYYY-MM-DD') === moment(new Date()).format('YYYY-MM-DD')));
+  }
 
 
 
