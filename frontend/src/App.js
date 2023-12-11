@@ -6,6 +6,7 @@ import HomePage from './pages/HomePage';
 import Dashboard from './pages/DashBoard.js';
 import AccountingBook from './pages/AccountingBook.js';
 import AccountingBookForLiff from './pages/AccountingBookLiff.js';
+import Calendar from './component/Calendar.js';
 import liff from '@line/liff';
 //<Route path="/" element={<HomePageForLiff />} />
 //<Route path="/dashboard" element={<DashboardForLiff />} />
@@ -44,6 +45,7 @@ const App = () => {
                 <Route path="/" element={<HomePage />} />
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/accountingbook" element={<AccountingBook />} />
+                <Route path="/Calendar" element={<Calendar />} />
               </>
             )}
           </Routes>

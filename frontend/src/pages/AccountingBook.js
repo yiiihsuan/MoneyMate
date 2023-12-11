@@ -1,10 +1,12 @@
-import React  from 'react';
+import React,{useState}  from 'react';
 import { useQuery } from 'react-query';
 import styled from 'styled-components';
 //import AccountingTimeline from '../component/AccountingTimeline';
 import AccountingTimeline from '../component/AccountingDetail';
 import { fetchAccountingData } from '../api'; 
 import PieChartComponent from '../component/AccountingPieChart';
+import Calendar from '../component/Calendar';
+//import { Datepicker } from "@meinefinsternis/react-horizontal-date-picker";
 
 
 const AccountingBookContainer = styled.div`
@@ -74,6 +76,14 @@ const AccountingBook = () => {
     queryFn: fetchAccountingData,
   });
 
+  const [selectedDate, setSelectedDate] = useState(new Date());
+
+
+
+  const handleDateChange = (newDate) => {
+    setSelectedDate(newDate);
+  };
+
   let categoryData = {};
 
   if (!isLoading && !isError) {
@@ -140,8 +150,9 @@ const AccountingBook = () => {
     <SectionHeader>我的記帳本</SectionHeader> 
       <Section>
         <LeftColumn>
+        <Calendar onDateChange={handleDateChange} />
           {/* <AccountingTimeline data={mockAccountingData} /> */}
-          <AccountingTimeline data={records} onRecordUpdate={handleRecordUpdate} />
+          <AccountingTimeline data={records} onRecordUpdate={handleRecordUpdate} selectedDate={selectedDate}  />
         </LeftColumn>
         <RightColumn>
           <SummarySection>

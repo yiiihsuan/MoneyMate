@@ -78,10 +78,17 @@ const chooseIcon = (category) => {
   }
 };
 
-const AccountingTimeline = ({ data, onRecordUpdate }) => {
+const AccountingTimeline = ({ data, onRecordUpdate , selectedDate}) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentRecord, setCurrentRecord] = useState(null);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+
+  /* for selected time*/
+  const filteredData = data.filter((record) => {
+    const recordDate = moment(record.created_time).format('YYYY-MM-DD');
+    const selectedDateString = moment(selectedDate).format('YYYY-MM-DD');
+    return recordDate === selectedDateString;
+  });
 
 
   const openEditModal = (record) => {
@@ -136,7 +143,7 @@ const handleDelete = async (id) => {
   return (
     <TimelineContainer>
       <StyledTimeline align="alternate">
-        {data.sort((a, b) => new Date(a.created_time) - new Date(b.created_time))
+        { filteredData.sort((a, b) => new Date(a.created_time) - new Date(b.created_time))
           .map((record) => (
             <TimelineItem key={record.id}>
               <TimelineOppositeContent>

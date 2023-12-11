@@ -29,11 +29,12 @@ const Section = styled.section`
   height: calc(100vh - 20px); // 上下留10px空間
 `;
 
-// const Section = styled.section`
-//   display: block; // 'flex' +'flex-direction: column;'
-//   height: calc(100vh - 20px); // 上下留10px空间
-// `;
-
+const AccountingTimelineSection = styled.div`
+  flex: 1; 
+  overflow-y: auto; // 如果內容很長，需要滾動條
+  text-align: left;
+  padding-left: 10px;
+`;
 
 const SummarySection = styled.div`
   flex: 1;
@@ -59,10 +60,7 @@ const TotalExpenditureText = styled.p`
 
 
 const AccountingBook = () => {
-  // 在這裡計算總支出和總收入
-  // 現在我們只是簡單地將它們設置為0
-
-
+ 
   const { data: records, isLoading, isError } = useQuery({
     queryKey: ['accountData'],
     queryFn: fetchAccountingData,
@@ -116,9 +114,9 @@ const AccountingBook = () => {
     <SectionHeader>我的記帳本</SectionHeader> 
 
       <Section>
-
-          {/* <AccountingTimeline data={mockAccountingData} /> */}
-          <AccountingTimeline data={records} onRecordUpdate={handleRecordUpdate} />
+        <AccountingTimelineSection>
+        <AccountingTimeline data={records} onRecordUpdate={handleRecordUpdate} />
+        </AccountingTimelineSection>
 
 
           <SummarySection>
