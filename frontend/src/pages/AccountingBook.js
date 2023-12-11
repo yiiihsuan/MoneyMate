@@ -81,21 +81,25 @@ const AccountingBook = () => {
 
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [filteredData, setFilteredData] = useState([]);
+  const [totalExpenditure, setTotalExpenditure] = useState(0);
   //records.filter((record) => moment(record.created_time).format('YYYY-MM-DD') === moment(new Date()).format('YYYY-MM-DD'))
   let categoryData = {};
-  let totalExpenditure = 0;
+  //let totalExpenditure = 0;
   //let totalIncome = 0;
 
   //default value
   useEffect(() => { 
     if (!isLoading && !isError) {
+
       setFilteredData(
         records.filter(
           (record) =>
             moment(record.created_time).format('YYYY-MM-DD') ===
             moment(new Date()).format('YYYY-MM-DD')
         )
-      );      
+      ); 
+      
+      
     }
   }, [records, isLoading, isError]);
 
@@ -106,12 +110,21 @@ const AccountingBook = () => {
     const date = newDate.getDate().toString().padStart(2, '0'); 
     const formattedDate = `${year}-${month}-${date}`;
     console.log('accountingbook format date:', formattedDate);
-    setFilteredData(records.filter((record) => moment(record.created_time).format('YYYY-MM-DD') === formattedDate));
+    //setFilteredData(records.filter((record) => moment(record.created_time).format('YYYY-MM-DD') === formattedDate));
+    const newData = records.filter((record) => moment(record.created_time).format('YYYY-MM-DD') === formattedDate);
+    setFilteredData(newData);
+
+    const newTotalExpenditure = newData.reduce((sum, record) => sum + record.amount, 0);
+    setTotalExpenditure(newTotalExpenditure); 
   };
 
   useEffect(() => {
     console.log('now data outside :', filteredData);
+    const newTotalExpenditure = filteredData.reduce((sum, record) => sum + record.amount, 0);
+    setTotalExpenditure(newTotalExpenditure);
   }, [filteredData]);
+
+ 
 
   if (!isLoading && !isError) {
     records.forEach(record => {
@@ -127,11 +140,11 @@ const AccountingBook = () => {
   }));
 
 
-    if (!isLoading && !isError) {
-      totalExpenditure = records.reduce((sum, record) => {
-        return sum + record.amount;
-      }, 0);
-    }
+    // if (!isLoading && !isError) {
+    //   totalExpenditure = records.reduce((sum, record) => {
+    //     return sum + record.amount;
+    //   }, 0);
+    // }
 
 
 
