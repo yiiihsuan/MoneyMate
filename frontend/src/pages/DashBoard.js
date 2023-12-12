@@ -9,6 +9,7 @@ import AccountingTimeline from '../component/AccountingTimeline';
 import PieChartComponent from '../component/AccountingPieChart';
 import BankPieComponent from '../component/BankBookPieChart';
 import CardPieChart from '../component/CardPieChart';
+import LoadingSpinner from '../component/LoadingSpinner';
 
 const DashboardContainer = styled.div`
   display: grid;
@@ -215,10 +216,13 @@ const Dashboard = () => {
     navigate('/accountingbook');
   };
 
-  // Loading 狀態處理
+
   if (isLoading || isUserBankLoading || isUserCardLoading) {
-    return <div>Loading...</div>;
+    return (
+      <LoadingSpinner />
+    );
   }
+
 
   // Error 狀態處理
   if (isError || isUserBankError || isUserCardError) {
