@@ -1,10 +1,10 @@
 
-import React,{useState,useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Header from '../component/Header.js';
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from 'react-query';
-import { fetchAccountingDataForToday ,fetchUserBankData,fetchUserCardData} from '../api'; 
+import { fetchAccountingDataForToday, fetchUserBankData, fetchUserCardData } from '../api';
 import AccountingTimeline from '../component/AccountingTimeline';
 import PieChartComponent from '../component/AccountingPieChart';
 import BankPieComponent from '../component/BankBookPieChart';
@@ -162,7 +162,7 @@ const Dashboard = () => {
     if (datas && datas.length > 0) {
       const newTotalExpenditure = datas.reduce((sum, record) => sum + record.amount, 0);
       setTotalExpenditure(newTotalExpenditure);
-  
+
       let newCategoryData = {};
       datas.forEach(record => {
         if (!newCategoryData[record.category]) {
@@ -179,9 +179,9 @@ const Dashboard = () => {
   }, [datas]);
 
 
-  console.log('data fetch today: ' ,datas);
- 
-  
+  console.log('data fetch today: ', datas);
+
+
 
   const cumulativeProfitLoss = +150000; // 累積損益
   const dailyProfitLoss = -300;       //當日損益
@@ -190,16 +190,16 @@ const Dashboard = () => {
   const navigate = useNavigate();
 
   const handleMoreClick = () => {
-    navigate('/accountingbook'); 
+    navigate('/accountingbook');
   };
 
   // Loading 狀態處理
-  if (isLoading || isUserBankLoading ||isUserCardLoading) {
+  if (isLoading || isUserBankLoading || isUserCardLoading) {
     return <div>Loading...</div>;
   }
 
   // Error 狀態處理
-  if (isError || isUserBankError||isUserCardError) {
+  if (isError || isUserBankError || isUserCardError) {
     return <div>Error loading data</div>;
   }
 
@@ -207,27 +207,27 @@ const Dashboard = () => {
     <>
       <Header />
       <DashboardContainer>
-        <div /> 
+        <div />
         <LeftColumn>
 
           <MyAccountBook>
             <SectionHeader>我的記帳本
-             <MoreButton onClick={handleMoreClick}>...more</MoreButton>
-              </SectionHeader>
+              <MoreButton onClick={handleMoreClick}>...more</MoreButton>
+            </SectionHeader>
 
             <AccountingSummarySection>
-            {/* <SmallSectionHeader>記帳本摘要 </SmallSectionHeader> */}
-            <TotalExpenditureText>今日花費: {totalExpenditure} 元</TotalExpenditureText>
-            <AccountingTimeline data={datas} />
-    
-          </AccountingSummarySection>
+              {/* <SmallSectionHeader>記帳本摘要 </SmallSectionHeader> */}
+              <TotalExpenditureText>今日花費: {totalExpenditure} 元</TotalExpenditureText>
+              <AccountingTimeline data={datas} />
+
+            </AccountingSummarySection>
 
           </MyAccountBook>
 
           <TodayStatistics>
             <SectionHeader>今日統計<MoreButton>...more</MoreButton></SectionHeader>
             <PieChartContainer>
-            <PieChartComponent data={pieChartData} />
+              <PieChartComponent data={pieChartData} />
             </PieChartContainer>
           </TodayStatistics>
         </LeftColumn>
@@ -240,22 +240,24 @@ const Dashboard = () => {
           <MyCreditCard>
 
             <SectionHeader>我的信用卡<MoreButton>...more</MoreButton></SectionHeader>
-            {/* Content goes here */}
+            <div>
+              <h3>總帳單金額: {cardData.data.total}元</h3>
+              <h3>總回饋金額: {cardData.data.reward.toFixed(2)}元</h3>
+              <BankPieComponent data={cardData.data.list} />
+            </div>
           </MyCreditCard>
           <MyInvestment>
             <SectionHeader>我的投資<MoreButton>...more</MoreButton></SectionHeader>
             <InvestmentSection>
-            <Cumulative value={cumulativeProfitLoss}>
-            累積損益: {formatNumber(cumulativeProfitLoss)} 元
-          </Cumulative>
+              <Cumulative value={cumulativeProfitLoss}>
+                累積損益: {formatNumber(cumulativeProfitLoss)} 元
+              </Cumulative>
               <Today value={dailyProfitLoss}>
                 當日損益: {dailyProfitLoss.toLocaleString()} 元
               </Today>
               <Amount>
                 庫存餘額: {inventoryBalance.toLocaleString()} 元
               </Amount>
-
-
             </InvestmentSection>
           </MyInvestment>
         </RightColumn>
