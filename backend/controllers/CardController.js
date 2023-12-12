@@ -22,8 +22,8 @@ export async function getCardBillList(req, res) {
             const responseData = {
                 data: {
                     list: cardBillList,
-                    total: Number(TotalData.total_amount),  
-                    reward:Number(RewardData.total_expected_reward)
+                    total: TotalData.total_amount,
+                    reward: RewardData.total_expected_reward
                 }
             };
             console.log('reseponse data is :',responseData );
