@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 
 const FormWrapper = styled.div`
-  background-color: #f5f5f5; /* You can replace this with the color from your style image */
+  background-color: #f5f5f5; 
   padding: 20px;
   border-radius: 10px;
-  max-width: 500px;
+  max-width: auto;
+  max-height: auto;
   margin: auto;
 `;
 
@@ -40,7 +41,7 @@ const SubmitButton = styled.button`
   padding: 10px 15px;
   border-radius: 5px;
   border: none;
-  background-color: #000; /* Replace with your preferred color */
+  background-color: #000; 
   color: white;
   cursor: pointer;
 `;
