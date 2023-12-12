@@ -75,6 +75,8 @@ const MyCreditCard = styled(Section)`
   background-color: #f0f0f0;
 `;
 
+
+
 const MyInvestment = styled(Section)`
   flex-grow: 1;
   background-color: #f0f0f0;
@@ -109,6 +111,7 @@ const PieChartContainer = styled.div`
 
 `;
 
+
 const InvestmentSection = styled.section`
   margin-left: 5%;
   margin-top: 5%;
@@ -128,10 +131,28 @@ const Amount = styled.div`
 font-size: 1.5em; 
 `;
 
+
+
 const TotalExpenditureText = styled.p`
   font-size: 1.5em; 
   text-align: center; 
   margin: 0; 
+`;
+
+const CardContentContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+`;
+
+const CardInfo = styled.div`
+  flex: 1;
+`;
+
+const ChartContainer = styled.div`
+  flex: 1;
+  padding: 10px;
 `;
 
 
@@ -241,12 +262,15 @@ const Dashboard = () => {
           <MyCreditCard>
 
             <SectionHeader>我的信用卡<MoreButton>...more</MoreButton></SectionHeader>
-            <div>
-              <h3>總帳單金額: {cardData.data.total}元</h3>
-              <h3>總回饋金額: {cardData.data.reward.toFixed(2)}元</h3>
-              {/* <h3>清單: {cardData.data.list}</h3> */}
-              <CardPieChart data={cardData.data.list} />
-            </div>
+            <CardContentContainer>
+              <CardInfo>
+                <h3>總帳單金額: <br />{cardData.data.total}元</h3>
+                <h3>總回饋金額: <br />{cardData.data.reward.toFixed(2)}元</h3>
+              </CardInfo>
+              <ChartContainer>
+                <CardPieChart data={cardData.data.list} />
+              </ChartContainer>
+            </CardContentContainer>
           </MyCreditCard>
 
           <MyInvestment>
