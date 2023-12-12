@@ -4,12 +4,16 @@ import { PieChart, Pie, Cell, Tooltip, Legend } from 'recharts';
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#AF19FF'];
 
 const CardpieChart = ({ data }) => {
+
+    console.log('data in cardpie:', data);
   
   const pieChartData = data.map((card, index) => ({
     name: card.card_name,
     value: card.amount,
     fill: COLORS[index % COLORS.length],
   }));
+
+  console.log('piechartdata',pieChartData);
 
   return (
     <PieChart width={200} height={200}>
