@@ -52,7 +52,6 @@ const App = () => {
                 <Route path="/accountingbookliff" element={<AccountingBookForLiff />} />
                 <Route path="/Calendar" element={<Calendar />} />
                 <Route path="/savestock" element={<SaveStock />} />
-                <Route path="/cardpiechart" element={<CardpieChart />} />
                 <Route path="/example" element={<Example/>} />
                 
                 
