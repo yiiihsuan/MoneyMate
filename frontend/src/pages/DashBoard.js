@@ -8,7 +8,7 @@ import { fetchAccountingDataForToday, fetchUserBankData, fetchUserCardData } fro
 import AccountingTimeline from '../component/AccountingTimeline';
 import PieChartComponent from '../component/AccountingPieChart';
 import BankPieComponent from '../component/BankBookPieChart';
-import CardPieChart from '../component/BankBookPieChart';
+import CardPieChart from '../component/CardPieChart';
 
 const DashboardContainer = styled.div`
   display: grid;
