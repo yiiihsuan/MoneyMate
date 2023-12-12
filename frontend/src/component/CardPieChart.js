@@ -18,9 +18,10 @@ const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#AF19FF'];
 
 const  CardpieChart= ({ data }) =>  (
 
+  
   <PieChart width={200} height={200}>
     <Pie
-      data={data}
+      data={data.list}
       cx={100}
       cy={100}
       labelLine={false}

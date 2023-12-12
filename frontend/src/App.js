@@ -9,7 +9,8 @@ import AccountingBookForLiff from './pages/AccountingBookLiff.js';
 import  SaveStock from './pages/SaveStock.js';
 import Calendar from './component/Calendar.js';
 import liff from '@line/liff';
-import PieChartExample from './component/CardPieChart.js';
+import CardpieChart from './component/CardPieChart.js';
+import Example  from './pages/piechartest.js';
 //<Route path="/" element={<HomePageForLiff />} />
 //<Route path="/dashboard" element={<DashboardForLiff />} />
 
@@ -51,7 +52,9 @@ const App = () => {
                 <Route path="/accountingbookliff" element={<AccountingBookForLiff />} />
                 <Route path="/Calendar" element={<Calendar />} />
                 <Route path="/savestock" element={<SaveStock />} />
-                <Route path="/cardpiechart" element={<PieChartExample />} />
+                <Route path="/cardpiechart" element={<CardpieChart />} />
+                <Route path="/example" element={<Example/>} />
+                
                 
               </>
             )}
