@@ -1,5 +1,5 @@
 
-
+import { pool } from './util.js';
 
 export async function getCardBillByuserId (userId) {
     try {
@@ -29,7 +29,7 @@ export async function getCardBillByuserId (userId) {
     }
 };
 
-import { pool } from './util.js';
+
 
 
 
@@ -41,7 +41,7 @@ export async function getCardTotalByuserId (userId) {
         const selectQuery = `
         SELECT SUM(cb.amount) AS total_amount
         FROM cardbill cb
-        WHERE cb.user_id = ？;
+        WHERE cb.user_id = ?;
         
         `;
 
@@ -72,7 +72,7 @@ export async function getRewardByuserId (userId) {
         JOIN
             card c ON cb.card_id = c.id
         WHERE
-            cb.user_id = 'U18d0d1340edcc1a781971b7905bd99fd';
+            cb.user_id = ? ;
         
         `;
 
