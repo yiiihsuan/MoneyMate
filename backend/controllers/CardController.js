@@ -22,11 +22,11 @@ export async function getCardBillList(req, res) {
             const responseData = {
                 data: {
                     list: cardBillList,
-                    total: TotalData,  
-                    reward: RewardData
+                    total: Number(TotalData.total_amount),  
+                    reward:Number(RewardData.total_expected_reward)
                 }
             };
-            console.log('reseponse dat is :',responseData );
+            console.log('reseponse data is :',responseData );
             res.status(200).json(responseData);
         } else {
             res.status(404).json({ message: 'Accounting data not found' });
