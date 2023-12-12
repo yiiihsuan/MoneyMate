@@ -14,37 +14,45 @@ const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
   gap: 10px;
+  font-size: 1.1rem;
 `;
 
 const StyledLabel = styled.label`
   margin-bottom: 5px;
+  font-size: 1.1rem;
 `;
 
 const StyledSelect = styled.select`
   padding: 5px;
   border-radius: 5px;
-  border: 1px solid #ccc; /* Replace with your preferred color */
+  border: 1px solid #ccc; 
+  font-size: 1.1rem;
 `;
 
 const StyledInput = styled.input`
   padding: 5px;
   border-radius: 5px;
-  border: 1px solid #ccc; /* Replace with your preferred color */
+  border: 1px solid #ccc; 
+  font-size: 1.1rem;
 `;
 
 const RadioGroup = styled.div`
   display: flex;
   gap: 10px;
+  font-size: 1.1rem;
 `;
 
 const SubmitButton = styled.button`
-  padding: 10px 15px;
-  border-radius: 5px;
-  border: none;
-  background-color: #000; 
-  color: white;
-  cursor: pointer;
+padding: 12px 20px;
+border-radius: 5px;
+border: none;
+background-color: #000;
+color: white;
+cursor: pointer;
+font-size: 1.1rem;
+
 `;
+
 
 const SaveCardBill = () => {
   const [creditCardType, setCreditCardType] = useState('');
