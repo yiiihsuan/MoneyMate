@@ -8,6 +8,12 @@ import { PieChart, Pie, Cell, Tooltip, Legend } from 'recharts';
 //   { card_name: "台新gogo卡", amount: 2000 }
 // ];
 
+
+// {"list":
+// [{"card_name":"玉山Ubear卡","amount":3200,"is_paid":0},
+// {"card_name":"郵政visa","amount":5000,"is_paid":1},
+// {"card_name":"台新gogo卡","amount":2000,"is_paid":0}]
+
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#AF19FF'];
 
 const  CardpieChart= ({ data }) =>  (

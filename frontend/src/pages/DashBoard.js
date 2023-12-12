@@ -244,10 +244,11 @@ const Dashboard = () => {
             <div>
               <h3>總帳單金額: {cardData.data.total}元</h3>
               <h3>總回饋金額: {cardData.data.reward.toFixed(2)}元</h3>
+              <h3>清單: {cardData.data.list}</h3>
               <CardPieChart data={cardData.data.list} />
             </div>
           </MyCreditCard>
-          
+
           <MyInvestment>
             <SectionHeader>我的投資<MoreButton>...more</MoreButton></SectionHeader>
             <InvestmentSection>
