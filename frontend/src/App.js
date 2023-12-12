@@ -9,7 +9,7 @@ import AccountingBookForLiff from './pages/AccountingBookLiff.js';
 import  SaveStock from './pages/SaveStock.js';
 import Calendar from './component/Calendar.js';
 import liff from '@line/liff';
-import CardpieChart from './component/CardPieChart.js';
+import PieChartExample from './component/CardPieChart.js';
 import Example  from './pages/piechartest.js';
 //<Route path="/" element={<HomePageForLiff />} />
 //<Route path="/dashboard" element={<DashboardForLiff />} />

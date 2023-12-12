@@ -16,31 +16,36 @@ import { PieChart, Pie, Cell, Tooltip, Legend } from 'recharts';
 
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#AF19FF'];
 
-const  CardpieChart= ({ data }) =>  (
-
+const CardPieChart = ({ data }) => {
+    // 確保傳入的data是一個數組
+    if (!Array.isArray(data)) {
+      return <div>Invalid data</div>;
+    }
   
-  <PieChart width={200} height={200}>
-    <Pie
-      data={data.list}
-      cx={100}
-      cy={100}
-      labelLine={false}
-      label={({ name, percent, card_name }) => `${card_name} (${(percent * 100).toFixed(0)}%)`}
-      outerRadius={80}
-      fill="#8884d8"
-      dataKey="amount"
-      nameKey="card_name"
-    >
-      {data.map((entry, index) => (
-        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-      ))}
-    </Pie>
-    <Tooltip />
-    <Legend />
-  </PieChart>
-);
-
-export default CardpieChart;
+    return (
+      <PieChart width={200} height={200}>
+        <Pie
+          data={data}
+          cx={100}
+          cy={100}
+          labelLine={false}
+          label={({ percent, card_name }) => `${card_name} (${(percent * 100).toFixed(0)}%)`}
+          outerRadius={80}
+          fill="#8884d8"
+          dataKey="amount"
+          nameKey="card_name"
+        >
+          {data.map((entry, index) => (
+            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+          ))}
+        </Pie>
+        <Tooltip />
+        <Legend />
+      </PieChart>
+    );
+  };
+  
+  export default CardPieChart;
 
 // import React from 'react';
 // import { PieChart, Pie, Cell, Tooltip, Legend } from 'recharts';
