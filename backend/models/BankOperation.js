@@ -7,11 +7,11 @@ export async function getBankBookByuserId (userId) {
         console.log('userId in model', userId);
 
         const selectQuery = `
-            SELECT b.bank_name, a.type, SUM(a.total) as total_amount
+            SELECT b.bank_code, b.bank_name, a.total, a.type
             FROM account a
             JOIN bank b ON a.bank_id = b.id
-            WHERE a.user_id = ?
-            GROUP BY b.bank_name, a.type`;
+            WHERE a.user_id = ? ;
+        `;
 
         const [selectResult] = await pool.query(selectQuery, [userId]);
 
