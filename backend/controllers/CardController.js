@@ -1,5 +1,5 @@
 
-import {getCardBillByuserId,getCardTotalRewardByuserId} from '../models/BankOperation.js'
+import {getCardBillByuserId,getCardTotalRewardByuserId} from '../models/CardOperation.js'
 
 
 export async function getCardBillList(req, res) {

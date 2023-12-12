@@ -29,6 +29,7 @@ export async function getCardBillByuserId (userId) {
     }
 };
 
+import { pool } from './util.js';
 
 export async function getCardTotalRewardByuserId (userId) {
     try {
