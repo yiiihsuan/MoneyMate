@@ -8,6 +8,7 @@ import { fetchAccountingDataForToday, fetchUserBankData, fetchUserCardData } fro
 import AccountingTimeline from '../component/AccountingTimeline';
 import PieChartComponent from '../component/AccountingPieChart';
 import BankPieComponent from '../component/BankBookPieChart';
+import CardPieChart from '../component/BankBookPieChart';
 
 const DashboardContainer = styled.div`
   display: grid;
@@ -243,7 +244,7 @@ const Dashboard = () => {
             <div>
               <h3>總帳單金額: {cardData.data.total}元</h3>
               <h3>總回饋金額: {cardData.data.reward.toFixed(2)}元</h3>
-              <BankPieComponent data={cardData.data.list} />
+              <CardPieChart data={cardData.data.list} />
             </div>
           </MyCreditCard>
           <MyInvestment>
