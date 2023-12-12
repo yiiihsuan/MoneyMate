@@ -23,7 +23,8 @@ const BankPieComponent = ({ data }) => {
 
     return (
         <div>
-            <h3>Total Amount: {totalAmount}</h3>
+            <h3>帳戶總餘額: {totalAmount}</h3>
+            <div className="chartContainer" style={{ display: 'flex', justifyContent: 'space-around' }}>
             <PieChart width={300} height={300}>
                 <Pie
                     dataKey="value"
@@ -31,7 +32,7 @@ const BankPieComponent = ({ data }) => {
                     data={dataByBank}
                     cx={150}
                     cy={150}
-                    outerRadius={100}
+                    outerRadius={80}
                     fill="#8884d8"
                     label
                 >
@@ -49,7 +50,7 @@ const BankPieComponent = ({ data }) => {
                     data={dataByType}
                     cx={150}
                     cy={150}
-                    outerRadius={100}
+                    outerRadius={80}
                     fill="#8884d8"
                     label
                 >
@@ -60,6 +61,7 @@ const BankPieComponent = ({ data }) => {
                 <Tooltip />
                 <Legend />
             </PieChart>
+            </div>
         </div>
     );
 };
