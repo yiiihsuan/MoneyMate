@@ -18,12 +18,12 @@ export async function getCardBillList(req, res) {
         console.log('CardReward of user:',RewardData);
 
 
-        if (cardBillList && TotalData && RewardData) {
+        if (cardBillList && TotalData[0] && RewardData[0]) {
             const responseData = {
                 data: {
                     list: cardBillList,
-                    total: TotalData.total_amount,
-                    reward: RewardData.total_expected_reward
+                    total: Number(TotalData[0].total_amount), 
+                     reward: RewardData[0].total_expected_reward 
                 }
             };
             console.log('reseponse data is :',responseData );
