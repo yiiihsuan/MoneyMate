@@ -31,33 +31,18 @@ export async function getCardBillByuserId (userId) {
 
 import { pool } from './util.js';
 
-export async function getCardTotalRewardByuserId (userId) {
+
+
+
+export async function getCardTotalByuserId (userId) {
     try {
         console.log('userId in model', userId);
 
         const selectQuery = `
-           SELECT
-            user_id,
-            SUM(expected_reward_per_card) AS total_reward,
-            SUM(amount) AS total_amount
-        FROM (
-            SELECT
-                cb.user_id,
-                c.card_name,
-                cb.amount,
-                cb.is_paid,
-                (cb.amount * c.ratio) AS expected_reward_per_card
-            FROM
-                cardbill cb
-            JOIN
-                card c ON cb.card_id = c.id
-            WHERE
-                cb.user_id = ?
-        ) AS subquery
-        GROUP BY
-            user_id;
-
-                    
+        SELECT SUM(cb.amount) AS total_amount
+        FROM cardbill cb
+        WHERE cb.user_id = ？;
+        
         `;
 
         const [selectResult] = await pool.query(selectQuery, [userId]);
@@ -65,7 +50,38 @@ export async function getCardTotalRewardByuserId (userId) {
         console.log(selectResult);
 
         if (selectResult.length > 0) {
-            console.log('get reward and total', selectResult);
+            console.log('get total', selectResult);
+            return selectResult;
+        } else {
+            return null;
+        }
+    } catch (error) {
+        throw error;
+    }
+};
+
+export async function getRewardByuserId (userId) {
+    try {
+        console.log('userId in model', userId);
+
+        const selectQuery = `
+        SELECT
+            SUM(cb.amount * c.ratio) AS total_expected_reward
+        FROM
+            cardbill cb
+        JOIN
+            card c ON cb.card_id = c.id
+        WHERE
+            cb.user_id = 'U18d0d1340edcc1a781971b7905bd99fd';
+        
+        `;
+
+        const [selectResult] = await pool.query(selectQuery, [userId]);
+
+        console.log(selectResult);
+
+        if (selectResult.length > 0) {
+            console.log('get reward', selectResult);
             return selectResult;
         } else {
             return null;

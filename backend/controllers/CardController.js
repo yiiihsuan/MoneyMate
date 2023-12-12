@@ -1,5 +1,5 @@
 
-import {getCardBillByuserId,getCardTotalRewardByuserId} from '../models/CardOperation.js'
+import {getCardBillByuserId,getCardTotalByuserId,getRewardByuserId } from '../models/CardOperation.js'
 
 
 export async function getCardBillList(req, res) {
@@ -10,18 +10,20 @@ export async function getCardBillList(req, res) {
         const cardBillList = await getCardBillByuserId(userId);
         console.log('card bill list of user:', cardBillList);
 
-        const rewardTotalData = await getCardTotalRewardByuserId(userId);
-        console.log('rewardTotalData of user:', rewardTotalData);
-        console.log('rewardTotalData of user total:', rewardTotalData.total_amount);
-        console.log('rewardTotalData of user reward:', rewardTotalData.total_reward);
+        const TotalData = await getCardTotalByuserId(userId);
+        console.log('CardTotalData of user:', TotalData);
+    
+
+        const RewardData = await getRewardByuserId(userId);
+        console.log('CardReward of user:',RewardData);
 
 
-        if (cardBillList && rewardTotalData) {
+        if (cardBillList && TotalData && RewardData) {
             const responseData = {
                 data: {
                     list: cardBillList,
-                    total: rewardTotalData.total_amount,  
-                    reward: rewardTotalData.total_reward  
+                    total: TotalData,  
+                    reward: RewardData
                 }
             };
             console.log('reseponse dat is :',responseData );
