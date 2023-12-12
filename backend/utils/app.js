@@ -25,6 +25,8 @@ import isAuthenticated from './Authentication.js';
 import AccountingBook from '../controllers//AccountRecord.js';
 import{ getAccounting,updateAccounting,deleteAccounting } from '../controllers/AccountingController.js';
 import{ getBankbookList} from '../controllers/BankController.js';
+import{ getCardBillList} from '../controllers/CardController.js';
+
 import 'dotenv/config';
 
 const app = express();
@@ -131,6 +133,8 @@ app.delete('/api/1.0/account/delete/:id', isAuthenticated, deleteAccounting)
 
 app.get('/api/1.0/bankbook/list', isAuthenticated, getBankbookList);
 
+
+app.get('/api/1.0/cardbill/list', isAuthenticated, getCardBillList);
 
 
 
