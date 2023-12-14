@@ -54,7 +54,8 @@ const chooseIcon = (category) => {
   }
 };
 
-const AccountingTimeline = ({ data }) => {
+const AccountingTimeline = ({ data}) => {
+
 
 
   return (

@@ -1,5 +1,6 @@
 import React,{useState,useEffect}  from 'react';
 import { useQuery } from 'react-query';
+import { useQueryClient } from 'react-query';
 import styled from 'styled-components';
 //import AccountingTimeline from '../component/AccountingTimeline';
 import AccountingTimeline from '../component/AccountingDetail';
@@ -74,11 +75,19 @@ const PieChartPlaceholder = styled.div`
 
 const AccountingBook = () => {
   
+  const queryClient = useQueryClient();
+
   const { data: records, isLoading, isError } = useQuery({
     queryKey: ['accountData'],
     queryFn: fetchAccountingData,
   });
 
+
+
+  
+  const onMutationSuccess = () => {
+    queryClient.invalidateQueries('accountData');
+  };
 
 
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -193,7 +202,12 @@ const AccountingBook = () => {
         <LeftColumn>
         <Calendar onDateChange={handleDateChange} />
           {/* <AccountingTimeline data={mockAccountingData} /> */}
-          <AccountingTimeline data={filteredData} onRecordUpdate={handleRecordUpdate} selectedDate={selectedDate}  />
+          {/* <AccountingTimeline data={filteredData} onRecordUpdate={handleRecordUpdate} 
+          selectedDate={selectedDate}  /> */}
+          <AccountingTimeline
+  data={records}
+  onMutationSuccess={onMutationSuccess}
+/>
         </LeftColumn>
         <RightColumn>
           <SummarySection>

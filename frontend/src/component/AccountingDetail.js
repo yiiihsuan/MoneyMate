@@ -7,6 +7,8 @@ import DeleteModal from './DeleteModal';
 import axios from 'axios';
 import { Timeline, TimelineItem, TimelineSeparator, TimelineDot, TimelineContent, TimelineConnector,TimelineOppositeContent } from '@mui/lab';
 import { FaUtensils, FaCar, FaTshirt, FaHome, FaGamepad, FaQuestionCircle } from 'react-icons/fa'; 
+import { useMutation, useQueryClient } from 'react-query';
+
 
 ReactModal.setAppElement('#root');
 
@@ -83,10 +85,33 @@ const chooseIcon = (category) => {
   }
 };
 
-const AccountingTimeline = ({ data, onRecordUpdate , selectedDate}) => {
+const AccountingTimeline = ({ data, onMutationSuccess }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentRecord, setCurrentRecord] = useState(null);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+
+
+  const queryClient = useQueryClient();
+  
+  const updateMutation = useMutation(
+    updatedRecord => axios.put(`/api/1.0/account/update/${updatedRecord.id}`, updatedRecord),
+    {
+      onSuccess: () => {
+        setIsModalOpen(false);
+        queryClient.invalidateQueries('accountData');
+      },
+    }
+  );
+
+  const deleteMutation = useMutation(
+    id => axios.delete(`/api/1.0/account/delete/${id}`),
+    {
+      onSuccess: () => {
+        setIsDeleteModalOpen(false);
+        queryClient.invalidateQueries('accountData');
+      },
+    }
+  );
 
 
   const openEditModal = (record) => {
@@ -99,16 +124,20 @@ const AccountingTimeline = ({ data, onRecordUpdate , selectedDate}) => {
   };
 
 
-  const saveRecord = async (updatedRecord) => {
-    try {
-      const response = await axios.put(`/api/1.0/account/update/${updatedRecord.id}`, updatedRecord);
-      const updatedData = await axios.get('/api/1.0/account/list');
-      console.log(response.data);
-      onRecordUpdate(updatedData.data.sort((a, b) => new Date(a.created_time) - new Date(b.created_time)));
-    } catch (error) {
-      console.error('更新失敗:', error);
-    }
-    setIsModalOpen(false);
+  // const saveRecord = async (updatedRecord) => {
+  //   try {
+  //     const response = await axios.put(`/api/1.0/account/update/${updatedRecord.id}`, updatedRecord);
+  //     const updatedData = await axios.get('/api/1.0/account/list');
+  //     console.log(response.data);
+  //     onRecordUpdate(updatedData.data.sort((a, b) => new Date(a.created_time) - new Date(b.created_time)));
+  //   } catch (error) {
+  //     console.error('更新失敗:', error);
+  //   }
+  //   setIsModalOpen(false);
+  // };
+
+  const saveRecord = (updatedRecord) => {
+    updateMutation.mutate(updatedRecord);
   };
   
 
@@ -121,15 +150,19 @@ const closeDeleteModal = () => {
     setIsDeleteModalOpen(false);
 };
 
-const handleDelete = async (id) => {
-  try {
-      await axios.delete(`/api/1.0/account/delete/${id}`);
-      const response = await axios.get('/api/1.0/account/list');
-      onRecordUpdate(response.data);
-      setIsDeleteModalOpen(false);
-  } catch (error) {
-      console.error('刪除或獲取數據失敗:', error);
-  }
+// const handleDelete = async (id) => {
+//   try {
+//       await axios.delete(`/api/1.0/account/delete/${id}`);
+//       const response = await axios.get('/api/1.0/account/list');
+//       onRecordUpdate(response.data);
+//       setIsDeleteModalOpen(false);
+//   } catch (error) {
+//       console.error('刪除或獲取數據失敗:', error);
+//   }
+// };
+
+const handleDelete = (id) => {
+  deleteMutation.mutate(id);
 };
 
   return (
