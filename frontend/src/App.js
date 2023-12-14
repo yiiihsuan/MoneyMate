@@ -59,6 +59,8 @@ const App = () => {
                 <Route path="/Calendar" element={<Calendar />} />
                 <Route path="/savestock" element={<SaveStock />} />
                 <Route path="/savecardbill" element={< SaveCardBill/>} />
+                <Route path="/dashboardleftliff" element={< DashboardLeftLiff/>} />
+                <Route path="/dashboardrightliff" element={< DashboardRightLiff/>} />
 
             
               </>
