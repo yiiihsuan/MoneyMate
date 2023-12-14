@@ -1,17 +1,17 @@
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 
 
-const backgroundAnimation = keyframes`
-  0% {
-    background: linear-gradient(to right, rgb(238, 156, 167), rgb(255, 221, 225));
-  }
-  50% {
-    background: linear-gradient(to left, rgb(238, 156, 167), rgb(255, 221, 225));
-  }
-  100% {
-    background: linear-gradient(to right, rgb(238, 156, 167), rgb(255, 221, 225));
-  }
-`;
+// const backgroundAnimation = keyframes`
+//   0% {
+//     background: linear-gradient(to right, rgb(238, 156, 167), rgb(255, 221, 225));
+//   }
+//   50% {
+//     background: linear-gradient(to left, rgb(238, 156, 167), rgb(255, 221, 225));
+//   }
+//   100% {
+//     background: linear-gradient(to right, rgb(238, 156, 167), rgb(255, 221, 225));
+//   }
+// `;
 
 const Spinner = styled.div`
 position: fixed;
@@ -22,7 +22,7 @@ transform: translate(-50%, -50%);
 width: 50px;
 height: 50px;
 
-animation: ${backgroundAnimation}
+background: linear-gradient(to right, rgb(211, 204, 227), rgb(233, 228, 240));
 
   div {
     background-color: #333;
