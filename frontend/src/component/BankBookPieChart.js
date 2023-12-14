@@ -1,8 +1,19 @@
 import React from 'react';
 import { PieChart, Pie, Cell, Tooltip, Legend } from 'recharts';
+import styled from 'styled-components';
+
 
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#AF19FF'];
 
+
+const ChartContainer = styled.div`
+  display: flex;
+  justify-content: space-around;
+`;
+
+const Heading = styled.h3`
+  margin-bottom: 10px; 
+`;
 
 const processData = (data, key) => {
     const summary = data.reduce((acc, item) => {
@@ -23,9 +34,10 @@ const BankPieComponent = ({ data }) => {
 
     return (
         <div>
-            <h3>帳戶總餘額: {totalAmount}</h3>
-            <div className="chartContainer" style={{ display: 'flex', justifyContent: 'space-around' }}>
-            <PieChart width={300} height={300}>
+            <Heading>帳戶總餘額: {totalAmount}</Heading>
+      <ChartContainer>
+            {/* <div className="chartContainer" style={{ display: 'flex', justifyContent: 'space-around' }}> */}
+            <PieChart width={300} height={200}>
                 <Pie
                     dataKey="value"
                     isAnimationActive={true}
@@ -64,8 +76,8 @@ const BankPieComponent = ({ data }) => {
                 {/* <Legend /> */}
                 <Legend align="center" verticalAlign="bottom" height={36}/>
             </PieChart>
+            </ChartContainer>
             </div>
-        </div>
     );
 };
 
