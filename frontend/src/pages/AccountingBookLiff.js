@@ -11,11 +11,11 @@ import moment from 'moment';
 const AccountingBookContainer = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: stretch
   margin-left: 60px;
-  margin-right: 10px;
   margin-top: 10px;
   margin-bottom: 10px;
+  width: 100%; 
 `;
 
 const SectionHeader = styled.div`
