@@ -4,6 +4,25 @@ import { PieChart, Pie, Cell, Tooltip, Legend } from 'recharts';
 
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#AF19FF'];
 
+
+const CustomTooltip = ({ active, payload }) => {
+  if (active && payload && payload.length) {
+    const data = payload[0].payload; 
+    const total = payload[0].payload.total; 
+    const percent = ((data.amount / total) * 100).toFixed(2);
+    return (
+      <div className="custom-tooltip" style={{ backgroundColor: '#fff', padding: '5px', border: '1px solid #ccc' }}>
+        <p>{`${data.card_name} : ${data.amount}`}</p>
+        <p>{`Percent: ${percent}%`}</p>
+      </div>
+    );
+  }
+
+  return null;
+};
+
+
+
 const CardPieChart = ({ data }) => {
     if (!Array.isArray(data)) {
       return <div>Invalid data</div>;
@@ -26,16 +45,16 @@ const CardPieChart = ({ data }) => {
               <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
             ))}
           </Pie>
-          <Tooltip />
+          <Tooltip content={<CustomTooltip />} />
           <Legend align="center" verticalAlign="bottom" layout="horizontal" />
         </PieChart>
         {/* <div style={{ display: 'flex', justifyContent: 'center', marginTop: -30 }}> */}
-          {data.map((entry, index) => (
+          {/* {data.map((entry, index) => (
             <div key={`label-${index}`} style={{ margin: '0 10px', textAlign: 'center' }}>
               <div style={{ width: 10, height: 10, backgroundColor: COLORS[index % COLORS.length], display: 'inline-block' }}></div>
               <span style={{ marginLeft: 5 }}>{`${entry.card_name} (${((entry.amount / data.reduce((acc, cur) => acc + cur.amount, 0)) * 100).toFixed(0)}%)`}</span>
             </div>
-          ))}
+          ))} */}
         </div>
       // </div>
     );

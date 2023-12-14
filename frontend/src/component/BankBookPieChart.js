@@ -59,7 +59,8 @@ const BankPieComponent = ({ data }) => {
                     ))}
                 </Pie>
                 <Tooltip />
-                <Legend />
+                {/* <Legend /> */}
+                <Legend align="center" verticalAlign="bottom" height={36}/>
             </PieChart>
             </div>
         </div>
