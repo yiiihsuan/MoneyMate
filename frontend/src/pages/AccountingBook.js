@@ -6,7 +6,6 @@ import AccountingTimeline from '../component/AccountingDetail';
 import { fetchAccountingData } from '../api'; 
 import PieChartComponent from '../component/AccountingPieChart';
 import Calendar from '../component/Calendar';
-//import { Datepicker } from "@meinefinsternis/react-horizontal-date-picker";
 import moment from 'moment';
 import LoadingSpinner from '../component/LoadingSpinner';
 
@@ -87,10 +86,7 @@ const AccountingBook = () => {
   const [totalExpenditure, setTotalExpenditure] = useState(0);
   const [pieChartData, setPieChartData] = useState([]);
 
-  //records.filter((record) => moment(record.created_time).format('YYYY-MM-DD') === moment(new Date()).format('YYYY-MM-DD'))
-  //let categoryData = {};
-  //let totalExpenditure = 0;
-  //let totalIncome = 0;
+
 
   //default value
   useEffect(() => { 
@@ -147,37 +143,6 @@ const AccountingBook = () => {
   }, [filteredData]);
 
  
-
-  // if (!isLoading && !isError) {
-  //   records.forEach(record => {
-  //       const recordDate = moment(record.created_time).format('YYYY-MM-DD');
-  //       console.log('資料庫時間:', recordDate);
-  //     categoryData[record.category] = (categoryData[record.category] || 0) + record.amount;
-  //   });
-  // }
-
-  // const pieChartData = Object.keys(categoryData).map((key, index) => ({
-  //   name: key,
-  //   value: categoryData[key],
-  // }));
-
-
-    // if (!isLoading && !isError) {
-    //   totalExpenditure = records.reduce((sum, record) => {
-    //     return sum + record.amount;
-    //   }, 0);
-    // }
-
-
-
-   /*to do : 分為支出和收入*/ 
-    // totalExpenditure = records.reduce((sum, record) => {
-    //   return record.type === 'expenditure' ? sum + record.amount : sum;
-    // }, 0);
-    // totalIncome = records.reduce((sum, record) => {
-    //   return record.type === 'income' ? sum + record.amount : sum;
-    // }, 0);
- 
   
    // to do...update  data
   //  // 更新記錄
@@ -203,7 +168,7 @@ const AccountingBook = () => {
   //   });
  
 
-  //if (isLoading) return <div>Loading...</div>; // 加載狀態
+
 
 
   if (isLoading) {
@@ -244,4 +209,46 @@ const AccountingBook = () => {
 };
 
 export default AccountingBook;
+
+
+
+  //if (isLoading) return <div>Loading...</div>; // 加載狀態
+
+
+  //records.filter((record) => moment(record.created_time).format('YYYY-MM-DD') === moment(new Date()).format('YYYY-MM-DD'))
+  //let categoryData = {};
+  //let totalExpenditure = 0;
+  //let totalIncome = 0;
+
+
+  // if (!isLoading && !isError) {
+  //   records.forEach(record => {
+  //       const recordDate = moment(record.created_time).format('YYYY-MM-DD');
+  //       console.log('資料庫時間:', recordDate);
+  //     categoryData[record.category] = (categoryData[record.category] || 0) + record.amount;
+  //   });
+  // }
+
+  // const pieChartData = Object.keys(categoryData).map((key, index) => ({
+  //   name: key,
+  //   value: categoryData[key],
+  // }));
+
+
+    // if (!isLoading && !isError) {
+    //   totalExpenditure = records.reduce((sum, record) => {
+    //     return sum + record.amount;
+    //   }, 0);
+    // }
+
+
+
+   /*to do : 分為支出和收入*/ 
+    // totalExpenditure = records.reduce((sum, record) => {
+    //   return record.type === 'expenditure' ? sum + record.amount : sum;
+    // }, 0);
+    // totalIncome = records.reduce((sum, record) => {
+    //   return record.type === 'income' ? sum + record.amount : sum;
+    // }, 0);
+ 
 

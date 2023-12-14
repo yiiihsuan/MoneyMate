@@ -98,10 +98,6 @@ const AccountingTimeline = ({ data, onRecordUpdate , selectedDate}) => {
     setIsModalOpen(false);
   };
 
-  // const saveRecord = (updatedRecord) => {
-  //   onRecordUpdate(updatedRecord);
-  //   setIsModalOpen(false);
-  // };
 
   const saveRecord = async (updatedRecord) => {
     try {
@@ -115,8 +111,6 @@ const AccountingTimeline = ({ data, onRecordUpdate , selectedDate}) => {
     setIsModalOpen(false);
   };
   
-
-
 
   const openDeleteModal = (record) => {
     setCurrentRecord(record);

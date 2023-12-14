@@ -109,17 +109,46 @@ const SaveStock = () => {
       calculateCommission(quantity, price, newAction);
     };
   
-    const handleSubmit = (e) => {
-      e.preventDefault();
-      console.log({
-        broker,
-        stockCode,
-        action,
-        quantity,
-        price,
-        commission,
-        transactionTax, 
-      });
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const transactionData = {
+            broker: broker,
+            stockCode: stockCode,
+            action: action,
+            quantity: quantity,
+            price: price,
+            commission: commission,
+            transactionTax: transactionTax,
+          };
+
+          console.log('transactionData',transactionData );
+
+      try {
+        //change to save stock API
+       // await axios.delete(`/api/1.0/account/delete/${id}`);
+        const response = await fetch('http://localhost:3000/save-stock-transaction', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(transactionData),
+        });
+    
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+    
+        // 处理响应
+        console.log('Transaction saved');
+      } catch (error) {
+        console.error('Error:', error);
+      }
+
+
+
+
+
+
     };
   
   return (
