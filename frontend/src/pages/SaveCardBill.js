@@ -6,7 +6,7 @@ const FormWrapper = styled.div`
   padding: 20px;
   border-radius: 10px;
   max-width: auto;
-  max-height: auto;
+  max-height: 100vh;
   margin: auto;
 `;
 

@@ -8,7 +8,7 @@ const FormWrapper = styled.div`
   background-color: #f5f5f5;
   padding: 20px;
   border-radius: 10px;
-  max-width:auto;
+  max-width:100vh;
   margin: auto;
 `;
 
