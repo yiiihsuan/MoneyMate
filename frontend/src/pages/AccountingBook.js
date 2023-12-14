@@ -1,10 +1,10 @@
-import React,{useState,useEffect}  from 'react';
+import React, { useState, useEffect } from 'react';
 import { useQuery } from 'react-query';
 import { useQueryClient } from 'react-query';
 import styled from 'styled-components';
 //import AccountingTimeline from '../component/AccountingTimeline';
 import AccountingTimeline from '../component/AccountingDetail';
-import { fetchAccountingData } from '../api'; 
+import { fetchAccountingData } from '../api';
 import PieChartComponent from '../component/AccountingPieChart';
 import Calendar from '../component/Calendar';
 import moment from 'moment';
@@ -74,7 +74,7 @@ const PieChartPlaceholder = styled.div`
 
 
 const AccountingBook = () => {
-  
+
   const queryClient = useQueryClient();
 
   const { data: records, isLoading, isError } = useQuery({
@@ -84,7 +84,7 @@ const AccountingBook = () => {
 
 
 
-  
+
   const onMutationSuccess = () => {
     queryClient.invalidateQueries('accountData');
   };
@@ -98,7 +98,7 @@ const AccountingBook = () => {
 
 
   //default value
-  useEffect(() => { 
+  useEffect(() => {
     if (!isLoading && !isError) {
 
       setFilteredData(
@@ -107,17 +107,17 @@ const AccountingBook = () => {
             moment(record.created_time).format('YYYY-MM-DD') ===
             moment(new Date()).format('YYYY-MM-DD')
         )
-      ); 
-      
-      
+      );
+
+
     }
   }, [records, isLoading, isError]);
 
   const handleDateChange = (newDate) => {
     setSelectedDate(newDate);
     const year = newDate.getFullYear();
-    const month = (newDate.getMonth() + 1).toString().padStart(2, '0'); 
-    const date = newDate.getDate().toString().padStart(2, '0'); 
+    const month = (newDate.getMonth() + 1).toString().padStart(2, '0');
+    const date = newDate.getDate().toString().padStart(2, '0');
     const formattedDate = `${year}-${month}-${date}`;
     console.log('accountingbook format date:', formattedDate);
     //setFilteredData(records.filter((record) => moment(record.created_time).format('YYYY-MM-DD') === formattedDate));
@@ -125,7 +125,7 @@ const AccountingBook = () => {
     setFilteredData(newData);
 
     const newTotalExpenditure = newData.reduce((sum, record) => sum + record.amount, 0);
-    setTotalExpenditure(newTotalExpenditure); 
+    setTotalExpenditure(newTotalExpenditure);
   };
 
   useEffect(() => {
@@ -142,18 +142,18 @@ const AccountingBook = () => {
       }
       newCategoryData[record.category] += record.amount;
     });
-  
+
     const newPieChartData = Object.keys(newCategoryData).map((key) => ({
       name: key,
       value: newCategoryData[key],
     }));
-  
+
     setPieChartData(newPieChartData);
   }, [filteredData]);
 
- 
-  
-   // to do...update  data
+
+
+  // to do...update  data
   //  // 更新記錄
   const handleRecordUpdate = async (updatedRecord) => {
     // try {
@@ -175,7 +175,7 @@ const AccountingBook = () => {
   //       return record;
   //     });
   //   });
- 
+
 
 
 
@@ -197,17 +197,17 @@ const AccountingBook = () => {
   //我的記帳本 放section 上會在上方，放下面會在section 裡的左側
   return (
     <AccountingBookContainer>
-    <SectionHeader>我的記帳本</SectionHeader> 
+      <SectionHeader>我的記帳本</SectionHeader>
       <Section>
         <LeftColumn>
-        <Calendar onDateChange={handleDateChange} />
+          <Calendar onDateChange={handleDateChange} />
           {/* <AccountingTimeline data={mockAccountingData} /> */}
           {/* <AccountingTimeline data={filteredData} onRecordUpdate={handleRecordUpdate} 
           selectedDate={selectedDate}  /> */}
           <AccountingTimeline
-  data={filteredData}
-  onMutationSuccess={onMutationSuccess}
-/>
+            data={filteredData}
+            onMutationSuccess={onMutationSuccess}
+          />
         </LeftColumn>
         <RightColumn>
           <SummarySection>

@@ -1,10 +1,12 @@
-import React  from 'react';
+import React,{useState, useEffect}  from 'react';
 import { useQuery } from 'react-query';
+import { useQueryClient } from 'react-query';
 import styled from 'styled-components';
 import AccountingTimeline from '../component/AccountingDetail';
-import { fetchAccountingData } from '../api'; 
+import { fetchAccountingData,fetchAccountingDataForToday } from '../api'; 
 import PieChartComponent from '../component/AccountingPieChart';
 import LoadingSpinner from '../component/LoadingSpinner';
+import moment from 'moment';
 
 const AccountingBookContainer = styled.div`
   display: flex;
@@ -60,33 +62,44 @@ const TotalExpenditureText = styled.p`
 
 const AccountingBook = () => {
  
-  const { data: records, isLoading, isError } = useQuery({
-    queryKey: ['accountData'],
-    queryFn: fetchAccountingData,
+  const queryClient = useQueryClient();
+
+  const { data: datas, isLoading, isError } = useQuery({
+    queryKey: ['accountDataToday'],
+    queryFn: fetchAccountingDataForToday
   });
 
-  let categoryData = {};
-
-  if (!isLoading && !isError) {
-    records.forEach(record => {
-      categoryData[record.category] = (categoryData[record.category] || 0) + record.amount;
-    });
-  }
-
-  const pieChartData = Object.keys(categoryData).map((key, index) => ({
-    name: key,
-    value: categoryData[key],
-  }));
-
-  let totalExpenditure = 0;
 
 
-    if (!isLoading && !isError) {
-      totalExpenditure = records.reduce((sum, record) => {
-        return sum + record.amount;
-      }, 0);
+  const onMutationSuccess = () => {
+    queryClient.invalidateQueries('accountData');
+  };
+
+
+  
+  const [totalExpenditure, setTotalExpenditure] = useState(0);
+  const [pieChartData, setPieChartData] = useState([]);
+
+  useEffect(() => {
+    if (datas && datas.length > 0) {
+      const newTotalExpenditure = datas.reduce((sum, record) => sum + record.amount, 0);
+      setTotalExpenditure(newTotalExpenditure);
+
+      let newCategoryData = {};
+      datas.forEach(record => {
+        if (!newCategoryData[record.category]) {
+          newCategoryData[record.category] = 0;
+        }
+        newCategoryData[record.category] += record.amount;
+      });
+      const newPieChartData = Object.keys(newCategoryData).map(key => ({
+        name: key,
+        value: newCategoryData[key],
+      }));
+      setPieChartData(newPieChartData);
     }
- 
+  }, [datas]);
+  
 
   if (isLoading) {
     return (
@@ -104,7 +117,10 @@ const AccountingBook = () => {
 
 
         <AccountingTimelineSection>
-        <AccountingTimeline data={records}  />
+        <AccountingTimeline
+            data={datas}
+            onMutationSuccess={onMutationSuccess}
+          />
         </AccountingTimelineSection>
 
 
