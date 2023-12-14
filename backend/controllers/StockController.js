@@ -1,4 +1,4 @@
-//import {saveStockByuserId} from '../models/StockOperation.js'
+import {saveStockByuserId} from '../models/StockOperation.js'
 
 
 export async function saveStockList(req, res) {
@@ -22,15 +22,15 @@ export async function saveStockList(req, res) {
         //   }
           
      
-        // const savedTransaction = await saveStockByuserId(userId, transactionData);
+        const savedTransaction = await saveStockByuserId(userId, transactionData);
 
-        // 假设保存操作成功
+      
+       
+    if (savedTransaction) {
         res.status(200).json({ message: 'Transaction received successfully' });
-    // if (bankbookData ) {
-    //     res.status(200).json(bankbookData);
-    // } else {
-    //     res.status(404).json({ message: 'Accounting data not found' });
-    // }
+    } else {
+        res.status(404).json({ message: 'Accounting data not found' });
+    }
 
     } catch (error) {
         console.error(error);
