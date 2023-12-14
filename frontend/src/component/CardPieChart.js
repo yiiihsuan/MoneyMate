@@ -27,9 +27,9 @@ const CardPieChart = ({ data }) => {
             ))}
           </Pie>
           <Tooltip />
-          {/* <Legend align="center" verticalAlign="bottom" layout="horizontal" /> */}
+          <Legend align="center" verticalAlign="bottom" layout="horizontal" />
         </PieChart>
-        <div style={{ display: 'flex', justifyContent: 'center', marginTop: -30 }}>
+        {/* <div style={{ display: 'flex', justifyContent: 'center', marginTop: -30 }}> */}
           {data.map((entry, index) => (
             <div key={`label-${index}`} style={{ margin: '0 10px', textAlign: 'center' }}>
               <div style={{ width: 10, height: 10, backgroundColor: COLORS[index % COLORS.length], display: 'inline-block' }}></div>
@@ -37,7 +37,7 @@ const CardPieChart = ({ data }) => {
             </div>
           ))}
         </div>
-      </div>
+      // </div>
     );
 };
 
