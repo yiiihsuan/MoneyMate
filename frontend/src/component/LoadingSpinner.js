@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { createGlobalStyle }  from 'styled-components';
 
 
 // const backgroundAnimation = keyframes`
@@ -12,6 +12,16 @@ import styled from 'styled-components';
 //     background: linear-gradient(to right, rgb(238, 156, 167), rgb(255, 221, 225));
 //   }
 // `;
+
+const GlobalStyle = createGlobalStyle`
+  body {
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to right, rgb(211, 204, 227), rgb(233, 228, 240));
+    height: 100%;
+    width: 100%;
+  }
+`;
 
 const Spinner = styled.div`
 position: fixed;
@@ -47,10 +57,13 @@ background: linear-gradient(to right, rgb(211, 204, 227), rgb(233, 228, 240));
 `;
 
 const LoadingSpinner = () => (
+  <>
+  <GlobalStyle />
   <Spinner>
     <div className="cube1"></div>
     <div className="cube2"></div>
   </Spinner>
+  </>
 );
 
 export default LoadingSpinner;
