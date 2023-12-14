@@ -31,6 +31,7 @@ const CardPieChart = ({ data }) => {
           labelLine={false}
           label={({ percent, card_name }) => `${card_name} (${(percent * 100).toFixed(0)}%)`}
           outerRadius={80}
+          innerRadius={30} //try 環形
           fill="#8884d8"
           dataKey="amount"
           nameKey="card_name"
