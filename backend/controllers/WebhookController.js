@@ -28,13 +28,10 @@ const userProfile = await axios.get(`https://api.line.me/v2/bot/profile/${userId
 
     console.log('userName',userName);
     console.log('userPictureUrl',userPictureUrl);
-
-    const match = userMessage.match(/^(\d+)(?:\s+(\S+))?$/);
-
-
+    
     const matchSavingOrWithdrawal = userMessage.match(/^(存|領)\s+(\d+)\s+(\S+)$/);
 
-
+    const match = userMessage.match(/^(\d+)(?:\s+(\S+))?$/);
     if (match) {
         const amount = parseInt(match[1], 10);
         const tag = match[2] || null ;
@@ -78,7 +75,6 @@ const userProfile = await axios.get(`https://api.line.me/v2/bot/profile/${userId
         }
     } else {
         // 其他消息處理...
-
         if (matchSavingOrWithdrawal) {
             const action = matchSavingOrWithdrawal[1]; // '存' 或 '領'
             const amount = parseInt(matchSavingOrWithdrawal[2], 10);
@@ -95,8 +91,12 @@ const userProfile = await axios.get(`https://api.line.me/v2/bot/profile/${userId
                         // 構建按鈕和動作
                     ]
                 }
-            };
-    }
+            }
+        }
+        
+
+
+    } //origin else
 
 
 };
