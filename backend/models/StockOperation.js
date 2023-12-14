@@ -49,10 +49,38 @@ export async function saveStockByuserId(userId, transactionData) {
         
             console.log('Insert result:', insertResult);
                 return insertResult;
+
    
         } catch (error) {
             console.error('Error executing insert query:', error);
         }
     }
+
+
+
+
+    //    //計算總餘額和總利潤
+    //    const selectQuery = `SELECT total_value, total_profit FROM stock_user WHERE user_id = ?`;
+    //    const [userRecords] = await pool.query(selectQuery, [userId]);
+    //    if (userRecords.length > 0) {
+    //        let { total_value, total_profit } = userRecords[0];
+
+    //        //根據買賣股利更新
+    //        if (action === '買') {
+    //            total_value -= (quantity * price + commission); 
+    //        } else if (action === '賣') {
+    //            total_value += (quantity * price - commission - transactionTax); 
+    //            total_profit += (quantity * price - commission - transactionTax); 
+    //        }
+
+    //        // 更新 stock_user 表
+    //        const updateQuery = `
+    //            UPDATE stock_user 
+    //            SET total_value = ?, total_profit = ?
+    //            WHERE user_id = ?
+    //        `;
+    //        await pool.query(updateQuery, [total_value, total_profit, userId]);
+    //    }
+
 
 
