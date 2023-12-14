@@ -194,6 +194,11 @@ const handlePostback = async (event) => {
             console.error('記帳操作失敗:', error);
         }
     }
+    if(data.action ==='存' || '取'){
+
+      console.log('這邊要處理帳戶存取金額')
+
+    }
   };
 
 
