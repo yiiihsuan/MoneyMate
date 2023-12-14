@@ -151,7 +151,8 @@ const SaveStock = () => {
         <StyledLabel>
           證券商:
           <StyledSelect value={broker} onChange={(e) => setBroker(e.target.value)}>
-          <option value="broker1">富邦銀行</option>
+            <option value="">選擇證券商</option>
+            <option value="1">富邦銀行</option>
           </StyledSelect>
         </StyledLabel>
 
