@@ -93,12 +93,19 @@ const AccountingTimeline = ({ data, onMutationSuccess }) => {
 
   const queryClient = useQueryClient();
   
+
+  const invalidateQueries = () => {
+    queryClient.invalidateQueries('accountData');
+    queryClient.invalidateQueries('accountDataToday');
+  };
+
+  
   const updateMutation = useMutation(
     updatedRecord => axios.put(`/api/1.0/account/update/${updatedRecord.id}`, updatedRecord),
     {
       onSuccess: () => {
         setIsModalOpen(false);
-        queryClient.invalidateQueries('accountData');
+        invalidateQueries();
       },
     }
   );
@@ -108,7 +115,8 @@ const AccountingTimeline = ({ data, onMutationSuccess }) => {
     {
       onSuccess: () => {
         setIsDeleteModalOpen(false);
-        queryClient.invalidateQueries('accountData');
+        invalidateQueries();
+
       },
     }
   );
