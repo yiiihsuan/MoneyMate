@@ -28,7 +28,7 @@ const userProfile = await axios.get(`https://api.line.me/v2/bot/profile/${userId
 
     console.log('userName',userName);
     console.log('userPictureUrl',userPictureUrl);
-    
+
     const matchSavingOrWithdrawal = userMessage.match(/^(存|領)\s+(\d+)\s+(\S+)$/);
 
     const match = userMessage.match(/^(\d+)(?:\s+(\S+))?$/);
@@ -91,6 +91,20 @@ const userProfile = await axios.get(`https://api.line.me/v2/bot/profile/${userId
                         // 構建按鈕和動作
                     ]
                 }
+            }
+
+            try {
+                await axios.post('https://api.line.me/v2/bot/message/reply', {
+                    replyToken: replyToken,
+                    messages: [confirmMessage]
+                }, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${process.env.CHANNEL_ACCESS_TOKEN}`
+                    }
+                });
+            } catch (error) {
+                console.error('發送確認卡片消息時出錯:', error);
             }
         }
         
