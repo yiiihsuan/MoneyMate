@@ -18,6 +18,7 @@ const PieChartComponent = ({ data }) => {
         cx={150}
         cy={150}
         outerRadius={100}
+        innerRadius={50}
         fill="#8884d8"
         label
       >

@@ -33,8 +33,9 @@ const BankPieComponent = ({ data }) => {
                     cx={150}
                     cy={150}
                     outerRadius={80}
+                    innerRadius={30}
                     fill="#8884d8"
-                    label
+                   //label
                 >
                     {dataByBank.map((entry, index) => (
                         <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
@@ -51,8 +52,9 @@ const BankPieComponent = ({ data }) => {
                     cx={150}
                     cy={150}
                     outerRadius={80}
+                    innerRadius={30}
                     fill="#8884d8"
-                    label
+                    // label
                 >
                     {dataByType.map((entry, index) => (
                         <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
