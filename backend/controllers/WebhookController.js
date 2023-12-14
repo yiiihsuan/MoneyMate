@@ -88,7 +88,16 @@ const userProfile = await axios.get(`https://api.line.me/v2/bot/profile/${userId
                     "type": "confirm",
                     "text": `您是否要${action} ${amount}元，在${operation}？`,
                     "actions": [
-                        // 構建按鈕和動作
+                        {
+                            "type": "postback",
+                            "label": "是",
+                            "data": `action=${action}&amount=${amount}&operation=${operation}`
+                        },
+                        {
+                            "type": "message",
+                            "label": "否",
+                            "text": "取消"
+                        }
                     ]
                 }
             }
