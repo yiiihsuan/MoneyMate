@@ -205,7 +205,7 @@ const AccountingBook = () => {
           {/* <AccountingTimeline data={filteredData} onRecordUpdate={handleRecordUpdate} 
           selectedDate={selectedDate}  /> */}
           <AccountingTimeline
-  data={records}
+  data={filteredData}
   onMutationSuccess={onMutationSuccess}
 />
         </LeftColumn>
