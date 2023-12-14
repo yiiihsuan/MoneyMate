@@ -69,7 +69,7 @@ const CardPieChart = ({ data }) => {
 
     return (
       <div>
-        <PieChart width={400} height={200}>
+        <PieChart width={400} height={300}>
           <Pie
             data={data}
             cx={200}

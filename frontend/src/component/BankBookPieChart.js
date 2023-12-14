@@ -12,7 +12,7 @@ const ChartContainer = styled.div`
 `;
 
 const Heading = styled.h3`
-  margin-bottom: 10px; 
+  margin-bottom: -5px; 
 `;
 
 const processData = (data, key) => {
@@ -37,7 +37,7 @@ const BankPieComponent = ({ data }) => {
             <Heading>帳戶總餘額: {totalAmount}</Heading>
       <ChartContainer>
             {/* <div className="chartContainer" style={{ display: 'flex', justifyContent: 'space-around' }}> */}
-            <PieChart width={300} height={200}>
+            <PieChart width={300} height={300}>
                 <Pie
                     dataKey="value"
                     isAnimationActive={true}
