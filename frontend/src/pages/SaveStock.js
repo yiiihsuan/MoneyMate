@@ -72,7 +72,7 @@ const SaveStock = () => {
     const [price, setPrice] = useState(''); // State for the stock price
     const [commission, setCommission] = useState(0);
     const [transactionTax, setTransactionTax] = useState(0); // State for the transaction tax
-    const [submitSuccess, setSubmitSuccess] = useState(false);
+
   
     const calculateCommission = (qty, prc, act) => {
         let basicCommission = 0;
