@@ -10,6 +10,8 @@ import  SaveStock from './pages/SaveStock.js';
 import Calendar from './component/Calendar.js';
 import liff from '@line/liff';
 import  SaveCardBill from './pages/SaveCardBill.js';
+import DashboardLeftLiff from './pages/DashBoardLiff.js';
+import DashboardRightLiff from './pages/DashBoardLiff2.js';
 
 
 //<Route path="/" element={<HomePageForLiff />} />
@@ -45,6 +47,8 @@ const App = () => {
                 <Route path="/accountingbookliff" element={<AccountingBookForLiff />} />
                 <Route path="/savestock" element={<SaveStock />} />
                 <Route path="/savecardbill" element={< SaveCardBill/>} />
+                <Route path="/dashboardleftliff" element={< DashboardLeftLiff/>} />
+                <Route path="/dashboardrightliff" element={< DashboardRightLiff/>} />
               </>
             ) : (
               <>

@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import AccountingTimeline from '../component/AccountingDetail';
 import { fetchAccountingData } from '../api'; 
 import PieChartComponent from '../component/AccountingPieChart';
+import LoadingSpinner from '../component/LoadingSpinner';
 
 const AccountingBookContainer = styled.div`
   display: flex;
@@ -78,31 +79,21 @@ const AccountingBook = () => {
   }));
 
   let totalExpenditure = 0;
-  //let totalIncome = 0;
+
 
     if (!isLoading && !isError) {
       totalExpenditure = records.reduce((sum, record) => {
         return sum + record.amount;
       }, 0);
     }
-   // to do...update  data
-  //  // 更新記錄
-  const handleRecordUpdate = async (updatedRecord) => {
-  //   // 假設您有一個函數來更新API中的記錄
-  //   await updateRecordInAPI(updatedRecord);
+ 
 
-  //   // 更新查詢緩存中的數據
-  //   queryClient.setQueryData(['accountData'], (oldData) => {
-  //     return oldData.map((record) => {
-  //       if (record.id === updatedRecord.id) {
-  //         return updatedRecord;
-  //       }
-  //       return record;
-  //     });
-  //   });
-  };
+  if (isLoading) {
+    return (
+      <LoadingSpinner />
 
-  if (isLoading) return <div>Loading...</div>; // 加載狀態
+    );
+  }
   if (isError) return <div>Error fetching data</div>; // 錯誤處理
 
 
@@ -113,7 +104,7 @@ const AccountingBook = () => {
 
 
         <AccountingTimelineSection>
-        <AccountingTimeline data={records} onRecordUpdate={handleRecordUpdate} />
+        <AccountingTimeline data={records}  />
         </AccountingTimelineSection>
 
 
