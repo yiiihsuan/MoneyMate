@@ -83,10 +83,10 @@ const userProfile = await axios.get(`https://api.line.me/v2/bot/profile/${userId
             const confirmMessage = {
                 // 構建確認消息，根據存款或取款操作
                 "type": "template",
-                "altText": `您是否要${action} ${amount}元，在${operation}？`,
+                "altText": `您是否要在${operation} ${action} ${amount}元？`,
                 "template": {
                     "type": "confirm",
-                    "text": `您是否要${action} ${amount}元，在${operation}？`,
+                    "text": `您是否要在${operation} ${action} ${amount}元？`,
                     "actions": [
                         {
                             "type": "postback",
