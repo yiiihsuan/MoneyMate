@@ -25,6 +25,9 @@ const processData = (data, key) => {
 };
 
 const BankPieComponent = ({ data }) => {
+
+    const [showAmount, setShowAmount] = useState(false);
+
     // 根據銀行計算
     const dataByBank = processData(data, 'bank_name');
     // 根據貨幣類型計算
@@ -34,7 +37,13 @@ const BankPieComponent = ({ data }) => {
 
     return (
         <div>
-            <Heading>帳戶總餘額: {totalAmount}</Heading>
+           <Heading
+        onMouseEnter={() => setShowAmount(true)} //mouse 懸停 顯示
+        onMouseLeave={() => setShowAmount(false)} // 移開隱藏
+        onClick={() => setShowAmount(!showAmount)} // 點擊切換
+      >
+        帳戶總餘額: {showAmount ? totalAmount : '*****'}
+      </Heading>
       <ChartContainer>
             {/* <div className="chartContainer" style={{ display: 'flex', justifyContent: 'space-around' }}> */}
             <PieChart width={300} height={300}>
