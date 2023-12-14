@@ -26,7 +26,7 @@ import AccountingBook from '../controllers//AccountRecord.js';
 import{ getAccounting,updateAccounting,deleteAccounting } from '../controllers/AccountingController.js';
 import{ getBankbookList} from '../controllers/BankController.js';
 import{ getCardBillList} from '../controllers/CardController.js';
-
+import{ saveStockList} from '../controllers/StockController.js';
 import 'dotenv/config';
 
 const app = express();
@@ -136,7 +136,7 @@ app.get('/api/1.0/bankbook/list', isAuthenticated, getBankbookList);
 
 app.get('/api/1.0/cardbill/list', isAuthenticated, getCardBillList);
 
-
+app.post('/api/1.0/stock/save',isAuthenticated, saveStockList)
 
 
 export { app };

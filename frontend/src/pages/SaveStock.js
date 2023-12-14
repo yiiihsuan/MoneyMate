@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
 
 
 const FormWrapper = styled.div`
@@ -122,27 +123,20 @@ const SaveStock = () => {
           };
 
           console.log('transactionData',transactionData );
-
-      try {
         //change to save stock API
        // await axios.delete(`/api/1.0/account/delete/${id}`);
-        const response = await fetch('http://localhost:3000/save-stock-transaction', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(transactionData),
-        });
-    
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-    
-        // 处理响应
-        console.log('Transaction saved');
+
+      
+      //  const response = await fetch('http://localhost:3000/save-stock-transaction', {
+        
+      try {
+        const response = await axios.post('/api/1.0/stock/save', transactionData);
+      
+        console.log('Transaction saved', response.data);
       } catch (error) {
-        console.error('Error:', error);
+        console.error('Error:', error.response ? error.response.data : error);
       }
+      
 
 
 
