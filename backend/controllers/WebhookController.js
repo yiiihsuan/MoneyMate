@@ -30,6 +30,11 @@ const userProfile = await axios.get(`https://api.line.me/v2/bot/profile/${userId
     console.log('userPictureUrl',userPictureUrl);
 
     const match = userMessage.match(/^(\d+)(?:\s+(\S+))?$/);
+
+
+    const matchSavingOrWithdrawal = userMessage.match(/^(存|領)\s+(\d+)\s+(\S+)$/);
+
+
     if (match) {
         const amount = parseInt(match[1], 10);
         const tag = match[2] || null ;
@@ -73,6 +78,24 @@ const userProfile = await axios.get(`https://api.line.me/v2/bot/profile/${userId
         }
     } else {
         // 其他消息處理...
+
+        if (matchSavingOrWithdrawal) {
+            const action = matchSavingOrWithdrawal[1]; // '存' 或 '領'
+            const amount = parseInt(matchSavingOrWithdrawal[2], 10);
+            const operation = matchSavingOrWithdrawal[3]; // 如 '郵局'
+    
+            const confirmMessage = {
+                // 構建確認消息，根據存款或取款操作
+                "type": "template",
+                "altText": `您是否要${action} ${amount}元，在${operation}？`,
+                "template": {
+                    "type": "confirm",
+                    "text": `您是否要${action} ${amount}元，在${operation}？`,
+                    "actions": [
+                        // 構建按鈕和動作
+                    ]
+                }
+            };
     }
 
 

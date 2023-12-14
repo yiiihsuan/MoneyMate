@@ -12,8 +12,8 @@ export const fetchAccountingData= async () => {
 
 
   export const fetchAccountingDataForToday = async () => {
-    //const today = moment(new Date()).format('YYYY-MM-DD')
-    const today = '2023-12-14'
+    const today = moment(new Date()).format('YYYY-MM-DD')
+    //const today = '2023-12-14'
     const response = await fetch(`${BASE_URL}/account/list?date=${today}`);
   
     if (!response.ok) {

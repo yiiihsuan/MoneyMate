@@ -66,7 +66,8 @@ const AccountingBook = () => {
 
   const { data: datas, isLoading, isError } = useQuery({
     queryKey: ['accountDataToday'],
-    queryFn: fetchAccountingDataForToday
+    queryFn: fetchAccountingDataForToday,
+    refetchInterval: 2000
   });
 
 
