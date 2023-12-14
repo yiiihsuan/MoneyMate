@@ -72,6 +72,7 @@ const SaveStock = () => {
     const [price, setPrice] = useState(''); // State for the stock price
     const [commission, setCommission] = useState(0);
     const [transactionTax, setTransactionTax] = useState(0); // State for the transaction tax
+    const [submitSuccess, setSubmitSuccess] = useState(false);
   
     const calculateCommission = (qty, prc, act) => {
         let basicCommission = 0;
@@ -133,10 +134,21 @@ const SaveStock = () => {
         const response = await axios.post('/api/1.0/stock/save', transactionData);
       
         console.log('Transaction saved', response.data);
-      } catch (error) {
-        console.error('Error:', error.response ? error.response.data : error);
-      }
-      
+
+             alert('紀錄成功！');
+
+             setBroker('');
+             setStockCode('');
+             setAction('');
+             setQuantity('');
+             setPrice('');
+             setCommission(0);
+             setTransactionTax(0);
+         } catch (error) {
+             console.error('Error:', error.response ? error.response.data : error);
+             alert('提交失敗');
+         }
+    
 
 
 
@@ -152,7 +164,7 @@ const SaveStock = () => {
           證券商:
           <StyledSelect value={broker} onChange={(e) => setBroker(e.target.value)}>
             <option value="">選擇證券商</option>
-            <option value="1">富邦銀行</option>
+            <option value="7">富邦銀行</option>
           </StyledSelect>
         </StyledLabel>
 

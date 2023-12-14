@@ -10,6 +10,17 @@ export async function saveStockList(req, res) {
         const transactionData = req.body;
         console.log('Received transaction data:', transactionData);
 
+
+        // Received transaction data: {
+        //     broker: '7',  //富邦
+        //     stockCode: '0050',
+        //     action: 'buy',
+        //     quantity: '100',
+        //     price: '133',
+        //     commission: 18.9525,
+        //     transactionTax: 0
+        //   }
+          
      
         // const savedTransaction = await saveStockByuserId(userId, transactionData);
 
