@@ -32,17 +32,24 @@ export async function getBankBookByuserId (userId) {
 export async function saveBankBookByUserId(userId, action, amount, bankCode) {
     const connection = await pool.getConnection();
     try {
-        await connection.beginTransaction(); // 開始事務
+        await connection.beginTransaction(); 
 
-        // 檢查用戶的帳戶是否存在
-        const selectQuery = 'SELECT * FROM user_accounts WHERE user_id = ? AND bank_code = ? AND type = "TWD"';
-        const [account] = await connection.query(selectQuery, [userId, bankCode]);
+     
+        const bankIdQuery = 'SELECT id FROM bank WHERE bank_code = ?';
+        const [bank] = await connection.query(bankIdQuery, [bankCode]);
+        if (bank.length === 0) {
+            throw new Error('銀行not found');
+        }
+        const bankId = bank[0].id;
+
+
+        const selectQuery = 'SELECT * FROM account WHERE user_id = ? AND bank_id = ? AND type = "TWD"';
+        const [account] = await connection.query(selectQuery, [userId, bankId]);
 
         if (account.length === 0) {
             throw new Error('帳戶不存在');
         }
 
-        // 計算新的餘額
         let newBalance;
         if (action === '存') {
             newBalance = account[0].total + amount;
@@ -53,11 +60,11 @@ export async function saveBankBookByUserId(userId, action, amount, bankCode) {
             newBalance = account[0].total - amount;
         }
 
-        // 更新帳戶餘額
-        const updateQuery = 'UPDATE user_accounts SET total = ? WHERE user_id = ? AND bank_code = ? AND type = "TWD"';
-        await connection.query(updateQuery, [newBalance, userId, bankCode]);
+     
+        const updateQuery = 'UPDATE account SET total = ? WHERE user_id = ? AND bank_id = ? AND type = "TWD"';
+        await connection.query(updateQuery, [newBalance, userId, bankId]);
 
-        await connection.commit(); // 提交事務
+        await connection.commit(); 
 
         return {
             bankCode,
@@ -65,34 +72,34 @@ export async function saveBankBookByUserId(userId, action, amount, bankCode) {
             newBalance
         };
     } catch (error) {
-        await connection.rollback(); // 出錯時回滾事務
+        await connection.rollback(); 
         console.error('Error in saveBankBookByUserId:', error);
         throw error;
     } finally {
-        connection.release(); // 釋放連接
+        connection.release(); 
     }
 };
 
 
-export async function saveBankBookByuserId (userId) {
-    try {
-        console.log('userId in model', userId);
+// export async function saveBankBookByuserId (userId) {
+//     try {
+//         console.log('userId in model', userId);
 
-        const selectQuery = `
+//         const selectQuery = `
             
-        `;
+//         `;
 
-        const [selectResult] = await pool.query(selectQuery, [userId]);
+//         const [selectResult] = await pool.query(selectQuery, [userId]);
 
-        console.log(selectResult);
+//         console.log(selectResult);
 
-        if (selectResult.length > 0) {
-            console.log('get bankbooklist', selectResult);
-            return selectResult;
-        } else {
-            return null;
-        }
-    } catch (error) {
-        throw error;
-    }
-};
+//         if (selectResult.length > 0) {
+//             console.log('get bankbooklist', selectResult);
+//             return selectResult;
+//         } else {
+//             return null;
+//         }
+//     } catch (error) {
+//         throw error;
+//     }
+// };
