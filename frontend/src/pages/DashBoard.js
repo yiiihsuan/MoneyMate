@@ -170,12 +170,19 @@ const Dashboard = () => {
     refetchOnWindowFocus: true
   });
 
+
+
   const { data: userBankData, isLoading: isUserBankLoading, isError: isUserBankError } = useQuery({
     queryKey: ['userBankData'],
     queryFn: fetchUserBankData,
     refetchInterval: 2000,
     refetchOnWindowFocus: true
   });
+
+
+  useEffect(() => {
+    console.log('userBankData 更新了: ', userBankData);
+  }, [userBankData]);
 
   const { data: cardData, isLoading: isUserCardLoading, isError: isUserCardError } = useQuery({
     queryKey: ['userCardData'],

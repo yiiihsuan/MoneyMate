@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
 
 const FormWrapper = styled.div`
   background-color: #f5f5f5; 
@@ -61,10 +62,30 @@ const SaveCardBill = () => {
   const [price, setPrice] = useState('');
   const [isPaid, setIsPaid] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // 處理提交邏輯
-    console.log({ creditCardType, year, month, price, isPaid });
+    const formData = {
+      creditCardType,
+      year,
+      month,
+      price: parseFloat(price), 
+      isPaid: isPaid === 'yes' 
+  };
+
+     console.log('Sending data:', formData);
+
+     try {
+
+      const response = await axios.post('/api/1.0/cardbill/save', formData);
+      console.log('Response:', response.data);
+
+      alert('紀錄成功！');
+
+  } catch (error) {
+      console.error('Error submitting form:', error);
+
+  }
+    
   };
 
   return (

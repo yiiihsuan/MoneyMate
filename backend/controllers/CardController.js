@@ -1,5 +1,5 @@
 
-import {getCardBillByuserId,getCardTotalByuserId,getRewardByuserId } from '../models/CardOperation.js'
+import {getCardBillByuserId,getCardTotalByuserId,getRewardByuserId , saveCardBillintodb} from '../models/CardOperation.js'
 
 
 export async function getCardBillList(req, res) {
@@ -33,6 +33,40 @@ export async function getCardBillList(req, res) {
         }
     } catch (error) {
         console.error(error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+    
+}
+
+
+function getCardIdFromType(creditCardType) {
+    const cardTypeToIdMapping = {
+        '玉山Ubear卡': 1,  
+        '台新gogo卡': 2,  
+        '郵政visa': 3     
+    };
+
+    return cardTypeToIdMapping[creditCardType] || null;
+}
+
+
+export async function saveCardBillByUserId(req, res) {
+    try {
+        const userId = req.userId; 
+        console.log('userId in saveCardBillByUserId controller', userId);
+
+
+        const { creditCardType, year, month, price, isPaid } = req.body;
+        console.log('Received data:', { creditCardType, year, month, price, isPaid });
+
+  
+        const cardId = getCardIdFromType(creditCardType); 
+
+        await saveCardBillintodb(userId, cardId, price, isPaid);
+
+        res.status(200).json({ message: 'Card bill saved successfully' });
+    } catch (error) {
+        console.error('Error in saveCardBillByUserId:', error);
         res.status(500).json({ message: 'Internal server error' });
     }
 }

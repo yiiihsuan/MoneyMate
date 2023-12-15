@@ -90,3 +90,21 @@ export async function getRewardByuserId (userId) {
         throw error;
     }
 };
+
+
+export async function saveCardBillintodb(userId, cardId, amount, isPaid) {
+    try {
+        const insertQuery = `
+            INSERT INTO cardbill (user_id, card_id, amount, is_paid)
+            VALUES (?, ?, ?, ?);
+        `;
+
+        const isPaidValue = isPaid ? 1 : 0; // 确保 isPaid 是一个适合您数据库字段的值
+
+        const [result] = await pool.query(insertQuery, [userId, cardId, amount, isPaidValue]);
+
+        return result.insertId; 
+    } catch (error) {
+        throw error;
+    }
+}
