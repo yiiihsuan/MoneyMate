@@ -49,13 +49,23 @@ function translateBankAbbreviation(abbreviation) {
 }
 
 
-export async function saverecordAccountBank(req, res) {
+
+//export async function saverecordAccountBank(req, res) {
+
+
+const saverecordAccountBank = async (data) => {
+    const { action, amount, operation,userId} = data; 
+    console.log('準備執行存領程序');
+    console.log('action:', action);
+    console.log('amount:', amount);
+    console.log('operation:', operation);
+    console.log('我是誰:', userId);
+  
+    
     try {
-        const userId = req.userId; 
-        console.log('userId in getBankbookList controller',userId )
-        const { action, amount, operation} = req.body;
-        console.log('action:',req.body.action)
-        // 轉換銀行縮寫到銀行代碼
+        // const userId = req.userId; 
+        // console.log('userId in getBankbookList controller',userId )
+
         const bankCode = translateBankAbbreviation(operation);
 
         // 根據操作執行存款或取款
@@ -78,3 +88,5 @@ export async function saverecordAccountBank(req, res) {
         res.status(500).json({ message: 'Internal server error' });
     }
 }
+
+export { saverecordAccountBank};
