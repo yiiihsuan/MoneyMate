@@ -69,7 +69,7 @@ const saverecordAccountBank = async (data) => {
         const bankCode = translateBankAbbreviation(operation);
 
         // 根據操作執行存款或取款
-        const result = await saveBankBookByUserId (action, amount, bankCode, userId);
+        const result = await saveBankBookByUserId (userId,action, amount, bankCode);
 
         // 返回成功響應
         // res.json({ success: true, data: result });
