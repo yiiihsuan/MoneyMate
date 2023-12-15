@@ -9,11 +9,10 @@ const FormWrapper = styled.div`
   background-color: #f5f5f5;
   padding: 20px;
   border-radius: 10px;
-  max-width:100vh;
   margin: auto;
-  width: 100vw;       
-  height: 100vh;            
-  overflow: auto;  
+  max-width: auto;      
+  max-height: 100vh;          
+  overflow: auto;   
 `;
 
 const StyledForm = styled.form`
