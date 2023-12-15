@@ -56,8 +56,8 @@ font-size: 1.1rem;
 
 
 const SaveCardBill = () => {
-  const [creditCardType, setCreditCardType] = useState('');
-  const [year, setYear] = useState('');
+  const [creditCardType, setCreditCardType] = useState('玉山Ubear卡');
+  const [year, setYear] = useState('2023');
   const [month, setMonth] = useState('');
   const [price, setPrice] = useState('');
   const [isPaid, setIsPaid] = useState('');
@@ -80,6 +80,12 @@ const SaveCardBill = () => {
       console.log('Response:', response.data);
 
       alert('紀錄成功！');
+
+        setCreditCardType('');
+        setYear('');
+        setMonth('');
+        setPrice('');
+        setIsPaid('');
 
   } catch (error) {
       console.error('Error submitting form:', error);

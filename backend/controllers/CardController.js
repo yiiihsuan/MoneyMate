@@ -55,6 +55,8 @@ export async function saveCardBillByUserId(req, res) {
         const userId = req.userId; 
         console.log('userId in saveCardBillByUserId controller', userId);
 
+        console.log('Received data:', req.body);
+
 
         const { creditCardType, year, month, price, isPaid } = req.body;
         console.log('Received data:', { creditCardType, year, month, price, isPaid });
