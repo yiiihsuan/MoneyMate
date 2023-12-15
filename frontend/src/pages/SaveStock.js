@@ -13,7 +13,7 @@ const FormWrapper = styled.div`
   max-width: auto;      
   max-height: 100vh;          
   overflow: auto;  
-  height: 100vh;   
+  height: 100vh;  
 `;
 
 const StyledForm = styled.form`
@@ -82,9 +82,7 @@ const SaveStock = () => {
         let tax = 0;
   
         if (act === 'buy' || act === 'sell') {
-
           const commissionRate = 0.001425;
-
           basicCommission = qty * prc * commissionRate;
   
           if (act === 'sell') {
@@ -153,7 +151,12 @@ const SaveStock = () => {
              console.error('Error:', error.response ? error.response.data : error);
              alert('提交失敗');
          }
-  
+    
+
+
+
+
+
 
     };
   
