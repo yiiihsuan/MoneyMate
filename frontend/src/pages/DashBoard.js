@@ -10,6 +10,7 @@ import PieChartComponent from '../component/AccountingPieChart';
 import BankPieComponent from '../component/BankBookPieChart';
 import CardPieChart from '../component/CardPieChart';
 import LoadingSpinner from '../component/LoadingSpinner';
+import NotFoundPage from '../component/NotFoundPage';
 
 const DashboardContainer = styled.div`
   display: grid;
@@ -239,8 +240,13 @@ const Dashboard = () => {
 
   // Error 狀態處理
   if (isError || isUserBankError || isUserCardError) {
-    return <div>Error loading data</div>;
+    // return <div>Error loading data</div>;
+    return (
+      <NotFoundPage  />
+    );
   }
+
+  
 
   return (
     <>
