@@ -77,16 +77,14 @@ const saverecordAccountBank = async (data) => {
        // const bankbookData =await getBankBookByuserId(userId)
        console.log('save bank book result:',result)
   
-    if (result ) {
-        res.status(200).json(result);
-    } else {
-        res.status(404).json({ message: 'Accounting data not found' });
-    }
-
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Internal server error' });
-    }
-}
+       
+       return result;
+       //return newRecord; // 返回新增紀錄的資料
+     } catch (error) {
+       console.error('紀錄到存領資料庫時出錯:', error);
+       throw error; 
+     }
+   };
+   
 
 export { saverecordAccountBank};
