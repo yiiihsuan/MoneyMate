@@ -165,17 +165,23 @@ const Dashboard = () => {
 
   const { data: datas, isLoading, isError } = useQuery({
     queryKey: ['accountDataToday'],
-    queryFn: fetchAccountingDataForToday
+    queryFn: fetchAccountingDataForToday,
+    refetchInterval: 2000,
+    refetchOnWindowFocus: true
   });
 
   const { data: userBankData, isLoading: isUserBankLoading, isError: isUserBankError } = useQuery({
     queryKey: ['userBankData'],
-    queryFn: fetchUserBankData
+    queryFn: fetchUserBankData,
+    refetchInterval: 2000,
+    refetchOnWindowFocus: true
   });
 
   const { data: cardData, isLoading: isUserCardLoading, isError: isUserCardError } = useQuery({
     queryKey: ['userCardData'],
-    queryFn: fetchUserCardData
+    queryFn: fetchUserCardData,
+    refetchInterval: 2000,
+    refetchOnWindowFocus: true
   });
 
   const [totalExpenditure, setTotalExpenditure] = useState(0);
