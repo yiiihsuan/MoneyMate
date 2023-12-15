@@ -34,7 +34,7 @@ export async function saveBankBookByUserId(userId, action, amount, bankCode) {
     try {
         await connection.beginTransaction(); 
 
-        consolt.log('bank code is',bankCode)
+        console.log('bank code is',bankCode)
 
      
         const bankIdQuery = 'SELECT id FROM bank WHERE bank_code = ?';
