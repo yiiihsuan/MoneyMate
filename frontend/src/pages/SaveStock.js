@@ -12,7 +12,8 @@ const FormWrapper = styled.div`
   margin: auto;
   max-width: auto;      
   max-height: 100vh;          
-  overflow: auto;   
+  overflow: auto;  
+  height: 100vh;   
 `;
 
 const StyledForm = styled.form`
