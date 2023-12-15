@@ -74,12 +74,26 @@ const SaveStock = () => {
     const [transactionTax, setTransactionTax] = useState(0); // State for the transaction tax
 
   
-    const calculateCommission = (qty, prc, act) => {
+     
+    const brokerCommissionRates = {
+      '7': 0.001425, 
+     
+  };
+
+    const calculateCommission = (qty, prc, act,brk) => {
         let basicCommission = 0;
         let tax = 0;
   
         if (act === 'buy' || act === 'sell') {
-          const commissionRate = 0.001425;
+
+
+
+         const commissionRate = brokerCommissionRates[brk] || 0;
+      
+
+
+
+
           basicCommission = qty * prc * commissionRate;
   
           if (act === 'sell') {
@@ -148,12 +162,7 @@ const SaveStock = () => {
              console.error('Error:', error.response ? error.response.data : error);
              alert('提交失敗');
          }
-    
-
-
-
-
-
+  
 
     };
   
