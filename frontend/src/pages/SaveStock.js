@@ -74,25 +74,13 @@ const SaveStock = () => {
     const [transactionTax, setTransactionTax] = useState(0); // State for the transaction tax
 
   
-     
-    const brokerCommissionRates = {
-      '7': 0.001425, 
-     
-  };
-
-    const calculateCommission = (qty, prc, act,brk) => {
+    const calculateCommission = (qty, prc, act) => {
         let basicCommission = 0;
         let tax = 0;
   
         if (act === 'buy' || act === 'sell') {
 
-
-
-         const commissionRate = brokerCommissionRates[brk] || 0;
-      
-
-
-
+          const commissionRate = 0.001425;
 
           basicCommission = qty * prc * commissionRate;
   
