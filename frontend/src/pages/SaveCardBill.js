@@ -8,7 +8,9 @@ const FormWrapper = styled.div`
   border-radius: 10px;
   max-width: auto;
   max-height: 100vh;
-  margin: auto;
+  margin: auto;          
+  overflow: auto; 
+  height: 100vh;   
 `;
 
 const StyledForm = styled.form`
