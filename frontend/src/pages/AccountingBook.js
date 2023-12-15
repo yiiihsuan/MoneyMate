@@ -9,6 +9,8 @@ import PieChartComponent from '../component/AccountingPieChart';
 import Calendar from '../component/Calendar';
 import moment from 'moment';
 import LoadingSpinner from '../component/LoadingSpinner';
+import NotFoundPage from '../component/NotFoundPage';
+
 
 
 const AccountingBookContainer = styled.div`
@@ -191,9 +193,15 @@ const AccountingBook = () => {
 
 
 
+  if (isError) {
+    return (
+      <NotFoundPage  />
+    );
+  }
 
 
-  if (isError) return <div>Error fetching data</div>; // 錯誤處理
+
+  // if (isError) return <div>Error fetching data</div>; // 錯誤處理
 
 
   //我的記帳本 放section 上會在上方，放下面會在section 裡的左側

@@ -7,6 +7,8 @@ import { fetchAccountingData,fetchAccountingDataForToday } from '../api';
 import PieChartComponent from '../component/AccountingPieChart';
 import LoadingSpinner from '../component/LoadingSpinner';
 import moment from 'moment';
+import NotFoundPage from '../component/NotFoundPage';
+
 
 const AccountingBookContainer = styled.div`
   display: flex;
@@ -108,8 +110,14 @@ const AccountingBook = () => {
 
     );
   }
-  if (isError) return <div>Error fetching data</div>; // 錯誤處理
 
+
+  if (isError) {
+    // return <div>Error loading data</div>;
+    return (
+      <NotFoundPage  />
+    );
+  }
 
   //我的記帳本 放section 上會在上方，放下面會在section 裡的左側
   return (
