@@ -1,5 +1,5 @@
 
-import {getBankBookByuserId,saveBankBookByuserId} from '../models/BankOperation.js'
+import {getBankBookByuserId,saveBankBookByUserId} from '../models/BankOperation.js'
 
 
 export async function getBankbookList(req, res) {
@@ -69,7 +69,7 @@ const saverecordAccountBank = async (data) => {
         const bankCode = translateBankAbbreviation(operation);
 
         // 根據操作執行存款或取款
-        const result = await saveBankBookByUserId(action, amount, bankCode, userId);
+        const result = await saveBankBookByUserId (action, amount, bankCode, userId);
 
         // 返回成功響應
         // res.json({ success: true, data: result });
@@ -81,7 +81,7 @@ const saverecordAccountBank = async (data) => {
        return result;
        //return newRecord; // 返回新增紀錄的資料
      } catch (error) {
-       console.error('紀錄到存領資料庫時出錯:', error);
+       console.error('紀錄到資料庫時出錯:', error);
        throw error; 
      }
    };
