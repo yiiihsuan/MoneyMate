@@ -11,6 +11,8 @@ This project is built using node.js/express (backend) and react.js, styled-compo
 
 1.Accounting with Line
 
+![image](https://github.com/yiiihsuan/MoneyMate/blob/main/assets/%E8%A8%98%E5%B8%B3.JPG)
+
 2.View / Edit bank book records
 
 ![image](https://github.com/yiiihsuan/MoneyMate/blob/main/assets/bankbook.JPG)
@@ -21,3 +23,5 @@ This project is built using node.js/express (backend) and react.js, styled-compo
 
 5.View/ Edit stock buying and selling transactions
 
+
+#![image]()
