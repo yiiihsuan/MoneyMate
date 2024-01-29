@@ -3,6 +3,7 @@
 This is a tool for asset management, incorporating features such as expense tracking, spending analysis, recording credit card bills, tracking stock transactions, and summarizing savings account balances. 
 It seamlessly integrates with Line's official account, enabling swift expense logging without requiring an extra app download.
 
+![image](https://github.com/yiiihsuan/MoneyMate/blob/main/assets/bankbook.JPG)
 
 The icon is made by chatGPT.
 
