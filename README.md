@@ -4,7 +4,7 @@ This is a tool for asset management, incorporating features such as expense trac
 It seamlessly integrates with Line's official account, enabling swift expense logging without requiring an extra app download.
 
 
-# <img src="https://github.com/yiiihsuan/MoneyMate/blob/main/assets/moneymate.jpg" height="360px" width="240px" />
+<img src="https://github.com/yiiihsuan/MoneyMate/blob/main/assets/moneymate.jpg" height="50%" width="50%" />
 
 
 img[src*="#w50"] {
