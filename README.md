@@ -14,6 +14,7 @@ The icon is made by chatGPT.
 This project is built using node.js/express (backend) and react.js, styled-components  (frontend), integrating Line LIFF and Messaging API.
 
 1.Accounting with Line
+
 <img src="https://github.com/yiiihsuan/MoneyMate/blob/main/assets/%E8%A8%98%E5%B8%B3.JPG" height="50%" width="50%" />
 
 
