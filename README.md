@@ -6,6 +6,7 @@ It seamlessly integrates with Line's official account, enabling swift expense lo
 
 <img src="https://github.com/yiiihsuan/MoneyMate/blob/main/assets/moneymate.jpg" height="50%" width="50%" />
 
+＃ <img src="" height="50%" width="50%" />
 
 img[src*="#w50"] {
   display: block;
@@ -25,9 +26,12 @@ This project is built using node.js/express (backend) and react.js, styled-compo
 1.Accounting with Line
 
 ![image](https://github.com/yiiihsuan/MoneyMate/blob/main/assets/%E8%A8%98%E5%B8%B3.JPG)
+<img src="https://github.com/yiiihsuan/MoneyMate/blob/main/assets/%E8%A8%98%E5%B8%B3.JPG" height="50%" width="50%" />
+
 
 2.View / Edit bank book records
 
+<img src="https://github.com/yiiihsuan/MoneyMate/blob/main/assets/bankbook.JPG" height="50%" width="50%" />
 ![image](https://github.com/yiiihsuan/MoneyMate/blob/main/assets/bankbook.JPG)
 
 3.View / Edit accounting records
