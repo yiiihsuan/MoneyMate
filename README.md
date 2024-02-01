@@ -17,9 +17,10 @@ This project is built using node.js/express (backend) and react.js, styled-compo
 
 <img src="https://github.com/yiiihsuan/MoneyMate/blob/main/assets/%E8%A8%98%E5%B8%B3.JPG" height="50%" width="50%" />
 
+2.Dashboard - show all info
+<img src="https://github.com/yiiihsuan/MoneyMate/blob/main/assets/dashboarddd.png" height="50%" width="50%" />
 
 2.View / Edit bank book records
-
 <img src="https://github.com/yiiihsuan/MoneyMate/blob/main/assets/bankbook.JPG" height="50%" width="50%" />
 
 3.View / Edit accounting records
