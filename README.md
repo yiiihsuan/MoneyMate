@@ -15,7 +15,7 @@ This project is built using node.js/express (backend) and react.js, styled-compo
 
 1.Accounting with Line
 
-<img src="https://github.com/yiiihsuan/MoneyMate/blob/main/assets/%E8%A8%98%E5%B8%B3.JPG" height="50%" width="50%" />
+<img src="https://github.com/yiiihsuan/MoneyMate/blob/main/assets/%E8%A8%98%E5%B8%B3.JPG" height="30%" width="30%" />
 
 2.Dashboard - show all info
 
@@ -33,11 +33,11 @@ This project is built using node.js/express (backend) and react.js, styled-compo
 
 4.Edit credit card statements and payment status
 
-<img src="https://github.com/yiiihsuan/MoneyMate/blob/main/assets/line-creditcard.jpg" height="50%" width="50%" />
+<img src="https://github.com/yiiihsuan/MoneyMate/blob/main/assets/line-creditcard.jpg" height="30%" width="30%" />
 
 
 5.Edit stock buying and selling transactions
 
-<img src="https://github.com/yiiihsuan/MoneyMate/blob/main/assets/line-stock.jpg" height="50%" width="50%" />
+<img src="https://github.com/yiiihsuan/MoneyMate/blob/main/assets/line-stock.jpg" height="30%" width="30%" />
 
 
