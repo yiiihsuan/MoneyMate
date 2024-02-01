@@ -21,9 +21,9 @@ This project is built using node.js/express (backend) and react.js, styled-compo
 
 <img src="https://github.com/yiiihsuan/MoneyMate/blob/main/assets/dashboarddd.png" height="50%" width="50%" />
 
-2.View / Edit bank book records
+2.Add bank book records
 
-<img src="https://github.com/yiiihsuan/MoneyMate/blob/main/assets/bankbook.JPG" height="50%" width="50%" />
+<img src="https://github.com/yiiihsuan/MoneyMate/blob/main/assets/bankbook.JPG" height="30%" width="30%" />
 
 3.View / Edit accounting records
 
@@ -31,12 +31,12 @@ This project is built using node.js/express (backend) and react.js, styled-compo
 <img src="https://github.com/yiiihsuan/MoneyMate/blob/main/assets/modifydata.png" height="50%" width="50%" />
 
 
-4.Edit credit card statements and payment status
+4.Add credit card statements and payment status
 
 <img src="https://github.com/yiiihsuan/MoneyMate/blob/main/assets/line-creditcard.jpg" height="30%" width="30%" />
 
 
-5.Edit stock buying and selling transactions
+5.Add stock buying and selling transactions
 
 <img src="https://github.com/yiiihsuan/MoneyMate/blob/main/assets/line-stock.jpg" height="30%" width="30%" />
 
