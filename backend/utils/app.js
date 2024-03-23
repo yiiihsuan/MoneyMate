@@ -36,9 +36,7 @@ app.post('/api/1.0/account/save', recordAccount);
 app.get('/api/1.0', async (req, res) => {
     const code = req.query.code;
     const state = req.query.state;
-    console.log(code)
-    console.log(state)
-    console.log('redirect to dashboard check')
+
 
     if (state !== '12345') {
         return res.status(400).send('Invalid state parameter');
