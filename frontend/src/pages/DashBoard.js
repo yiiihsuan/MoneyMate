@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Header from '../component/Header.js';
@@ -230,13 +229,11 @@ const Dashboard = () => {
     navigate('/accountingbook');
   };
 
-
   if (isLoading || isUserBankLoading || isUserCardLoading) {
     return (
       <LoadingSpinner />
     );
   }
-
 
   if (isError || isUserBankError || isUserCardError) {
     return (
@@ -244,28 +241,21 @@ const Dashboard = () => {
     );
   }
 
-
-
   return (
     <>
       <Header />
       <DashboardContainer>
         <div />
         <LeftColumn>
-
           <MyAccountBook>
             <SectionHeader>我的記帳本
               <MoreButton onClick={handleMoreClick}>...more</MoreButton>
             </SectionHeader>
-
             <AccountingSummarySection>
               <TotalExpenditureText>今日花費: {totalExpenditure} 元</TotalExpenditureText>
               <AccountingTimeline data={datas} />
-
             </AccountingSummarySection>
-
           </MyAccountBook>
-
           <TodayStatistics>
             <SectionHeader>今日統計<MoreButton>...more</MoreButton></SectionHeader>
             <PieChartContainer>
@@ -273,14 +263,12 @@ const Dashboard = () => {
             </PieChartContainer>
           </TodayStatistics>
         </LeftColumn>
-
         <RightColumn>
           <MyAccount>
             <SectionHeader>我的帳戶<MoreButton>...more</MoreButton></SectionHeader>
             <BankPieComponent data={userBankData} />
           </MyAccount>
           <MyCreditCard>
-
             <SectionHeader>我的信用卡<MoreButton>...more</MoreButton></SectionHeader>
             <CardContentContainer>
               <CardInfo>
@@ -292,7 +280,6 @@ const Dashboard = () => {
               </ChartContainer>
             </CardContentContainer>
           </MyCreditCard>
-
           <MyInvestment>
             <SectionHeader>我的投資<MoreButton>...more</MoreButton></SectionHeader>
             <InvestmentSection>

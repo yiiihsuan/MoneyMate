@@ -11,7 +11,6 @@ import LoadingSpinner from '../component/LoadingSpinner';
 import NotFoundPage from '../component/NotFoundPage';
 
 
-
 const AccountingBookContainer = styled.div`
   margin-left: 60px; 
   margin-right: 10px;
@@ -71,9 +70,6 @@ const PieChartPlaceholder = styled.div`
 `;
 
 
-
-
-
 const AccountingBook = () => {
 
   const queryClient = useQueryClient();
@@ -85,21 +81,14 @@ const AccountingBook = () => {
     refetchOnWindowFocus: true,
   });
 
-
-
-
   const onMutationSuccess = () => {
     queryClient.invalidateQueries('accountData');
   };
-
 
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [filteredData, setFilteredData] = useState([]);
   const [totalExpenditure, setTotalExpenditure] = useState(0);
   const [pieChartData, setPieChartData] = useState([]);
-
-
-
 
   useEffect(() => {
     if (!isLoading && !isError) {
@@ -122,7 +111,6 @@ const AccountingBook = () => {
     const month = (newDate.getMonth() + 1).toString().padStart(2, '0');
     const date = newDate.getDate().toString().padStart(2, '0');
     const formattedDate = `${year}-${month}-${date}`;
-    console.log('accountingbook format date:', formattedDate);
     //setFilteredData(records.filter((record) => moment(record.created_time).format('YYYY-MM-DD') === formattedDate));
     const newData = records.filter((record) => moment(record.created_time).format('YYYY-MM-DD') === formattedDate);
     setFilteredData(newData);
@@ -156,7 +144,6 @@ const AccountingBook = () => {
 
 
   // to do...update  data
-  //  // 更新記錄
   const handleRecordUpdate = async (updatedRecord) => {
     // try {
     //   await updateRecordInAPI(updatedRecord); 

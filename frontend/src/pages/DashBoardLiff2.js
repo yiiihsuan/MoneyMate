@@ -201,7 +201,6 @@ const DashboardRightLiff = () => {
           <BankPieComponent data={userBankData} />
         </MyAccount>
         <MyCreditCard>
-
           <SectionHeader>我的信用卡<MoreButton>...more</MoreButton></SectionHeader>
           <CardContentContainer>
             <CardInfo>
@@ -213,7 +212,6 @@ const DashboardRightLiff = () => {
             </ChartContainer>
           </CardContentContainer>
         </MyCreditCard>
-
         <MyInvestment>
           <SectionHeader>我的投資<MoreButton>...more</MoreButton></SectionHeader>
           <InvestmentSection>

@@ -9,7 +9,6 @@ import LoadingSpinner from '../component/LoadingSpinner';
 import moment from 'moment';
 import NotFoundPage from '../component/NotFoundPage';
 
-
 const AccountingBookContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -63,22 +62,16 @@ const TotalExpenditureText = styled.p`
 
 
 const AccountingBook = () => {
-
   const queryClient = useQueryClient();
-
   const { data: datas, isLoading, isError } = useQuery({
     queryKey: ['accountDataToday'],
     queryFn: fetchAccountingDataForToday,
     refetchInterval: 2000
   });
 
-
-
   const onMutationSuccess = () => {
     queryClient.invalidateQueries('accountData');
   };
-
-
 
   const [totalExpenditure, setTotalExpenditure] = useState(0);
   const [pieChartData, setPieChartData] = useState([]);
@@ -110,7 +103,6 @@ const AccountingBook = () => {
 
     );
   }
-
 
   if (isError) {
     return (
