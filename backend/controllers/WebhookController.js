@@ -7,8 +7,6 @@ import { saverecordAccountBank } from './BankController.js';
 import moment from 'moment-timezone';
 
 
-
-
 dotenv.config();
 
 const handleTextMessage = async (event) => {
@@ -16,9 +14,9 @@ const handleTextMessage = async (event) => {
     const replyToken = event.replyToken;
     const userMessage = event.message.text;
 
-//if 存錢  userMessage.match(/^存\s+(\S+)\s+(\d+)$/);
+    //if 存錢  userMessage.match(/^存\s+(\S+)\s+(\d+)$/);
 
-const userProfile = await axios.get(`https://api.line.me/v2/bot/profile/${userId}`, {
+    const userProfile = await axios.get(`https://api.line.me/v2/bot/profile/${userId}`, {
         headers: {
             'Authorization': `Bearer ${process.env.CHANNEL_ACCESS_TOKEN}`,
         },
@@ -27,16 +25,16 @@ const userProfile = await axios.get(`https://api.line.me/v2/bot/profile/${userId
     const userName = userProfile.data.displayName;
     const userPictureUrl = userProfile.data.pictureUrl;
 
-    console.log('userName',userName);
-    console.log('userPictureUrl',userPictureUrl);
+    console.log('userName', userName);
+    console.log('userPictureUrl', userPictureUrl);
 
     const matchSavingOrWithdrawal = userMessage.match(/^(存|領)\s+(\d+)\s+(\S+)$/);
 
     const match = userMessage.match(/^(\d+)(?:\s+(\S+))?$/);
     if (match) {
         const amount = parseInt(match[1], 10);
-        const tag = match[2] || null ;
-        
+        const tag = match[2] || null;
+
 
         const confirmMessage = {
             "type": "template",
@@ -46,20 +44,20 @@ const userProfile = await axios.get(`https://api.line.me/v2/bot/profile/${userId
                 "text": `您是否要記一筆${amount}元，項目：${tag}？`,
                 "actions": [
                     {
-                      "type": "postback",
-                      "label": "是",
-                      "data": `action=save&amount=${amount}&tag=${tag}`
+                        "type": "postback",
+                        "label": "是",
+                        "data": `action=save&amount=${amount}&tag=${tag}`
                     },
                     {
-                      "type": "message",
-                      "label": "否",
-                      "text": "取消記帳"
+                        "type": "message",
+                        "label": "否",
+                        "text": "取消記帳"
                     }
                 ]
             }
         };
 
-        console.log('now user in handleTextMessage is:',userId )
+        console.log('now user in handleTextMessage is:', userId)
 
         try {
             await axios.post('https://api.line.me/v2/bot/message/reply', {
@@ -80,7 +78,7 @@ const userProfile = await axios.get(`https://api.line.me/v2/bot/profile/${userId
             const action = matchSavingOrWithdrawal[1]; // '存' 或 '領'
             const amount = parseInt(matchSavingOrWithdrawal[2], 10);
             const operation = matchSavingOrWithdrawal[3]; // 如 '郵局'
-    
+
             const confirmMessage = {
                 // 構建確認消息，根據存款或取款操作
                 "type": "template",
@@ -117,8 +115,6 @@ const userProfile = await axios.get(`https://api.line.me/v2/bot/profile/${userId
                 console.error('發送確認卡片消息時出錯:', error);
             }
         }
-        
-
 
     } //origin else
 
@@ -143,7 +139,6 @@ const handlePostback = async (event) => {
             },
         });
 
-        // 提取用户的名字
         const userName = userProfile.data.displayName;
         console.log('userName in handlePostback', userName)
 
@@ -155,8 +150,7 @@ const handlePostback = async (event) => {
         };
 
         try {
-            // await recordAccount(dataToSend);
-            // console.log('記帳操作成功');
+
             const record = await recordAccount(dataToSend);
             console.log('記帳操作成功，記錄：', record);
 
@@ -166,8 +160,8 @@ const handlePostback = async (event) => {
 
             // let createdTime = new Date(record.created_time).tz('Asia/Taipei');
             // let formattedTime = createdTime.toISOString().replace('T', ' ').substring(0, 19);
-            console.log('created time while save original',createdTime );
-            console.log('time while save',formattedTime );
+            console.log('created time while save original', createdTime);
+            console.log('time while save', formattedTime);
 
 
             const confirmMessage = {
@@ -176,22 +170,21 @@ const handlePostback = async (event) => {
             };
 
 
-            try {  
-            // 發送確認消息
-            await axios.post('https://api.line.me/v2/bot/message/reply', {
-                replyToken: replyToken,
-                messages: [confirmMessage]
-            }, {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${process.env.CHANNEL_ACCESS_TOKEN}`
-                }
-            });
+            try {
+                await axios.post('https://api.line.me/v2/bot/message/reply', {
+                    replyToken: replyToken,
+                    messages: [confirmMessage]
+                }, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${process.env.CHANNEL_ACCESS_TOKEN}`
+                    }
+                });
 
             } catch (error) {
                 console.error(error);
             }
-        } catch (error) { 
+        } catch (error) {
             console.error('記帳操作失敗:', error);
         }
     }
@@ -209,24 +202,24 @@ const handlePostback = async (event) => {
         };
         return banks[bankCode] || bankCode;
     };
-    
-    if(data.action ==='存' || '領'){
 
-    
+    if (data.action === '存' || '領') {
+
+
         const amount = parseInt(data.amount, 10);
         const operation = data.operation;
 
-        
+
         const userProfile = await axios.get(`https://api.line.me/v2/bot/profile/${userId}`, {
             headers: {
                 'Authorization': `Bearer ${process.env.CHANNEL_ACCESS_TOKEN}`,
             },
         });
 
-   
+
         const userName = userProfile.data.displayName;
         console.log('userName in handlePostback', userName)
-     
+
 
         const dataToSend = {
             action: data.action,
@@ -235,56 +228,54 @@ const handlePostback = async (event) => {
             userId: userId
         };
 
-      console.log('這邊要處理帳戶存取金額')
+        console.log('這邊要處理帳戶存取金額')
 
 
-      try {
-        const record = await saverecordAccountBank(dataToSend); // 假設 recordAccount 是與後端通信的函數
-        const bankName = getBankNameFromCode(record.bankCode);
+        try {
+            const record = await saverecordAccountBank(dataToSend); // 假設 recordAccount 是與後端通信的函數
+            const bankName = getBankNameFromCode(record.bankCode);
 
-        const confirmMessageText = `已從${bankName}${data.action}${amount}元，新餘額為${record.newBalance}元。`;
-        const confirmMessage = {
-               type: 'text',
-               text: confirmMessageText
-           };
+            const confirmMessageText = `已從${bankName}${data.action}${amount}元，新餘額為${record.newBalance}元。`;
+            const confirmMessage = {
+                type: 'text',
+                text: confirmMessageText
+            };
 
-        // 發送確認消息
-        await axios.post('https://api.line.me/v2/bot/message/reply', {
-            replyToken: replyToken,
-            messages: [confirmMessage]
-        }, {
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${process.env.CHANNEL_ACCESS_TOKEN}`
-            }
-        });
+            // 發送確認消息
+            await axios.post('https://api.line.me/v2/bot/message/reply', {
+                replyToken: replyToken,
+                messages: [confirmMessage]
+            }, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${process.env.CHANNEL_ACCESS_TOKEN}`
+                }
+            });
 
-    } catch (error) {
-        console.error('操作失敗:', error);
-        // 處理錯誤，向用戶發送錯誤消息...
+        } catch (error) {
+            console.error('操作失敗:', error);
+        }
+
     }
-
-    }
-  };
+};
 
 
 const handleWebhook = (req, res) => {
 
-    const channelSecret = process.env.CHANNEL_SECRET; // 確保在 .env 文件中設置了 CHANNEL_SECRET
+    const channelSecret = process.env.CHANNEL_SECRET;
     const signature = req.headers['x-line-signature'];
 
-    console.log('Channel Secret:', channelSecret); // 調試輸出
+    console.log('Channel Secret:', channelSecret);
 
-if (!channelSecret) {
-    throw new Error('Channel secret is undefined');
-}
+    if (!channelSecret) {
+        throw new Error('Channel secret is undefined');
+    }
 
     // 生成簽名以進行驗證
     const hash = crypto.createHmac('sha256', channelSecret)
-                       .update(JSON.stringify(req.body))
-                       .digest('base64');
+        .update(JSON.stringify(req.body))
+        .digest('base64');
 
-    // 驗證簽名
     if (signature !== hash) {
         console.log('authorization failed')
         return res.status(401).send('Invalid signature');
@@ -297,95 +288,10 @@ if (!channelSecret) {
         }
         else if (event.type === 'postback') {
             handlePostback(event);
-          }
-        // 處理其他事件類型...
-    });
-   
-    res.status(200).send('OK');
-};
-
-export { handleWebhook };
-
-// const handleWebhook = (req, res) => {
-//     const channelSecret = process.env.CHANNEL_SECRET;
-//     const signature = req.headers['x-line-signature'];
-//     const hash = crypto.createHmac('sha256', channelSecret)
-//                        .update(JSON.stringify(req.body))
-//                        .digest('base64');
-//     if (signature !== hash) {
-//         return res.status(401).send('Invalid signature');
-//     }
-
-//     req.body.events.forEach(event => {
-//             switch (event.type) {
-//                 case 'message':
-//                     if (event.message.type === 'text') {
-//                         handleTextMessage(event);
-//                     } else if (event.message.type === 'image') {
-//                         handleImageMessage(event);
-//                     }
-//                     // 其他消息類型...
-//                     break;
-//                 // 其他事件類型...
-//             }
-//         });
-
-//     res.status(200).send('OK');
-// };
-
-// export { handleWebhook };
-
-
-/*
-
-const handleWebhook = (req, res) => {
-    req.body.events.forEach(event => {
-        switch (event.type) {
-            case 'message':
-                if (event.message.type === 'text') {
-                    handleTextMessage(event);
-                } else if (event.message.type === 'image') {
-                    handleImageMessage(event);
-                }
-                // 其他消息類型...
-                break;
-            // 其他事件類型...
         }
     });
 
     res.status(200).send('OK');
 };
 
-const handleTextMessage = (event) => {
-    // 處理文字消息
-};
-
-const handleImageMessage = (event) => {
-    // 處理圖片消息
-};
-*/
-
-
-
-   /*
-    // 構造回應消息
-    const replyMessage = {
-        type: 'text',
-        text: `您說了：${userMessage}`
-    };
-
-    // 發送消息
-    try {
-        await axios.post('https://api.line.me/v2/bot/message/reply', {
-            replyToken: replyToken,
-            messages: [replyMessage]
-        }, {
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${process.env.CHANNEL_ACCESS_TOKEN}`
-            }
-        });
-    } catch (error) {
-        console.error(error);
-    }
-*/
+export { handleWebhook };

@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Header from '../component/Header.js';
@@ -138,14 +137,13 @@ const DashboardLeftLiff = () => {
   };
 
 
-  if (isLoading ) {
+  if (isLoading) {
     return (
       <LoadingSpinner />
     );
   }
 
 
-  // Error 狀態處理
   if (isError) {
     return <div>Error loading data</div>;
   }
@@ -153,30 +151,30 @@ const DashboardLeftLiff = () => {
   return (
     <>
       <Header />
-        <div />
-        <LeftColumn>
+      <div />
+      <LeftColumn>
 
-          <MyAccountBook>
-            <SectionHeader>我的記帳本
-              <MoreButton onClick={handleMoreClick}>...more</MoreButton>
-            </SectionHeader>
+        <MyAccountBook>
+          <SectionHeader>我的記帳本
+            <MoreButton onClick={handleMoreClick}>...more</MoreButton>
+          </SectionHeader>
 
-            <AccountingSummarySection>
-              {/* <SmallSectionHeader>記帳本摘要 </SmallSectionHeader> */}
-              <TotalExpenditureText>今日花費: {totalExpenditure} 元</TotalExpenditureText>
-              <AccountingTimeline data={datas} />
+          <AccountingSummarySection>
+            {/* <SmallSectionHeader>記帳本摘要 </SmallSectionHeader> */}
+            <TotalExpenditureText>今日花費: {totalExpenditure} 元</TotalExpenditureText>
+            <AccountingTimeline data={datas} />
 
-            </AccountingSummarySection>
+          </AccountingSummarySection>
 
-          </MyAccountBook>
+        </MyAccountBook>
 
-          <TodayStatistics>
-            <SectionHeader>今日統計<MoreButton>...more</MoreButton></SectionHeader>
-            <PieChartContainer>
-              <PieChartComponent data={pieChartData} />
-            </PieChartContainer>
-          </TodayStatistics>
-        </LeftColumn>
+        <TodayStatistics>
+          <SectionHeader>今日統計<MoreButton>...more</MoreButton></SectionHeader>
+          <PieChartContainer>
+            <PieChartComponent data={pieChartData} />
+          </PieChartContainer>
+        </TodayStatistics>
+      </LeftColumn>
     </>
   );
 };

@@ -1,17 +1,5 @@
-import styled, { createGlobalStyle }  from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 
-
-// const backgroundAnimation = keyframes`
-//   0% {
-//     background: linear-gradient(to right, rgb(238, 156, 167), rgb(255, 221, 225));
-//   }
-//   50% {
-//     background: linear-gradient(to left, rgb(238, 156, 167), rgb(255, 221, 225));
-//   }
-//   100% {
-//     background: linear-gradient(to right, rgb(238, 156, 167), rgb(255, 221, 225));
-//   }
-// `;
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -58,11 +46,11 @@ background: linear-gradient(to right, rgb(211, 204, 227), rgb(233, 228, 240));
 
 const LoadingSpinner = () => (
   <>
-  <GlobalStyle />
-  <Spinner>
-    <div className="cube1"></div>
-    <div className="cube2"></div>
-  </Spinner>
+    <GlobalStyle />
+    <Spinner>
+      <div className="cube1"></div>
+      <div className="cube2"></div>
+    </Spinner>
   </>
 );
 

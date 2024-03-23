@@ -61,62 +61,40 @@ const CancelButton = styled.button`
 
 
 const DeleteModal = ({ isOpen, onRequestClose, record, onDelete }) => {
-    return (
-      <ReactModal
-        isOpen={isOpen}
-        onRequestClose={onRequestClose}
-        style={{
-          content: {
-            top: '50%',
-            left: '50%',
-            right: 'auto',
-            bottom: 'auto',
-            marginRight: '-50%',
-            transform: 'translate(-50%, -50%)',
-            border: 'none', //去除默認邊匡
-            padding: '20px', 
-            width: '30%',
-            height: 'auto', 
-            overflow: 'visible', // 防止内容溢出時隱藏
-          },
-        }}
-      >
-        <StyledModalContent>
-          <StyledModalHeader>確定要刪除以下紀錄嗎？</StyledModalHeader>
-          <StyledModalText>金額: NT${record.amount}</StyledModalText>
-          <StyledModalText>分類: {record.category}</StyledModalText>
-          <StyledModalText>項目: {record.tag}</StyledModalText>
-          <StyledModalText>詳細: {record.detail}</StyledModalText>
-          <StyledModalText>建立時間: {moment(record.created_time).format('HH:mm')}</StyledModalText>
-          <ButtonContainer>
-            <CancelButton onClick={onRequestClose}>取消</CancelButton>
-            <DeleteButton onClick={() => onDelete(record.id)}>確認刪除</DeleteButton>
-          </ButtonContainer>
-        </StyledModalContent>
-      </ReactModal>
-    );
-  };
-  
-  export default DeleteModal;
+  return (
+    <ReactModal
+      isOpen={isOpen}
+      onRequestClose={onRequestClose}
+      style={{
+        content: {
+          top: '50%',
+          left: '50%',
+          right: 'auto',
+          bottom: 'auto',
+          marginRight: '-50%',
+          transform: 'translate(-50%, -50%)',
+          border: 'none',
+          padding: '20px',
+          width: '30%',
+          height: 'auto',
+          overflow: 'visible',
+        },
+      }}
+    >
+      <StyledModalContent>
+        <StyledModalHeader>確定要刪除以下紀錄嗎？</StyledModalHeader>
+        <StyledModalText>金額: NT${record.amount}</StyledModalText>
+        <StyledModalText>分類: {record.category}</StyledModalText>
+        <StyledModalText>項目: {record.tag}</StyledModalText>
+        <StyledModalText>詳細: {record.detail}</StyledModalText>
+        <StyledModalText>建立時間: {moment(record.created_time).format('HH:mm')}</StyledModalText>
+        <ButtonContainer>
+          <CancelButton onClick={onRequestClose}>取消</CancelButton>
+          <DeleteButton onClick={() => onDelete(record.id)}>確認刪除</DeleteButton>
+        </ButtonContainer>
+      </StyledModalContent>
+    </ReactModal>
+  );
+};
 
-
-// const DeleteModal = ({ isOpen, onRequestClose, record, onDelete }) => {
-//     return (
-//         <ReactModal isOpen={isOpen} onRequestClose={onRequestClose}>
-           
-//             <div>
-//                 <p>確定要刪除以下紀錄嗎？</p>
-//                 <p>金額: NT${record.amount}</p>
-//                 <p>分類: {record.category}</p>
-//                 <p>項目: {record.tag}</p>
-//                 <p>詳細: {record.detail}</p>
-//                 <p>建立時間: {moment(record.created_time).format('HH:mm')}</p>       
-//             </div>
-//             <button onClick={() => onDelete(record.id)}>確認刪除</button>
-//             <button onClick={onRequestClose}>取消</button>
-//         </ReactModal>
-//     );
-// };
-
-
-//export default DeleteModal;
+export default DeleteModal;

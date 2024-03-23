@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import moment from 'moment';
-import { Timeline, TimelineItem, TimelineSeparator, TimelineDot, TimelineContent, TimelineConnector,TimelineOppositeContent } from '@mui/lab';
-import { FaUtensils, FaCar, FaTshirt, FaHome, FaGamepad, FaQuestionCircle } from 'react-icons/fa'; 
+import { Timeline, TimelineItem, TimelineSeparator, TimelineDot, TimelineContent, TimelineConnector, TimelineOppositeContent } from '@mui/lab';
+import { FaUtensils, FaCar, FaTshirt, FaHome, FaGamepad, FaQuestionCircle } from 'react-icons/fa';
 
 
 
@@ -54,44 +54,41 @@ const chooseIcon = (category) => {
   }
 };
 
-const AccountingTimeline = ({ data}) => {
+const AccountingTimeline = ({ data }) => {
 
 
 
   return (
     <TimelineContainer>
       <StyledTimeline align="alternate">
-        { data.sort((a, b) => new Date(a.created_time) - new Date(b.created_time))
+        {data.sort((a, b) => new Date(a.created_time) - new Date(b.created_time))
           .map((record) => (
             <TimelineItem key={record.id}>
               <TimelineOppositeContent>
-              <OppContentContainer > 
-                <AmountText>NT${record.amount}</AmountText>
+                <OppContentContainer >
+                  <AmountText>NT${record.amount}</AmountText>
                 </OppContentContainer>
               </TimelineOppositeContent>
-            <TimelineSeparator>
-              <TimelineDot>{chooseIcon(record.category)}</TimelineDot>
-              <TimelineConnector />
-            </TimelineSeparator>
-            <TimelineContent>
-              <ContentContainer>
-                <TimeTagDetail>
-                  <div>{moment(record.created_time).format('HH:mm')}</div>
-                  <div>{record.tag}</div>
-                  <div>{record.detail}</div>
-                </TimeTagDetail>
-              
-              </ContentContainer>
-            </TimelineContent>
-          </TimelineItem>
-        ))}
+              <TimelineSeparator>
+                <TimelineDot>{chooseIcon(record.category)}</TimelineDot>
+                <TimelineConnector />
+              </TimelineSeparator>
+              <TimelineContent>
+                <ContentContainer>
+                  <TimeTagDetail>
+                    <div>{moment(record.created_time).format('HH:mm')}</div>
+                    <div>{record.tag}</div>
+                    <div>{record.detail}</div>
+                  </TimeTagDetail>
+
+                </ContentContainer>
+              </TimelineContent>
+            </TimelineItem>
+          ))}
       </StyledTimeline>
- 
-
-
     </TimelineContainer>
   );
-  
+
 };
 
 export default AccountingTimeline;

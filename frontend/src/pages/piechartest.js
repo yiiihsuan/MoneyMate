@@ -10,12 +10,12 @@ const Example = () => {
     queryFn: fetchUserCardData
   });
 
-  // Loading 狀態處理
+
   if (isUserCardLoading) {
     return <div>Loading...</div>;
   }
 
-  // Error 狀態處理
+
   if (isUserCardError) {
     return <div>Error loading data</div>;
   }

@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Header from '../component/Header.js';
@@ -29,13 +28,13 @@ const Section = styled.div`
 
 const SectionHeader = styled.div`
   font-size: 1.5em;
-  background-color: #f9e0e0; /* 粉紅色背景 */
+  background-color: #f9e0e0; 
   color: #333;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 5px 10px;
-  border-radius: 8px 8px 0 0; /* 圓角只在上方 */
+  border-radius: 8px 8px 0 0; 
 `;
 
 const MoreButton = styled.span`
@@ -47,7 +46,7 @@ const LeftColumn = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1%;
-  height: calc(100vh - 40px); /* 減去padding的高度 */
+  height: calc(100vh - 40px);
 
 `;
 
@@ -230,23 +229,17 @@ const Dashboard = () => {
     navigate('/accountingbook');
   };
 
-
   if (isLoading || isUserBankLoading || isUserCardLoading) {
     return (
       <LoadingSpinner />
     );
   }
 
-
-  // Error 狀態處理
   if (isError || isUserBankError || isUserCardError) {
-    // return <div>Error loading data</div>;
     return (
-      <NotFoundPage  />
+      <NotFoundPage />
     );
   }
-
-  
 
   return (
     <>
@@ -254,21 +247,15 @@ const Dashboard = () => {
       <DashboardContainer>
         <div />
         <LeftColumn>
-
           <MyAccountBook>
             <SectionHeader>我的記帳本
               <MoreButton onClick={handleMoreClick}>...more</MoreButton>
             </SectionHeader>
-
             <AccountingSummarySection>
-              {/* <SmallSectionHeader>記帳本摘要 </SmallSectionHeader> */}
               <TotalExpenditureText>今日花費: {totalExpenditure} 元</TotalExpenditureText>
               <AccountingTimeline data={datas} />
-
             </AccountingSummarySection>
-
           </MyAccountBook>
-
           <TodayStatistics>
             <SectionHeader>今日統計<MoreButton>...more</MoreButton></SectionHeader>
             <PieChartContainer>
@@ -276,14 +263,12 @@ const Dashboard = () => {
             </PieChartContainer>
           </TodayStatistics>
         </LeftColumn>
-
         <RightColumn>
           <MyAccount>
             <SectionHeader>我的帳戶<MoreButton>...more</MoreButton></SectionHeader>
             <BankPieComponent data={userBankData} />
           </MyAccount>
           <MyCreditCard>
-
             <SectionHeader>我的信用卡<MoreButton>...more</MoreButton></SectionHeader>
             <CardContentContainer>
               <CardInfo>
@@ -295,7 +280,6 @@ const Dashboard = () => {
               </ChartContainer>
             </CardContentContainer>
           </MyCreditCard>
-
           <MyInvestment>
             <SectionHeader>我的投資<MoreButton>...more</MoreButton></SectionHeader>
             <InvestmentSection>

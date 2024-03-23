@@ -1,14 +1,13 @@
-import React,{useState, useEffect}  from 'react';
+import React, { useState, useEffect } from 'react';
 import { useQuery } from 'react-query';
 import { useQueryClient } from 'react-query';
 import styled from 'styled-components';
 import AccountingTimeline from '../component/AccountingDetail';
-import { fetchAccountingData,fetchAccountingDataForToday } from '../api'; 
+import { fetchAccountingData, fetchAccountingDataForToday } from '../api';
 import PieChartComponent from '../component/AccountingPieChart';
 import LoadingSpinner from '../component/LoadingSpinner';
 import moment from 'moment';
 import NotFoundPage from '../component/NotFoundPage';
-
 
 const AccountingBookContainer = styled.div`
   display: flex;
@@ -63,23 +62,17 @@ const TotalExpenditureText = styled.p`
 
 
 const AccountingBook = () => {
- 
   const queryClient = useQueryClient();
-
   const { data: datas, isLoading, isError } = useQuery({
     queryKey: ['accountDataToday'],
     queryFn: fetchAccountingDataForToday,
     refetchInterval: 2000
   });
 
-
-
   const onMutationSuccess = () => {
     queryClient.invalidateQueries('accountData');
   };
 
-
-  
   const [totalExpenditure, setTotalExpenditure] = useState(0);
   const [pieChartData, setPieChartData] = useState([]);
 
@@ -102,7 +95,7 @@ const AccountingBook = () => {
       setPieChartData(newPieChartData);
     }
   }, [datas]);
-  
+
 
   if (isLoading) {
     return (
@@ -111,37 +104,27 @@ const AccountingBook = () => {
     );
   }
 
-
   if (isError) {
-    // return <div>Error loading data</div>;
     return (
-      <NotFoundPage  />
+      <NotFoundPage />
     );
   }
 
-  //我的記帳本 放section 上會在上方，放下面會在section 裡的左側
   return (
     <AccountingBookContainer>
-    <SectionHeader>我的記帳本</SectionHeader> 
-
-
-        <AccountingTimelineSection>
+      <SectionHeader>我的記帳本</SectionHeader>
+      <AccountingTimelineSection>
         <AccountingTimeline
-            data={datas}
-            onMutationSuccess={onMutationSuccess}
-          />
-        </AccountingTimelineSection>
-
-
-          <SummarySection>
-          <TotalExpenditureText>總支出: {totalExpenditure} 元</TotalExpenditureText>
-          </SummarySection>
-
-          <PieChartPlaceholder>
-            <PieChartComponent data={pieChartData} />
-          </PieChartPlaceholder>
-
-
+          data={datas}
+          onMutationSuccess={onMutationSuccess}
+        />
+      </AccountingTimelineSection>
+      <SummarySection>
+        <TotalExpenditureText>總支出: {totalExpenditure} 元</TotalExpenditureText>
+      </SummarySection>
+      <PieChartPlaceholder>
+        <PieChartComponent data={pieChartData} />
+      </PieChartPlaceholder>
     </AccountingBookContainer>
   );
 };

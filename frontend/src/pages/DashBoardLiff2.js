@@ -28,13 +28,13 @@ const Section = styled.div`
 
 const SectionHeader = styled.div`
   font-size: 1.5em;
-  background-color: #f9e0e0; /* 粉紅色背景 */
+  background-color: #f9e0e0; 
   color: #333;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 5px 10px;
-  border-radius: 8px 8px 0 0; /* 圓角只在上方 */
+  border-radius: 8px 8px 0 0; 
 `;
 
 const MoreButton = styled.span`
@@ -46,7 +46,7 @@ const LeftColumn = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1%;
-  height: calc(100vh - 40px); /* 減去padding的高度 */
+  height: calc(100vh - 40px); 
 
 `;
 
@@ -175,64 +175,58 @@ const DashboardRightLiff = () => {
     queryFn: fetchUserCardData
   });
 
- 
-  const cumulativeProfitLoss = +150000; // 累積損益
-  const dailyProfitLoss = -300;       //當日損益
-  const inventoryBalance = 50000;    //庫存餘額
 
- 
- 
+  const cumulativeProfitLoss = +150000;
+  const dailyProfitLoss = -300;
+  const inventoryBalance = 50000;
 
 
-  if ( isUserBankLoading || isUserCardLoading) {
+  if (isUserBankLoading || isUserCardLoading) {
     return (
       <LoadingSpinner />
     );
   }
 
 
-  // Error 狀態處理
-  if ( isUserBankError || isUserCardError) {
+  if (isUserBankError || isUserCardError) {
     return <div>Error loading data</div>;
   }
 
   return (
     <>
       <Header />
-        <RightColumn>
-          <MyAccount>
-            <SectionHeader>我的帳戶<MoreButton>...more</MoreButton></SectionHeader>
-            <BankPieComponent data={userBankData} />
-          </MyAccount>
-          <MyCreditCard>
-
-            <SectionHeader>我的信用卡<MoreButton>...more</MoreButton></SectionHeader>
-            <CardContentContainer>
-              <CardInfo>
-                <h3>總帳單金額: <br />{cardData.data.total}元</h3>
-                <h3>總回饋金額: <br />{cardData.data.reward.toFixed(2)}元</h3>
-              </CardInfo>
-              <ChartContainer>
-                <CardPieChart data={cardData.data.list} />
-              </ChartContainer>
-            </CardContentContainer>
-          </MyCreditCard>
-
-          <MyInvestment>
-            <SectionHeader>我的投資<MoreButton>...more</MoreButton></SectionHeader>
-            <InvestmentSection>
-              <Cumulative value={cumulativeProfitLoss}>
-                累積損益: {formatNumber(cumulativeProfitLoss)} 元
-              </Cumulative>
-              <Today value={dailyProfitLoss}>
-                當日損益: {dailyProfitLoss.toLocaleString()} 元
-              </Today>
-              <Amount>
-                庫存餘額: {inventoryBalance.toLocaleString()} 元
-              </Amount>
-            </InvestmentSection>
-          </MyInvestment>
-        </RightColumn>
+      <RightColumn>
+        <MyAccount>
+          <SectionHeader>我的帳戶<MoreButton>...more</MoreButton></SectionHeader>
+          <BankPieComponent data={userBankData} />
+        </MyAccount>
+        <MyCreditCard>
+          <SectionHeader>我的信用卡<MoreButton>...more</MoreButton></SectionHeader>
+          <CardContentContainer>
+            <CardInfo>
+              <h3>總帳單金額: <br />{cardData.data.total}元</h3>
+              <h3>總回饋金額: <br />{cardData.data.reward.toFixed(2)}元</h3>
+            </CardInfo>
+            <ChartContainer>
+              <CardPieChart data={cardData.data.list} />
+            </ChartContainer>
+          </CardContentContainer>
+        </MyCreditCard>
+        <MyInvestment>
+          <SectionHeader>我的投資<MoreButton>...more</MoreButton></SectionHeader>
+          <InvestmentSection>
+            <Cumulative value={cumulativeProfitLoss}>
+              累積損益: {formatNumber(cumulativeProfitLoss)} 元
+            </Cumulative>
+            <Today value={dailyProfitLoss}>
+              當日損益: {dailyProfitLoss.toLocaleString()} 元
+            </Today>
+            <Amount>
+              庫存餘額: {inventoryBalance.toLocaleString()} 元
+            </Amount>
+          </InvestmentSection>
+        </MyInvestment>
+      </RightColumn>
     </>
   );
 };
