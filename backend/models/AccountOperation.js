@@ -8,9 +8,6 @@ export async function saveAccount(data) {
         `;
 
         const [insertResult] = await pool.query(insertQuery, [data.userId, data.amount, data.tag]);
-
-        console.log('Insert result', insertResult);
-
         if (insertResult.affectedRows === 1) {
             const insertedId = insertResult.insertId;
 
@@ -24,7 +21,6 @@ export async function saveAccount(data) {
             const [selectResult] = await pool.query(selectQuery, [insertedId]);
 
             if (selectResult.length === 1) {
-                console.log('selectResult[0]', selectResult[0]);
                 return selectResult[0];
             } else {
                 throw new Error('Failed to retrieve inserted data.');
@@ -40,8 +36,6 @@ export async function saveAccount(data) {
 
 export async function getAccountingById(userId) {
     try {
-        console.log('userId in model', userId);
-
         const selectQuery = `
             SELECT id, amount, category, tag, detail, created_time
             FROM accountingbook
@@ -69,7 +63,6 @@ export async function getAccountingByUserIdAndDate(userId, date) {
 
         const [selectResult] = await pool.query(selectQuery, [userId, date]);
         if (selectResult.length > 0) {
-            console.log('get accounting', selectResult);
             return selectResult;
         } else {
             return null;
@@ -110,7 +103,6 @@ export async function deleteAccountingById(id, userId) {
 
         const [deleteResult] = await pool.query(deleteQuery, [id, userId]);
         if (deleteResult.affectedRows > 0) {
-            console.log('finish');
             return deleteResult;
         } else {
             return null;

@@ -1,8 +1,6 @@
 import { pool } from './util.js';
 
 export async function saveStockByuserId(userId, transactionData) {
-
-    console.log('userId in model', userId);
     const bankId = transactionData.broker;
     const stockCode = transactionData.stockCode;
     const action = transactionData.action === 'buy' ? '買' : (transactionData.action === 'sell' ? '賣' : '股利');
@@ -23,8 +21,6 @@ export async function saveStockByuserId(userId, transactionData) {
         const [insertResult] = await pool.query(insertQuery, [
             userId, bankId, stockCode, action, quantity, price, commission, transactionTax
         ]);
-
-        console.log('Insert result:', insertResult);
         return insertResult;
 
 

@@ -12,11 +12,7 @@ export async function getBankBookByuserId(userId) {
         `;
 
         const [selectResult] = await pool.query(selectQuery, [userId]);
-
-        console.log(selectResult);
-
         if (selectResult.length > 0) {
-            console.log('get bankbooklist', selectResult);
             return selectResult;
         } else {
             return null;
