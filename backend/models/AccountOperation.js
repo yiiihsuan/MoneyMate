@@ -69,6 +69,33 @@ export async function getAccountingById (userId) {
     }
 };
 
+export async function getAccountingByUserIdAndDate(userId, date) {
+    try {
+        console.log('userId in model', userId);
+        console.log('date in model', date);
+
+        const selectQuery = `
+            SELECT id, amount, category, tag, detail, created_time
+            FROM accountingbook
+            WHERE userId = ? AND DATE(created_time) = ?;
+        `;
+
+        const [selectResult] = await pool.query(selectQuery, [userId, date]);
+
+        console.log(selectResult);
+
+        if (selectResult.length > 0) {
+            console.log('get accounting', selectResult);
+            return selectResult;
+        } else {
+            return null;
+        }
+    } catch (error) {
+        throw error;
+    }
+};
+
+
 
 export async function updateAccountingById (id, userId, amount, category, tag, detail, created_time) {
     try {

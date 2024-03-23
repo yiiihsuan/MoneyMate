@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import axios from 'axios';
 import querystring from 'querystring';
 import { recordAccount } from './saveAccount.js';
+import { saverecordAccountBank } from './BankController.js';
 import moment from 'moment-timezone';
 
 
@@ -28,6 +29,8 @@ const userProfile = await axios.get(`https://api.line.me/v2/bot/profile/${userId
 
     console.log('userName',userName);
     console.log('userPictureUrl',userPictureUrl);
+
+    const matchSavingOrWithdrawal = userMessage.match(/^(存|領)\s+(\d+)\s+(\S+)$/);
 
     const match = userMessage.match(/^(\d+)(?:\s+(\S+))?$/);
     if (match) {
@@ -73,7 +76,51 @@ const userProfile = await axios.get(`https://api.line.me/v2/bot/profile/${userId
         }
     } else {
         // 其他消息處理...
-    }
+        if (matchSavingOrWithdrawal) {
+            const action = matchSavingOrWithdrawal[1]; // '存' 或 '領'
+            const amount = parseInt(matchSavingOrWithdrawal[2], 10);
+            const operation = matchSavingOrWithdrawal[3]; // 如 '郵局'
+    
+            const confirmMessage = {
+                // 構建確認消息，根據存款或取款操作
+                "type": "template",
+                "altText": `您是否要在${operation} ${action} ${amount}元？`,
+                "template": {
+                    "type": "confirm",
+                    "text": `您是否要在${operation} ${action} ${amount}元？`,
+                    "actions": [
+                        {
+                            "type": "postback",
+                            "label": "是",
+                            "data": `action=${action}&amount=${amount}&operation=${operation}`
+                        },
+                        {
+                            "type": "message",
+                            "label": "否",
+                            "text": "取消"
+                        }
+                    ]
+                }
+            }
+
+            try {
+                await axios.post('https://api.line.me/v2/bot/message/reply', {
+                    replyToken: replyToken,
+                    messages: [confirmMessage]
+                }, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${process.env.CHANNEL_ACCESS_TOKEN}`
+                    }
+                });
+            } catch (error) {
+                console.error('發送確認卡片消息時出錯:', error);
+            }
+        }
+        
+
+
+    } //origin else
 
 
 };
@@ -147,6 +194,76 @@ const handlePostback = async (event) => {
         } catch (error) { 
             console.error('記帳操作失敗:', error);
         }
+    }
+
+
+    const getBankNameFromCode = (bankCode) => {
+        const banks = {
+            '700': '中華郵政',
+            '004': '台灣銀行',
+            '808': '玉山銀行',
+            '007': '第一銀行',
+            '006': '合作金庫',
+            '812': '台新銀行',
+            '012': '富邦銀行'
+        };
+        return banks[bankCode] || bankCode;
+    };
+    
+    if(data.action ==='存' || '領'){
+
+    
+        const amount = parseInt(data.amount, 10);
+        const operation = data.operation;
+
+        
+        const userProfile = await axios.get(`https://api.line.me/v2/bot/profile/${userId}`, {
+            headers: {
+                'Authorization': `Bearer ${process.env.CHANNEL_ACCESS_TOKEN}`,
+            },
+        });
+
+   
+        const userName = userProfile.data.displayName;
+        console.log('userName in handlePostback', userName)
+     
+
+        const dataToSend = {
+            action: data.action,
+            amount: amount,
+            operation: operation,
+            userId: userId
+        };
+
+      console.log('這邊要處理帳戶存取金額')
+
+
+      try {
+        const record = await saverecordAccountBank(dataToSend); // 假設 recordAccount 是與後端通信的函數
+        const bankName = getBankNameFromCode(record.bankCode);
+
+        const confirmMessageText = `已從${bankName}${data.action}${amount}元，新餘額為${record.newBalance}元。`;
+        const confirmMessage = {
+               type: 'text',
+               text: confirmMessageText
+           };
+
+        // 發送確認消息
+        await axios.post('https://api.line.me/v2/bot/message/reply', {
+            replyToken: replyToken,
+            messages: [confirmMessage]
+        }, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${process.env.CHANNEL_ACCESS_TOKEN}`
+            }
+        });
+
+    } catch (error) {
+        console.error('操作失敗:', error);
+        // 處理錯誤，向用戶發送錯誤消息...
+    }
+
     }
   };
 

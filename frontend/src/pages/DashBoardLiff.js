@@ -7,10 +7,7 @@ import { useQuery } from 'react-query';
 import { fetchAccountingDataForToday, fetchUserBankData, fetchUserCardData } from '../api';
 import AccountingTimeline from '../component/AccountingTimeline';
 import PieChartComponent from '../component/AccountingPieChart';
-import BankPieComponent from '../component/BankBookPieChart';
-import CardPieChart from '../component/CardPieChart';
 import LoadingSpinner from '../component/LoadingSpinner';
-import NotFoundPage from '../component/NotFoundPage';
 
 const DashboardContainer = styled.div`
   display: grid;
@@ -51,11 +48,7 @@ const LeftColumn = styled.div`
 
 `;
 
-const RightColumn = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 1%;
-`;
+
 
 const MyAccountBook = styled(Section)`
   flex-grow: 6;
@@ -67,22 +60,6 @@ const TodayStatistics = styled(Section)`
   background-color: #f0f0f0;
 `;
 
-const MyAccount = styled(Section)`
-  flex-grow: 1;
-  background-color: #f0f0f0;
-`;
-
-const MyCreditCard = styled(Section)`
-  flex-grow: 1;
-  background-color: #f0f0f0;
-`;
-
-
-
-const MyInvestment = styled(Section)`
-  flex-grow: 1;
-  background-color: #f0f0f0;
-`;
 
 const AccountingSummarySection = styled.section`
   background-color: #f0f0f0;
@@ -96,13 +73,6 @@ const AccountingSummarySection = styled.section`
   overflow: auto; 
 `;
 
-const SmallSectionHeader = styled.h2`
-  font-size: 1.5em; 
-  color: #333; 
-  text-align: center; 
-  flex: 1; 
-  margin-right: 20px; 
-`;
 
 const PieChartContainer = styled.div`
   flex: 1; 
@@ -114,24 +84,6 @@ const PieChartContainer = styled.div`
 `;
 
 
-const InvestmentSection = styled.section`
-  margin-left: 5%;
-  margin-top: 5%;
-`;
-
-const Cumulative = styled.div`
-  font-size: 3em; 
-  color: ${props => props.value >= 0 ? '#8B0000' : '#006400'};
-`;
-
-const Today = styled.div`
- font-size: 1.5em; 
-  color: ${props => props.value >= 0 ? '#8B0000' : '#006400'};
-`;
-
-const Amount = styled.div`
-font-size: 1.5em; 
-`;
 
 
 
@@ -141,56 +93,15 @@ const TotalExpenditureText = styled.p`
   margin: 0; 
 `;
 
-const CardContentContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px;
-`;
 
-const CardInfo = styled.div`
-  flex: 1;
-`;
-
-const ChartContainer = styled.div`
-  flex: 1;
-  padding: 10px;
-`;
-
-
-function formatNumber(num) {
-  return (num >= 0 ? "+" : "") + num.toLocaleString();
-}
-
-const Dashboard = () => {
+const DashboardLeftLiff = () => {
 
   const { data: datas, isLoading, isError } = useQuery({
     queryKey: ['accountDataToday'],
-    queryFn: fetchAccountingDataForToday,
-    refetchInterval: 2000,
-    refetchOnWindowFocus: true
+    queryFn: fetchAccountingDataForToday
   });
 
 
-
-  const { data: userBankData, isLoading: isUserBankLoading, isError: isUserBankError } = useQuery({
-    queryKey: ['userBankData'],
-    queryFn: fetchUserBankData,
-    refetchInterval: 2000,
-    refetchOnWindowFocus: true
-  });
-
-
-  useEffect(() => {
-    console.log('userBankData 更新了: ', userBankData);
-  }, [userBankData]);
-
-  const { data: cardData, isLoading: isUserCardLoading, isError: isUserCardError } = useQuery({
-    queryKey: ['userCardData'],
-    queryFn: fetchUserCardData,
-    refetchInterval: 2000,
-    refetchOnWindowFocus: true
-  });
 
   const [totalExpenditure, setTotalExpenditure] = useState(0);
   const [pieChartData, setPieChartData] = useState([]);
@@ -220,10 +131,6 @@ const Dashboard = () => {
 
 
 
-  const cumulativeProfitLoss = +150000; // 累積損益
-  const dailyProfitLoss = -300;       //當日損益
-  const inventoryBalance = 50000;    //庫存餘額
-
   const navigate = useNavigate();
 
   const handleMoreClick = () => {
@@ -231,7 +138,7 @@ const Dashboard = () => {
   };
 
 
-  if (isLoading || isUserBankLoading || isUserCardLoading) {
+  if (isLoading ) {
     return (
       <LoadingSpinner />
     );
@@ -239,19 +146,13 @@ const Dashboard = () => {
 
 
   // Error 狀態處理
-  if (isError || isUserBankError || isUserCardError) {
-    // return <div>Error loading data</div>;
-    return (
-      <NotFoundPage  />
-    );
+  if (isError) {
+    return <div>Error loading data</div>;
   }
-
-  
 
   return (
     <>
       <Header />
-      <DashboardContainer>
         <div />
         <LeftColumn>
 
@@ -276,44 +177,8 @@ const Dashboard = () => {
             </PieChartContainer>
           </TodayStatistics>
         </LeftColumn>
-
-        <RightColumn>
-          <MyAccount>
-            <SectionHeader>我的帳戶<MoreButton>...more</MoreButton></SectionHeader>
-            <BankPieComponent data={userBankData} />
-          </MyAccount>
-          <MyCreditCard>
-
-            <SectionHeader>我的信用卡<MoreButton>...more</MoreButton></SectionHeader>
-            <CardContentContainer>
-              <CardInfo>
-                <h3>總帳單金額: <br />{cardData.data.total}元</h3>
-                <h3>總回饋金額: <br />{cardData.data.reward.toFixed(2)}元</h3>
-              </CardInfo>
-              <ChartContainer>
-                <CardPieChart data={cardData.data.list} />
-              </ChartContainer>
-            </CardContentContainer>
-          </MyCreditCard>
-
-          <MyInvestment>
-            <SectionHeader>我的投資<MoreButton>...more</MoreButton></SectionHeader>
-            <InvestmentSection>
-              <Cumulative value={cumulativeProfitLoss}>
-                累積損益: {formatNumber(cumulativeProfitLoss)} 元
-              </Cumulative>
-              <Today value={dailyProfitLoss}>
-                當日損益: {dailyProfitLoss.toLocaleString()} 元
-              </Today>
-              <Amount>
-                庫存餘額: {inventoryBalance.toLocaleString()} 元
-              </Amount>
-            </InvestmentSection>
-          </MyInvestment>
-        </RightColumn>
-      </DashboardContainer>
     </>
   );
 };
 
-export default Dashboard;
+export default DashboardLeftLiff;

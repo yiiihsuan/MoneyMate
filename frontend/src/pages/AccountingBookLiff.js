@@ -1,18 +1,23 @@
-import React  from 'react';
+import React,{useState, useEffect}  from 'react';
 import { useQuery } from 'react-query';
+import { useQueryClient } from 'react-query';
 import styled from 'styled-components';
 import AccountingTimeline from '../component/AccountingDetail';
-import { fetchAccountingData } from '../api'; 
+import { fetchAccountingData,fetchAccountingDataForToday } from '../api'; 
 import PieChartComponent from '../component/AccountingPieChart';
+import LoadingSpinner from '../component/LoadingSpinner';
+import moment from 'moment';
+import NotFoundPage from '../component/NotFoundPage';
+
 
 const AccountingBookContainer = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: stretch
   margin-left: 60px;
-  margin-right: 10px;
   margin-top: 10px;
   margin-bottom: 10px;
+  width: 100%; 
 `;
 
 const SectionHeader = styled.div`
@@ -59,52 +64,60 @@ const TotalExpenditureText = styled.p`
 
 const AccountingBook = () => {
  
-  const { data: records, isLoading, isError } = useQuery({
-    queryKey: ['accountData'],
-    queryFn: fetchAccountingData,
+  const queryClient = useQueryClient();
+
+  const { data: datas, isLoading, isError } = useQuery({
+    queryKey: ['accountDataToday'],
+    queryFn: fetchAccountingDataForToday,
+    refetchInterval: 2000
   });
 
-  let categoryData = {};
 
-  if (!isLoading && !isError) {
-    records.forEach(record => {
-      categoryData[record.category] = (categoryData[record.category] || 0) + record.amount;
-    });
-  }
 
-  const pieChartData = Object.keys(categoryData).map((key, index) => ({
-    name: key,
-    value: categoryData[key],
-  }));
-
-  let totalExpenditure = 0;
-  //let totalIncome = 0;
-
-    if (!isLoading && !isError) {
-      totalExpenditure = records.reduce((sum, record) => {
-        return sum + record.amount;
-      }, 0);
-    }
-   // to do...update  data
-  //  // 更新記錄
-  const handleRecordUpdate = async (updatedRecord) => {
-  //   // 假設您有一個函數來更新API中的記錄
-  //   await updateRecordInAPI(updatedRecord);
-
-  //   // 更新查詢緩存中的數據
-  //   queryClient.setQueryData(['accountData'], (oldData) => {
-  //     return oldData.map((record) => {
-  //       if (record.id === updatedRecord.id) {
-  //         return updatedRecord;
-  //       }
-  //       return record;
-  //     });
-  //   });
+  const onMutationSuccess = () => {
+    queryClient.invalidateQueries('accountData');
   };
 
-  if (isLoading) return <div>Loading...</div>; // 加載狀態
-  if (isError) return <div>Error fetching data</div>; // 錯誤處理
 
+  
+  const [totalExpenditure, setTotalExpenditure] = useState(0);
+  const [pieChartData, setPieChartData] = useState([]);
+
+  useEffect(() => {
+    if (datas && datas.length > 0) {
+      const newTotalExpenditure = datas.reduce((sum, record) => sum + record.amount, 0);
+      setTotalExpenditure(newTotalExpenditure);
+
+      let newCategoryData = {};
+      datas.forEach(record => {
+        if (!newCategoryData[record.category]) {
+          newCategoryData[record.category] = 0;
+        }
+        newCategoryData[record.category] += record.amount;
+      });
+      const newPieChartData = Object.keys(newCategoryData).map(key => ({
+        name: key,
+        value: newCategoryData[key],
+      }));
+      setPieChartData(newPieChartData);
+    }
+  }, [datas]);
+  
+
+  if (isLoading) {
+    return (
+      <LoadingSpinner />
+
+    );
+  }
+
+
+  if (isError) {
+    // return <div>Error loading data</div>;
+    return (
+      <NotFoundPage  />
+    );
+  }
 
   //我的記帳本 放section 上會在上方，放下面會在section 裡的左側
   return (
@@ -113,7 +126,10 @@ const AccountingBook = () => {
 
 
         <AccountingTimelineSection>
-        <AccountingTimeline data={records} onRecordUpdate={handleRecordUpdate} />
+        <AccountingTimeline
+            data={datas}
+            onMutationSuccess={onMutationSuccess}
+          />
         </AccountingTimelineSection>
 
 

@@ -10,7 +10,6 @@ import PieChartComponent from '../component/AccountingPieChart';
 import BankPieComponent from '../component/BankBookPieChart';
 import CardPieChart from '../component/CardPieChart';
 import LoadingSpinner from '../component/LoadingSpinner';
-import NotFoundPage from '../component/NotFoundPage';
 
 const DashboardContainer = styled.div`
   display: grid;
@@ -162,76 +161,30 @@ function formatNumber(num) {
   return (num >= 0 ? "+" : "") + num.toLocaleString();
 }
 
-const Dashboard = () => {
-
-  const { data: datas, isLoading, isError } = useQuery({
-    queryKey: ['accountDataToday'],
-    queryFn: fetchAccountingDataForToday,
-    refetchInterval: 2000,
-    refetchOnWindowFocus: true
-  });
+const DashboardRightLiff = () => {
 
 
 
   const { data: userBankData, isLoading: isUserBankLoading, isError: isUserBankError } = useQuery({
     queryKey: ['userBankData'],
-    queryFn: fetchUserBankData,
-    refetchInterval: 2000,
-    refetchOnWindowFocus: true
+    queryFn: fetchUserBankData
   });
-
-
-  useEffect(() => {
-    console.log('userBankData 更新了: ', userBankData);
-  }, [userBankData]);
 
   const { data: cardData, isLoading: isUserCardLoading, isError: isUserCardError } = useQuery({
     queryKey: ['userCardData'],
-    queryFn: fetchUserCardData,
-    refetchInterval: 2000,
-    refetchOnWindowFocus: true
+    queryFn: fetchUserCardData
   });
 
-  const [totalExpenditure, setTotalExpenditure] = useState(0);
-  const [pieChartData, setPieChartData] = useState([]);
-
-  useEffect(() => {
-    if (datas && datas.length > 0) {
-      const newTotalExpenditure = datas.reduce((sum, record) => sum + record.amount, 0);
-      setTotalExpenditure(newTotalExpenditure);
-
-      let newCategoryData = {};
-      datas.forEach(record => {
-        if (!newCategoryData[record.category]) {
-          newCategoryData[record.category] = 0;
-        }
-        newCategoryData[record.category] += record.amount;
-      });
-      const newPieChartData = Object.keys(newCategoryData).map(key => ({
-        name: key,
-        value: newCategoryData[key],
-      }));
-      setPieChartData(newPieChartData);
-    }
-  }, [datas]);
-
-
-  console.log('data fetch today: ', datas);
-
-
-
+ 
   const cumulativeProfitLoss = +150000; // 累積損益
   const dailyProfitLoss = -300;       //當日損益
   const inventoryBalance = 50000;    //庫存餘額
 
-  const navigate = useNavigate();
-
-  const handleMoreClick = () => {
-    navigate('/accountingbook');
-  };
+ 
+ 
 
 
-  if (isLoading || isUserBankLoading || isUserCardLoading) {
+  if ( isUserBankLoading || isUserCardLoading) {
     return (
       <LoadingSpinner />
     );
@@ -239,44 +192,13 @@ const Dashboard = () => {
 
 
   // Error 狀態處理
-  if (isError || isUserBankError || isUserCardError) {
-    // return <div>Error loading data</div>;
-    return (
-      <NotFoundPage  />
-    );
+  if ( isUserBankError || isUserCardError) {
+    return <div>Error loading data</div>;
   }
-
-  
 
   return (
     <>
       <Header />
-      <DashboardContainer>
-        <div />
-        <LeftColumn>
-
-          <MyAccountBook>
-            <SectionHeader>我的記帳本
-              <MoreButton onClick={handleMoreClick}>...more</MoreButton>
-            </SectionHeader>
-
-            <AccountingSummarySection>
-              {/* <SmallSectionHeader>記帳本摘要 </SmallSectionHeader> */}
-              <TotalExpenditureText>今日花費: {totalExpenditure} 元</TotalExpenditureText>
-              <AccountingTimeline data={datas} />
-
-            </AccountingSummarySection>
-
-          </MyAccountBook>
-
-          <TodayStatistics>
-            <SectionHeader>今日統計<MoreButton>...more</MoreButton></SectionHeader>
-            <PieChartContainer>
-              <PieChartComponent data={pieChartData} />
-            </PieChartContainer>
-          </TodayStatistics>
-        </LeftColumn>
-
         <RightColumn>
           <MyAccount>
             <SectionHeader>我的帳戶<MoreButton>...more</MoreButton></SectionHeader>
@@ -311,9 +233,8 @@ const Dashboard = () => {
             </InvestmentSection>
           </MyInvestment>
         </RightColumn>
-      </DashboardContainer>
     </>
   );
 };
 
-export default Dashboard;
+export default DashboardRightLiff;

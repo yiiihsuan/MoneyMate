@@ -13,6 +13,7 @@ export const fetchAccountingData= async () => {
 
   export const fetchAccountingDataForToday = async () => {
     const today = moment(new Date()).format('YYYY-MM-DD')
+    //const today = '2023-12-14'
     const response = await fetch(`${BASE_URL}/account/list?date=${today}`);
   
     if (!response.ok) {
@@ -20,4 +21,32 @@ export const fetchAccountingData= async () => {
     }
     return response.json();
   };
+
+
+  //fetchUserAccountData -> 給userId
+  export const fetchUserBankData = async () => {
+    const response = await fetch(`${BASE_URL}/bankbook/list`);
+  
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return response.json();
+  };
+
+
+
+  //fetchUserCardData
+  export const fetchUserCardData = async () => {
+    const response = await fetch(`${BASE_URL}/cardbill/list`);
+  
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return response.json();
+  };
+
+
+
+
+  //fetchUserStockData
   
