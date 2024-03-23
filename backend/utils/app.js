@@ -6,7 +6,6 @@ import axios from 'axios';
 import { handleWebhook } from '../controllers/WebhookController.js';
 import { recordAccount } from '../controllers/saveAccount.js';
 import isAuthenticated from './Authentication.js';
-import AccountingBook from '../controllers//AccountRecord.js';
 import { getAccounting, updateAccounting, deleteAccounting } from '../controllers/AccountingController.js';
 import { getBankbookList } from '../controllers/BankController.js';
 import { getCardBillList } from '../controllers/CardController.js';
