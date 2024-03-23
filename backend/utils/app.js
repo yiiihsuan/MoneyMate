@@ -63,9 +63,6 @@ app.get('/api/1.0', async (req, res) => {
             headers: { 'Authorization': `Bearer ${accessToken}` }
         });
 
-        console.log("User Profile:", userProfileResponse.data);
-
-
         res.cookie('accessToken', accessToken, {
             httpOnly: true,  // 使 Cookie 只能由伺服器訪問
             secure: true,    // 僅在 HTTPS 上傳送 Cookie

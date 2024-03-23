@@ -24,8 +24,6 @@ async function isAuthenticated(req, res, next) {
         const userProfile = profileResponse.data;
         const userId = userProfile.userId;
         req.userId = userId;
-        console.log(`User ID: ${userId}`);
-        console.log(`req user: ${req.userId}`);
         return next();
     } catch (error) {
         console.error('Error:', error);
