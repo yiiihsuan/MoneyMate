@@ -2,10 +2,8 @@ import { pool } from './util.js';
 
 
 
-export async function getBankBookByuserId (userId) {
+export async function getBankBookByuserId(userId) {
     try {
-        console.log('userId in model', userId);
-
         const selectQuery = `
             SELECT b.bank_code, b.bank_name, a.total, a.type
             FROM account a
@@ -32,11 +30,7 @@ export async function getBankBookByuserId (userId) {
 export async function saveBankBookByUserId(userId, action, amount, bankCode) {
     const connection = await pool.getConnection();
     try {
-        await connection.beginTransaction(); 
-
-        console.log('bank code is',bankCode)
-
-     
+        await connection.beginTransaction();
         const bankIdQuery = 'SELECT id FROM bank WHERE bank_code = ?';
         const [bank] = await connection.query(bankIdQuery, [bankCode]);
         if (bank.length === 0) {
@@ -62,11 +56,10 @@ export async function saveBankBookByUserId(userId, action, amount, bankCode) {
             newBalance = account[0].total - amount;
         }
 
-     
         const updateQuery = 'UPDATE account SET total = ? WHERE user_id = ? AND bank_id = ? AND type = "TWD"';
         await connection.query(updateQuery, [newBalance, userId, bankId]);
 
-        await connection.commit(); 
+        await connection.commit();
 
         return {
             bankCode,
@@ -74,34 +67,11 @@ export async function saveBankBookByUserId(userId, action, amount, bankCode) {
             newBalance
         };
     } catch (error) {
-        await connection.rollback(); 
+        await connection.rollback();
         console.error('Error in saveBankBookByUserId:', error);
         throw error;
     } finally {
-        connection.release(); 
+        connection.release();
     }
 };
 
-
-// export async function saveBankBookByuserId (userId) {
-//     try {
-//         console.log('userId in model', userId);
-
-//         const selectQuery = `
-            
-//         `;
-
-//         const [selectResult] = await pool.query(selectQuery, [userId]);
-
-//         console.log(selectResult);
-
-//         if (selectResult.length > 0) {
-//             console.log('get bankbooklist', selectResult);
-//             return selectResult;
-//         } else {
-//             return null;
-//         }
-//     } catch (error) {
-//         throw error;
-//     }
-// };

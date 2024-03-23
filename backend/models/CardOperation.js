@@ -1,7 +1,7 @@
 
 import { pool } from './util.js';
 
-export async function getCardBillByuserId (userId) {
+export async function getCardBillByuserId(userId) {
     try {
         console.log('userId in model', userId);
 
@@ -34,7 +34,7 @@ export async function getCardBillByuserId (userId) {
 
 
 
-export async function getCardTotalByuserId (userId) {
+export async function getCardTotalByuserId(userId) {
     try {
         console.log('userId in model', userId);
 
@@ -60,7 +60,7 @@ export async function getCardTotalByuserId (userId) {
     }
 };
 
-export async function getRewardByuserId (userId) {
+export async function getRewardByuserId(userId) {
     try {
         console.log('userId in model', userId);
 
@@ -99,11 +99,11 @@ export async function saveCardBillintodb(userId, cardId, amount, isPaid) {
             VALUES (?, ?, ?, ?);
         `;
 
-        const isPaidValue = isPaid ? 1 : 0; // 确保 isPaid 是一个适合您数据库字段的值
+        const isPaidValue = isPaid ? 1 : 0;
 
         const [result] = await pool.query(insertQuery, [userId, cardId, amount, isPaidValue]);
 
-        return result.insertId; 
+        return result.insertId;
     } catch (error) {
         throw error;
     }

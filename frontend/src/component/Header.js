@@ -15,8 +15,7 @@ const Header = () => {
 
 
     useEffect(() => {
-        // 初始化 LIFF 並檢查是否在 LIFF 環境中
-        liff.init({ liffId: process.env.REACT_APP_LIFF_ID }) 
+        liff.init({ liffId: process.env.REACT_APP_LIFF_ID })
             .then(() => {
                 if (liff.isInClient()) {
                     setIsLiff(true);
@@ -37,7 +36,6 @@ const Header = () => {
             });
     };
 
-    // 如果在 LIFF 環境中，不顯示登出按鈕
     if (isLiff) {
         return null;
     }

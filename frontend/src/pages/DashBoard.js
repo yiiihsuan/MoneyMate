@@ -29,13 +29,13 @@ const Section = styled.div`
 
 const SectionHeader = styled.div`
   font-size: 1.5em;
-  background-color: #f9e0e0; /* 粉紅色背景 */
+  background-color: #f9e0e0; 
   color: #333;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 5px 10px;
-  border-radius: 8px 8px 0 0; /* 圓角只在上方 */
+  border-radius: 8px 8px 0 0; 
 `;
 
 const MoreButton = styled.span`
@@ -47,7 +47,7 @@ const LeftColumn = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1%;
-  height: calc(100vh - 40px); /* 減去padding的高度 */
+  height: calc(100vh - 40px);
 
 `;
 
@@ -238,15 +238,13 @@ const Dashboard = () => {
   }
 
 
-  // Error 狀態處理
   if (isError || isUserBankError || isUserCardError) {
-    // return <div>Error loading data</div>;
     return (
-      <NotFoundPage  />
+      <NotFoundPage />
     );
   }
 
-  
+
 
   return (
     <>
@@ -261,7 +259,6 @@ const Dashboard = () => {
             </SectionHeader>
 
             <AccountingSummarySection>
-              {/* <SmallSectionHeader>記帳本摘要 </SmallSectionHeader> */}
               <TotalExpenditureText>今日花費: {totalExpenditure} 元</TotalExpenditureText>
               <AccountingTimeline data={datas} />
 
